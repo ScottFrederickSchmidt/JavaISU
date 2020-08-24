@@ -1,0 +1,66 @@
+package Masterclass;
+
+public class section3 {
+	public static void main(String[] args) {
+		//Challenge1:
+		// Create a variable with appropriate type to store the number 
+		// of pounds to be converted to kilograms.
+		// 1 pound is equal to .45359237 of a kilogram. 
+		
+		double numberOfPounds=200d;
+		double convertKilograms=numberOfPounds*.45359237;
+		//System.out.println("Converted kilograms= " + convertKilograms);
+	
+		String lastString="10";
+		int myInt=50;
+		lastString = lastString +myInt;
+		System.out.println("LastString is equal to: " + lastString);
+		//prints 1050 because 10 is a string.
+		
+		boolean isAlien = false;
+		if (isAlien == false) {
+			System.out.println("It is not an alien!");
+		}
+		
+		int topScore=80;
+		if(topScore<100) {
+			System.out.println("You got the high score!");
+		}
+		int secondTopScore=60;
+		if (topScore>secondTopScore && topScore<100) {
+			System.out.println("Greater than second top score and less than 100");
+		}
+		if ((topScore > 90) || (secondTopScore <= 90)) {
+			System.out.println("Either or both of the conditions are true");
+		}
+		int newValue=50;
+		if (newValue==50) {
+			System.out.println("This is true. New value is equal to 50.");
+		}
+		
+		boolean isCar = false;
+		if (isCar) {
+			System.out.println("This is not supposed to happen");
+		}
+		
+		boolean wasCar=isCar ? true: false;	
+		if (wasCar ) {
+			System.out.println("wasCar is true");
+		}
+		
+		//Operator Challenge:
+		double one = 20.00d;
+		double two = 80.00d;
+		double three=one+two*100d;
+		System.out.println("Total is:"+three);
+		
+		double remainder=three% 40.00d;
+		System.out.println("Remainder is:"+remainder);
+		boolean rem_check= (remainder==0) ? true : false;
+		
+		if (!rem_check) {
+			rem_check=true;
+			System.out.println("No remainder:" + rem_check);
+		}
+	}
+}
