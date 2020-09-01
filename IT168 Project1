@@ -1,0 +1,162 @@
+First Project for IT168 at Illinois State University:
+
+/* Created on Aug 29, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package ilstu.edu;
+
+import java.util.Scanner;
+
+/**
+ * < insert description here >E
+ *
+ * @author Scott Schmidt
+ *
+ */
+public class ReturnOnInvestment {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		double initial, end;
+		int days;
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter the initial purchase price for your investment below:");
+		initial = input.nextDouble();
+		System.out.println("Please enter the number of days you held the investment below:");
+		days = input.nextInt();
+		System.out.println("Please enter the final sale price for your investment below:");
+		end = input.nextDouble();
+
+		double change = end - initial;
+		System.out.println("Investment change in value: $" + change);
+
+		double totalReturn = (end - initial) / initial * 100;
+		System.out.println("Total return is:" + totalReturn + "%"); //makes the annualized return make more sense doing it with this step
+
+		double NumOfYears = (double) days / 365;
+		double annualReturn = totalReturn / NumOfYears;
+
+		System.out.println("Annual Return on Investment is:" + annualReturn + '%');
+		
+		/* TEST1: 
+		 * Please enter the initial purchase price for your investment below:
+		 * 1000
+		 * Please enter the number of days you held the investment below:
+		 * 730
+		 * Please enter the final sale price for your investment below:
+		 * 1200
+		 * Investment change in value: $200.0
+		 * Total return is:20.0%
+		 * Annual Return on Investment is:10.0%
+		 */
+		
+		/* TEST2:
+		 * Please enter the initial purchase price for your investment below:
+         * 100
+         * Please enter the number of days you held the investment below:
+         * 365
+ 		 * Please enter the final sale price for your investment below:
+         * 200
+		 * Investment change in value: $100.0
+         * Total return is:100.0% 
+         * Annual Return on Investment is:100.0%
+		 */
+		
+		/* TEST3:
+		 *	Please enter the initial purchase price for your investment below:
+		 *	2000
+		 *	Please enter the number of days you held the investment below:
+		 *	730
+		 *	Please enter the final sale price for your investment below:
+		 *	1000
+		 *	Investment change in value: $-1000.0
+		 *	Total return is:-50.0%
+		 *	Annual Return on Investment is:-25.0%
+		 */
+
+		// WHY THE BELOW HAPPENED:
+		// I originally thought I had a rounding error because of "double"
+		// because the numbers were "rounding". Later, I realized I forgot the
+		// parathesis in end-initial which solved the whole issue.
+
+		// Note1: Without Math.round, Java seems to always round down. 
+
+		// Note2: Initially, I tried doing this the exponential way:
+		// But realized I should just code the program in a way I understand.
+		// double annualReturn = Math.pow(totalReturn,exp);
+		// double totalReturn=(total/100-1)*100;
+		// double annualReturn = totalReturn*holdingPeriodYears;
+		// double exp = 1/NumOfYears;
+		// double annualReturn = (growthRate / holdingPeriodYears)-1*100; //failed
+		// attempt in getting to percentage form
+
+		// double totalReturn1 = (((end-initial / initial)/100)-1)*100;
+		// double totalReturn=Math.abs(totalReturn1); //sometimes when using low
+		// numbers, the return ends up becoming negative?
+	}
+}
+
+
+/* Created on Aug 30, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+/**
+ * @author scott
+ *
+ */
+package ilstu.edu;
+
+import java.util.Scanner;
+
+public class Problem2 {
+
+	public static void main(String[] args) {
+		String email;
+
+		Scanner input = new Scanner(System.in);
+		// https://stackoverflow.com/questions/15613626/scanner-is-never-closed
+		// To get rid of the minor notice above, one would do something like the above^
+
+		System.out.println("Please enter email address:");
+		email = input.nextLine();
+
+		System.out.println("Original string:" + email);
+
+		int indexNum = email.indexOf('@');
+		System.out.println(indexNum + " :is the index of the @ symbol");
+
+		String left_substring = email.substring(0, indexNum);
+		left_substring = left_substring.toUpperCase(); // capitalize
+		System.out.println(left_substring);
+
+		int email_length = email.length();
+		System.out.println("The length of the email string is: " + email_length);
+		int mid = email_length / 2; //gets the middle number
+
+		char first = email.charAt(0); //first index starts at 0
+		char last = email.charAt(email_length - 1); //last index would be the length-1 because index starts at 0
+		char middle = email.charAt(mid); //gets the middle index
+
+		System.out.println(
+				"The first char is: " + first + " . The last char is: " + last + ". The middle char is: " + middle);
+		//when I did the format shortcut control-shift-f, it formatted the line above like this^
+
+		String replaceString = email.replace('a', '#');// replaces all occurrences of 'a' to '#'
+		String replaceString2 = replaceString.replace('e', '3');// replaces all occurrences of 'e' to '3'
+		System.out.println(replaceString2 + " should have no a or e ");
+		
+		/*  TEST THE PROGRAM:
+		 * 	Original string:scott@ae.com
+		 * 5 :is the index of the @ symbol
+		 * SCOTT
+		 *The length of the email string is: 12
+		 *The first char is: s . The last char is: m. The middle char is: a
+		 *scott@#3.com should have no a or e 
+		 */
+	}
+}
