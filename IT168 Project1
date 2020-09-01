@@ -105,10 +105,18 @@ public class ReturnOnInvestment {
  * ULID: sschmi2
  * CLASS: IT168
  */
+ 
 /**
+ * Program that asks user for email address.
+ * The program will find the index of the @ statement,
+ * retrieve a substring to left of @ and make it become uppercase,
+ * get the email length,
+ * get the first, mid, and last character of email, and
+ * replace all 'a' with #, and all 'e' with '#'.
+ * 
  * @author scott
- *
  */
+
 package ilstu.edu;
 
 import java.util.Scanner;
