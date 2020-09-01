@@ -10,7 +10,7 @@ package ilstu.edu;
 import java.util.Scanner;
 
 /**
- * < insert description here >E
+ * Program that returns the gain/loss of an investment and the annualized return
  *
  * @author Scott Schmidt
  *
