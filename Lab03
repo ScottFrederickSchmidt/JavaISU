@@ -1,0 +1,70 @@
+/* Created on Sep 3, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+/**
+ * Calculate miles per gallon using a float at the end. > 
+ *
+ * @author Scott Schmidt
+ *
+ */
+
+import java.util.Scanner;
+
+public class MileageCalculator {
+
+	public static void main(String[] args) {
+		int miles, gallons;
+		Scanner input= new Scanner(System.in);
+		
+		System.out.println("Enter miles traveled below:");
+		miles=input.nextInt();
+		System.out.println("Enter gallons used below:");
+		gallons=input.nextInt();
+		
+		float milesPerGal= (float) miles/gallons; //To transform a type
+		
+		System.out.println("Your miles per gallon is:"+milesPerGal);
+	}
+}
+
+
+
+
+/* Created on Sep 3, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+/**
+ * < insert description here >
+ *
+ * @author Scott Schmidt
+ *
+ */
+public class StringExperiment {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String firstName="Scott";
+		String middleName="Frederick";
+		String lastName="Schmidt";
+		char middleInitial = middleName.charAt(0); //first index starts at 0
+		int middleNum=lastName.length()/2;
+		
+		int lengthLastName=lastName.length();
+		
+		System.out.println(firstName+" " + middleName+" "+lastName);
+		System.out.println(firstName+" "+middleInitial+". "+lastName);
+		System.out.println("Length of last name = "+lengthLastName);
+		System.out.println(lastName.charAt(middleNum));
+		System.out.println(lastName.charAt(lengthLastName-1));
+	}
+}
