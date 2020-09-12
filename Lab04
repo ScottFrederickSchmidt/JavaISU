@@ -1,0 +1,150 @@
+/* Created on Sep 10, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.util.Scanner;
+
+/**
+ * Psuedo code: 
+ * Ask user for number of total seconds..
+ * Calculate how many hours..(i.e. divide total by 60*60?)
+ * Get remainder of an hour..
+ * Calculate minutes..
+ * Get remainder of minute..
+ * Calculate into seconds..
+ * Print out how many hours, minutes, and seconds make the total seconds.
+ * 
+ * TOTAL	Hours	 Min    Seconds 
+ * 50391     13   	 59	     51
+ * 37,840    10	     30    	 40
+ * 62,418    17      20  	 30
+ * 10,000	 2	     46	     40
+ *
+ * @author Scott Schmidt
+ *
+ */
+public class TimeCalculator{
+
+	public static void main(String[] args) {
+		int total_seconds, hours, minutes, leftover_seconds;
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter a total number of seconds:");
+		
+		total_seconds = input.nextInt();
+		leftover_seconds=total_seconds;
+		
+		final int SECONDS_IN_HOUR=3600;
+		final int sixty=60;
+		
+		System.out.println("Total seconds is: "+ total_seconds);
+		hours=total_seconds/SECONDS_IN_HOUR; //60*60
+		
+		System.out.println("Hours should be: "+hours +" hours");
+		int leftover_seconds_afterhours=leftover_seconds-(hours*SECONDS_IN_HOUR);
+		System.out.println("Leftover seconds is now: "+leftover_seconds_afterhours+" with this many hours: "+hours);
+		
+		minutes=leftover_seconds_afterhours/sixty;
+		int leftover_seconds_afterminutes=leftover_seconds_afterhours-(minutes*sixty);
+		System.out.println("Should be minutes: "+minutes);
+		System.out.println("Should be this many leftover seconds remaining: "+leftover_seconds_afterminutes);
+		System.out.println(total_seconds+" is: "+hours+"hours. " + minutes +" minutes. " +leftover_seconds_afterminutes+ "seconds. ");
+		input.close();
+	}
+}
+
+/**
+ * Please enter a total number of seconds:
+ * 50391
+ * Total seconds is: 50391
+ * Hours should be: 13 hours
+ * Leftover seconds is now: 3591 with this many hours: 13
+ * Should be minutes: 59
+ * Should be this many leftover seconds remaining: 51
+ * 
+ * 
+ * Please enter a total number of seconds:
+ * 37,840
+ * Total seconds is: 37840
+ * Hours should be: 10 hours
+ * Leftover seconds is now: 1840 with this many hours: 10
+ * Should be minutes: 30
+ * Should be this many leftover seconds remaining: 40
+ * 37840 is: 10hours. 30 minutes. 40seconds. 
+ * 
+ * 
+ * Please enter a total number of seconds:
+ * 62,418
+ * Total seconds is: 62418
+ * Hours should be: 17 hours
+ * Leftover seconds is now: 1218 with this many hours: 17
+ * Should be minutes: 20
+ * Should be this many leftover seconds remaining: 18
+ * 62418 is: 17hours. 20 minutes. 18seconds. 
+ * 
+ * 
+ * Please enter a total number of seconds:
+ * 10,000
+ * Total seconds is: 10000
+ * Hours should be: 2 hours
+ * Leftover seconds is now: 2800 with this many hours: 2
+ * Should be minutes: 46
+ * Should be this many leftover seconds remaining: 40
+ * 10000 is: 2hours. 46 minutes. 40seconds. 
+ * 
+ */
+
+
+
+
+
+
+package edu.ilstu;
+
+import java.util.Scanner;
+
+public class Payroll {
+	public static void main(String[] args) {
+		String first_nane, last_name;
+		
+		Employee one=new Employee("Smith", "John", 15);
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter first name:");
+		String first_name = input.nextLine();
+		
+		System.out.println("Please enter last name:");
+		last_name = input.nextLine();
+		
+		System.out.println("Please enter payrate: ");
+		double pay = input.nextDouble();
+		
+		Employee two= new Employee(last_name, first_name, pay);
+		
+		one.print();
+		two.print();
+		
+		System.out.println("Please enter raise as a %: ");
+		int raise = input.nextInt();
+		
+		one.calculatePay(raise); //Johh Smith
+		two.calculatePay(raise);
+		
+		one.print();
+		two.print();
+		
+		System.out.println("\n This is John Smith's payroll line with 42 hours worked: ");
+		one.printPayrollLine(42);
+		
+		System.out.println("\n This is employee two's payroll line with 40 hours worked: ");
+		two.printPayrollLine(40);
+		
+		//last step of printing all info again:
+		System.out.println("\n This should print the final info below:");
+		one.print(); 
+		two.print();
+		//System.out.println(first_name+" "+last_name+" recieved $" +pay*40+" at this rate per hour: $" + pay);
+	}
+}
