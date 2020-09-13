@@ -1,0 +1,100 @@
+/* Created on Sep 12, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.util.Scanner;
+
+/**
+ * Prelab05
+ * @author Scott Schmidt
+ */
+public class Prelab05 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int sales, commission = 0, num_items, sales_minus_com = 0;
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter sales amount:");
+		sales = input.nextInt();
+		System.out.println("Enter number items sold");
+		num_items=input.nextInt();
+		
+		if (sales <5000) {
+			commission=(int) (sales * .05);
+			System.out.println(commission+" is the commission for this much sales: "+sales);
+		} else if (sales>5000) {
+			commission=(int) (sales * .07);
+			System.out.println(commission+" is the commission for this much sales: "+sales);
+		}
+		sales_minus_com = sales-commission;
+		
+		if (sales_minus_com >20_000 && num_items>5) {
+			System.out.println("Bonus of $500!");
+			System.out.println("Total commission after bonus: "+commission);
+			commission=(int) (sales * .05);
+			commission=commission+500;
+		} else {
+			System.out.println("There is no bonus");
+		}
+	}
+}
+
+/**
+ * Please enter sales amount:
+ * 2000
+ * Enter number items sold
+ * 10
+ * 100 is the commission for this much sales: 2000
+ * There is no bonus
+ */
+
+
+/**
+ * Please enter sales amount:
+ * 1000000
+ * Enter number items sold
+ * 10
+ * Bonus of $500!
+ * Total commission: 50500
+ */
+
+
+
+/**
+ * Please enter sales amount:
+ * 10000
+ * Enter number items sold
+ * 1
+ * 700 is the commission for this much sales: 10000
+ * There is no bonus
+ */
+
+
+/**
+Please enter sales amount:
+500
+Enter number items sold
+10
+25 is the commission for this much sales: 500
+There is no bonus
+ */
+
+
+/**
+Part 2 Pseudocode:
+Generator random number 1 to 200
+if num % 2 print even
+else print odd
+
+if greater than 100 print large
+else print small
+
+store original num
+get second num
+compare which is larger. 
+ */
