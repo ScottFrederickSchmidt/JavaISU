@@ -1,0 +1,208 @@
+/* Created on Sep 17, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.util.Scanner;
+
+/**
+ * Exercise 49 of chapter 5 on page 258 of your textbook
+ * @author Scott Schmidt
+ */
+public class URLchecker {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		Scanner input= new Scanner(System.in);
+		System.out.println("Enter website:");
+		String website=input.nextLine();
+	    String lastFourDigits = website.substring(website.length() - 4);
+		
+		System.out.println(lastFourDigits);
+		String com=".com";
+		String edu=".edu";
+		String org=".org";
+		String gov=".gov";
+		
+		if (lastFourDigits.equals(com)){
+			System.out.println("is a business web address: "+lastFourDigits); // ends with com, business web address;
+		} else if (lastFourDigits.equals(edu)) {
+			System.out.println("is a education address: "+lastFourDigits); // ends with edu, university address;
+		} else if (lastFourDigits.equals(gov)) {
+			System.out.println("is a goverment web address: "+lastFourDigits); // ends with gov, goverment address;
+		}   else if (lastFourDigits.equals(org)) {
+			System.out.println("is a organization web address: "+lastFourDigits); // ends with org, organization address;
+		} else {
+			System.out.println("Probably a website of different entity."); //or not a website;
+		}
+		input.close();
+	}
+}
+
+/* Created on Sep 17, 2020
+ * TEST1:
+ * Enter website:
+ * wwww.yahoo.com
+ * .com  is a business web address: .com
+ * 
+ * TEST2:
+ * Enter website:
+ * www.ilstu.edu
+ * .edu
+ * is a education address: .edu
+ 
+ 
+ 
+ 
+ 
+ /* Created on Sep 17, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+
+package edu.ilstu;
+
+/**
+ * Random Number Generator Test
+ * @author Scott Schmidt
+ */
+
+public class RandomPlay {
+
+	public static void main(String[] args) {
+		int min = 1;  
+		int max = 200;  
+		
+		//int random=(int) Math.random(); 
+		int rand_num = (int)(Math.random()*(max-min+1)+min);  
+		int rand_num2 = (int)(Math.random()*(max-min+1)+min);
+		
+		System.out.println(rand_num+" is random number one.");
+		
+		// int rand_num = 98; correctly prints even and small number.
+		if (rand_num%2==0) {
+			System.out.println(rand_num+" is an even number.");
+		} else {
+			System.out.println(rand_num+ " is an odd number.");
+		}
+		if (rand_num> 100) {
+			System.out.println(rand_num+ " is a large number (above 100).");
+		} else {
+			System.out.println(rand_num+ " is a small number (below 100). ");
+		}
+		
+		if (rand_num> rand_num2) {
+			System.out.println(rand_num+ " is greater than "+rand_num2);
+		} else if( rand_num < rand_num2) {
+			System.out.println(rand_num+ " is less than "+rand_num2);
+		} else {
+			System.out.println(rand_num+ " is equal to " +rand_num2);
+		}
+	}
+}
+
+/* Created on Sep 17, 2020
+ * TEST1:
+ * 123 is random number one.
+ * 123 is an odd number.
+ * 123 is a large number (above 100).
+ * 123 is less than 156
+ * 
+ * TEST2:
+ * 190 is random number one.
+ * 190 is an even number.
+ * 190 is a large number (above 100).
+ * 190 is greater than 183
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ /*
+ * Created on: Sep 5, 2020
+ */
+package edu.ilstu;
+
+import java.text.NumberFormat;
+import java.util.Scanner;
+
+/**
+ * Program to calculate the commission on a sale
+ * 
+ * @author Mary Elaine Califf and Scott Schmidt, sschmi2
+ */
+public class ComputeCommission
+{
+
+	public static void main(String[] args)
+	{
+		// constants
+		final double LOW_COMMISSION_RATE = 0.05;
+		final double HIGH_COMMISSION_RATE = 0.075;
+		final int BONUS_AMOUNT = 500;
+
+		// variables
+		int numItemsSold;
+		int totalSaleAmount;
+		double commissionAmount = 0;
+		double saleAfterCommission;
+		boolean bonusReceived = false;
+		Scanner keyboard = new Scanner(System.in);
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
+
+		System.out.println("Welcome to the Normal Commission Calculator!");
+
+		// collect inputs
+		System.out.print("Please enter the number of items sold: ");
+		numItemsSold = keyboard.nextInt();
+
+		System.out.print("Please enter the total sale amount: ");
+		totalSaleAmount = keyboard.nextInt();
+
+		// determine base commission
+		if (totalSaleAmount < 5000)
+		{
+			commissionAmount = totalSaleAmount * LOW_COMMISSION_RATE;
+		}
+		else
+		{
+			commissionAmount = totalSaleAmount * HIGH_COMMISSION_RATE;
+		}
+
+		saleAfterCommission = totalSaleAmount - commissionAmount;
+
+		// add bonus if any
+		if (numItemsSold >= 5 && saleAfterCommission >= 20000)
+		{
+			bonusReceived = true;
+			commissionAmount = commissionAmount + 500;
+		}
+
+		System.out.print("The total commission earned is ");
+		System.out.println(formatter.format(commissionAmount));
+		if (bonusReceived)
+		{
+			System.out.print("This includes a bonus of ");
+			System.out.println(formatter.format(BONUS_AMOUNT));
+		}
+	}
+}
+
+/**
+ * TEST:
+ * Please enter the number of items sold: 10
+ * Please enter the total sale amount: 2000
+ * The total commission earned is $100.00
+ * 
+ */
+ 
+ 
+ 
+ 
+ 
+ 
