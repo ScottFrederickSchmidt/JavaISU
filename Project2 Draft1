@@ -1,0 +1,126 @@
+/* Created on Sep 19, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * < Project2 Poster Sales > 
+ * @author Scott Schmidt
+ */
+public class PosterSales {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// Ask for first_name and last_name
+		Scanner input = new Scanner(System.in);
+		
+		List<String> myListCustID = new ArrayList<String>();
+		List<Double> myListDiscount = new ArrayList<Double>();
+		List<Double> myListTax = new ArrayList<Double>();
+		List<Double> myListSubtotal = new ArrayList<Double>();
+		List<Double> myListTotal = new ArrayList<Double>();
+		List<String> myListNames = new ArrayList<String>();
+		
+		int i=0;
+		// Collect and display data for three customers
+		while (i<3) {
+		System.out.println("Enter your first name:");
+		String first_name_input = input.nextLine();
+		String first_name=first_name_input.toUpperCase();
+		
+		System.out.println("Enter your last name:");
+		String last_name_input = input.nextLine();
+		String last_name=last_name_input.toUpperCase();
+		String full_name=first_name+" "+last_name;
+		
+		// Display names using upper_case letters in table
+		System.out.println(full_name);
+		myListNames.add(full_name);
+		
+		// Assign customer number with initials plus random number 1-9000
+		int min = 1;  
+		int max = 9000;  
+		
+		int rand_num = (int)(Math.random()*(max-min+1)+min);  
+		final String CUST_ID=first_name.substring(0, 1)+last_name.substring(0, 1)+rand_num;
+		System.out.println(CUST_ID+" is customer id for: "+first_name+" "+last_name);
+		myListCustID.add(CUST_ID);
+		
+		// tax rate is .0625 and discount is .07 and cost of poster is 13.99
+		final double COST_OF_POSTER = 13.99;
+		final double TAX_RATE = 1.0625;
+		final double DISCOUNT_RATE=1.07; //.07
+		
+		// Ask for number of items purchased 
+		System.out.println("How many items did you purchase: ");
+		int num_items = input.nextInt();
+		
+		double subtotal3=(double)(COST_OF_POSTER*num_items);
+		String subtotal2=String.format("%.2f", subtotal3); //rounding..
+		double SUBTOTAL1=Double.valueOf(subtotal2);
+		
+		//If more than 3, get discount; tax is not charged on any discount amount
+		if(num_items>3) {
+			//System.out.println("Because you bought more than 3 items you get a percentage discount of: "+DISCOUNT);
+			double Discount2=(double) ((SUBTOTAL1*DISCOUNT_RATE)-SUBTOTAL1);
+			String Discount1=String.format("%.2f", Discount2); //rounding..
+			final double DISCOUNT=Double.valueOf(Discount1);
+			myListDiscount.add(DISCOUNT);
+						
+			final double SUBTOTAL=SUBTOTAL1-DISCOUNT;
+			myListSubtotal.add(SUBTOTAL);
+			System.out.println("SubTotal is $"+SUBTOTAL+" with a discount of $"+DISCOUNT);
+			
+			double TAX_AMOUNT3=((SUBTOTAL*TAX_RATE)-SUBTOTAL);
+			String TAX_AMOUNT2 =String.format("%.2f", TAX_AMOUNT3); //rounding..
+			final double TAX_AMOUNT=Double.valueOf(TAX_AMOUNT2);
+			System.out.println("Tax Amount: $"+TAX_AMOUNT);
+			myListTax.add(TAX_AMOUNT);
+			
+			final double TOTAL = (SUBTOTAL*TAX_RATE);
+			myListTotal.add(TOTAL);
+			System.out.println("Final Amount After Tax: $"+TOTAL+" with a tax amount for: $"+TAX_AMOUNT);
+		} else {
+			//no discount if 3 or less items:
+			final double DISCOUNT = 0.00;
+			myListDiscount.add(DISCOUNT);
+			
+			double SUBTOTAL=SUBTOTAL1;
+			myListDiscount.add(SUBTOTAL);
+			
+			double TAX_AMOUNT3=((SUBTOTAL*TAX_RATE)-SUBTOTAL);
+			String TAX_AMOUNT2 =String.format("%.2f", TAX_AMOUNT3); //rounding..
+			final double TAX_AMOUNT=Double.valueOf(TAX_AMOUNT2);
+			System.out.println("Tax Amount: $"+TAX_AMOUNT);
+			myListTax.add(TAX_AMOUNT);
+			
+			final double TOTAL=SUBTOTAL+TAX_AMOUNT;
+			myListTotal.add(TOTAL);
+			System.out.println("Final Amount After Tax: $"+TOTAL);
+		    }
+		i=i+1;
+		System.out.println("i count "+i);
+		}
+
+		System.out.println("CORNER CD COLLECTION SALES REPORT\n");
+		//System.out.printf("%10d %30s %20d %10d %10d %10d %10d", "CUST ID", "Name", "Items", "Subtotal", "Discount", "Tax", "Total");
+		System.out.printf("CUST ID  "+ "Name   "+ "Items   "+ "Subtotal   "+ "Discount   "+"Tax   "+ "Total");
+		System.out.println();
+		System.out.println("-----------------------------------------------------------------------------");
+		//System.out.format("%10d %30s %20d %10d %10d %10d %10d", cust_id, full_name, num_items, SUBTOTAL, TAX_AMOUNT, TOTAL );
+		System.out.println();
+		
+		
+		System.out.println("Total Sales: $");
+		System.out.println("Total Discount: $");
+		System.out.println("Total taxes: $");
+		System.out.println("Grand Total: $");
+		
+	}
+}
