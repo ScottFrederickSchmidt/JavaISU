@@ -17,9 +17,12 @@ public class PosterSales {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// Ask for first_name and last_name
+		int i=0;
+		// Collect and display data for three customers
+		while (i<3) {
 		Scanner input = new Scanner(System.in);
 		
+		// Storage for info in lists
 		List<String> myListCustID = new ArrayList<String>();
 		List<Double> myListDiscount = new ArrayList<Double>();
 		List<Double> myListTax = new ArrayList<Double>();
@@ -27,9 +30,7 @@ public class PosterSales {
 		List<Double> myListTotal = new ArrayList<Double>();
 		List<String> myListNames = new ArrayList<String>();
 		
-		int i=0;
-		// Collect and display data for three customers
-		while (i<3) {
+		// Ask for first_name and last_name
 		System.out.println("Enter your first name:");
 		String first_name_input = input.nextLine();
 		String first_name=first_name_input.toUpperCase();
@@ -106,6 +107,7 @@ public class PosterSales {
 		    }
 		i=i+1;
 		System.out.println("i count "+i);
+		//input.close();
 		}
 
 		System.out.println("CORNER CD COLLECTION SALES REPORT\n");
@@ -120,7 +122,6 @@ public class PosterSales {
 		System.out.println("Total Sales: $");
 		System.out.println("Total Discount: $");
 		System.out.println("Total taxes: $");
-		System.out.println("Grand Total: $");
-		
+		System.out.println("Grand Total: $");		
 	}
 }
