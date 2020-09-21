@@ -17,27 +17,26 @@ public class PosterSales {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int i=0;
-		// Collect and display data for three customers
-		while (i<3) {
-		Scanner input = new Scanner(System.in);
-		
 		// Storage for info in lists
 		List<String> myListCustID = new ArrayList<String>();
+		List<Integer> myListCount = new ArrayList<Integer>();
 		List<Double> myListDiscount = new ArrayList<Double>();
 		List<Double> myListTax = new ArrayList<Double>();
 		List<Double> myListSubtotal = new ArrayList<Double>();
 		List<Double> myListTotal = new ArrayList<Double>();
 		List<String> myListNames = new ArrayList<String>();
 		
+		int i=0;
+		// Collect and display data for three customers
+		while (i<3) {
+		Scanner input = new Scanner(System.in);
+		
 		// Ask for first_name and last_name
 		System.out.println("Enter your first name:");
-		String first_name_input = input.nextLine();
-		String first_name=first_name_input.toUpperCase();
+		String first_name = input.nextLine().toUpperCase();
 		
 		System.out.println("Enter your last name:");
-		String last_name_input = input.nextLine();
-		String last_name=last_name_input.toUpperCase();
+		String last_name = input.nextLine().toUpperCase();
 		String full_name=first_name+" "+last_name;
 		
 		// Display names using upper_case letters in table
@@ -61,6 +60,7 @@ public class PosterSales {
 		// Ask for number of items purchased 
 		System.out.println("How many items did you purchase: ");
 		int num_items = input.nextInt();
+		myListCount.add(num_items);
 		
 		double subtotal3=(double)(COST_OF_POSTER*num_items);
 		String subtotal2=String.format("%.2f", subtotal3); //rounding..
@@ -93,7 +93,7 @@ public class PosterSales {
 			myListDiscount.add(DISCOUNT);
 			
 			double SUBTOTAL=SUBTOTAL1;
-			myListDiscount.add(SUBTOTAL);
+			myListSubtotal.add(SUBTOTAL);
 			
 			double TAX_AMOUNT3=((SUBTOTAL*TAX_RATE)-SUBTOTAL);
 			String TAX_AMOUNT2 =String.format("%.2f", TAX_AMOUNT3); //rounding..
@@ -116,12 +116,28 @@ public class PosterSales {
 		System.out.println();
 		System.out.println("-----------------------------------------------------------------------------");
 		//System.out.format("%10d %30s %20d %10d %10d %10d %10d", cust_id, full_name, num_items, SUBTOTAL, TAX_AMOUNT, TOTAL );
-		System.out.println();
 		
+		double totalDiscount=0;
+		double totalTax=0;
+		double subTotal=0;
+		double grandTotal=0;
 		
-		System.out.println("Total Sales: $");
-		System.out.println("Total Discount: $");
-		System.out.println("Total taxes: $");
-		System.out.println("Grand Total: $");		
+		for(int j = 0; j < 3; j++) // instead of 3 could do: myListTotal.size()
+			System.out.println(myListCustID.get(j)+" "+myListNames.get(j)+" "+myListCount.get(j) +" "+myListSubtotal.get(j)+" "+myListDiscount.get(j)+" "+myListTax.get(j)+" "+myListTotal.get(j));;
+			System.out.println("");	
+		
+		for(int s = 0; s < 3; s++)
+			totalDiscount+=myListDiscount.get(s);
+			totalTax+=myListTax.get(s);
+			subTotal+=myListSubtotal.get(s);
+			grandTotal+=myListTotal.get(s);
+			
+		//int grandTotal=MathUtil.sum(myListTax); //errors.
+		System.out.println("Total Sales: $"+subTotal); //print sum of Subtotal List
+		System.out.println("Total Discount: $"+totalDiscount); //print sum of Discount List
+		System.out.println("Total taxes: $"+totalTax); // print sum of Tax List
+		System.out.println("Grand Total: $"+grandTotal); // print sum of Total List		
+		
+		//input.close(); error?! Probably cannot find input, my guess
 	}
 }
