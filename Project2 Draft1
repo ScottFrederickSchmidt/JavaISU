@@ -74,9 +74,11 @@ public class PosterSales {
 			final double DISCOUNT=Double.valueOf(Discount1);
 			myListDiscount.add(DISCOUNT);
 						
-			final double SUBTOTAL=SUBTOTAL1-DISCOUNT;
-			myListSubtotal.add(SUBTOTAL);
+			double Subtotal3=SUBTOTAL1-DISCOUNT;
+			String Subtotal2=String.format("%.2f", Subtotal3); //rounding..
+			final double SUBTOTAL=Double.valueOf(Subtotal2);
 			System.out.println("SubTotal is $"+SUBTOTAL+" with a discount of $"+DISCOUNT);
+			myListSubtotal.add(SUBTOTAL);
 			
 			double TAX_AMOUNT3=((SUBTOTAL*TAX_RATE)-SUBTOTAL);
 			String TAX_AMOUNT2 =String.format("%.2f", TAX_AMOUNT3); //rounding..
@@ -92,7 +94,10 @@ public class PosterSales {
 			final double DISCOUNT = 0.00;
 			myListDiscount.add(DISCOUNT);
 			
-			double SUBTOTAL=SUBTOTAL1;
+			double Subtotal3=SUBTOTAL1-DISCOUNT;
+			String Subtotal2=String.format("%.2f", Subtotal3); //rounding..
+			final double SUBTOTAL=Double.valueOf(Subtotal2);
+			System.out.println("SubTotal is $"+SUBTOTAL+" with a discount of $"+DISCOUNT);
 			myListSubtotal.add(SUBTOTAL);
 			
 			double TAX_AMOUNT3=((SUBTOTAL*TAX_RATE)-SUBTOTAL);
@@ -112,7 +117,7 @@ public class PosterSales {
 
 		System.out.println("CORNER CD COLLECTION SALES REPORT\n");
 		//System.out.printf("%10d %30s %20d %10d %10d %10d %10d", "CUST ID", "Name", "Items", "Subtotal", "Discount", "Tax", "Total");
-		System.out.printf("CUST ID  "+ "Name   "+ "Items   "+ "Subtotal   "+ "Discount   "+"Tax   "+ "Total");
+		System.out.printf("Cust#  "+ "Name   "+ "Items   "+ "Subtotal   "+ "Discount   "+"Tax   "+ "Total");
 		System.out.println();
 		System.out.println("-----------------------------------------------------------------------------");
 		//System.out.format("%10d %30s %20d %10d %10d %10d %10d", cust_id, full_name, num_items, SUBTOTAL, TAX_AMOUNT, TOTAL );
@@ -122,16 +127,15 @@ public class PosterSales {
 		double subTotal=0;
 		double grandTotal=0;
 		
-		for(int j = 0; j < 3; j++) // instead of 3 could do: myListTotal.size()
-			System.out.println(myListCustID.get(j)+" "+myListNames.get(j)+" "+myListCount.get(j) +" "+myListSubtotal.get(j)+" "+myListDiscount.get(j)+" "+myListTax.get(j)+" "+myListTotal.get(j));;
+		for(int j = 0; j < 3; j++) {// instead of 3 could do: myListTotal.size()
+			System.out.println(myListCustID.get(j)+"   "+myListNames.get(j)+"  "+myListCount.get(j) +"   "+myListSubtotal.get(j)+"  "+myListDiscount.get(j)+"  "+myListTax.get(j)+"   "+myListTotal.get(j));
 			System.out.println("");	
-		
-		for(int s = 0; s < 3; s++)
-			totalDiscount+=myListDiscount.get(s);
-			totalTax+=myListTax.get(s);
-			subTotal+=myListSubtotal.get(s);
-			grandTotal+=myListTotal.get(s);
-			
+	
+			totalDiscount+=myListDiscount.get(j);
+			totalTax+=myListTax.get(j);
+			subTotal+=myListSubtotal.get(j);
+			grandTotal+=myListTotal.get(j);
+		}
 		//int grandTotal=MathUtil.sum(myListTax); //errors.
 		System.out.println("Total Sales: $"+subTotal); //print sum of Subtotal List
 		System.out.println("Total Discount: $"+totalDiscount); //print sum of Discount List
@@ -141,3 +145,4 @@ public class PosterSales {
 		//input.close(); error?! Probably cannot find input, my guess
 	}
 }
+
