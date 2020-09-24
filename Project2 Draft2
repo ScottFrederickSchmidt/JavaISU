@@ -1,0 +1,152 @@
+/* Created on Sep 23, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.util.Scanner;
+import java.util.Random;
+
+/**
+ * < Project2 Poster Sales > 
+ * Original Complicated Draft: https://github.com/ScottFrederickSchmidt/Java-Masterclass-and-IT168-Java/blob/master/Project2%20Draft1
+ * 
+ * @author Scott Schmidt
+ * This is a Simplified Version of above version
+ */
+
+public class PosterSales {
+
+	public static void main(String[] args) {
+	Scanner input = new Scanner(System.in);
+		
+	//Person1
+	System.out.println("Enter your first name:");
+	String first_name1 = input.nextLine().toUpperCase();
+		
+	System.out.println("Enter your last name:");
+	String last_name1 = input.nextLine().toUpperCase();
+	String full_name1=first_name1+" "+last_name1;
+	System.out.println("How many items did you purchase?");
+	int num_items1 = input.nextInt();
+	
+	//Person2
+	System.out.println("Enter your first name:");
+	String first_name2 = input.nextLine().toUpperCase();
+		
+	System.out.println("Enter your last name:");
+	String last_name2 = input.nextLine().toUpperCase();
+	String full_name2=first_name2+" "+last_name2;
+	System.out.println("How many items did you purchase?");
+	int num_items2 = input.nextInt();
+	
+	//Person3
+	System.out.println("Enter your first name:");
+	String first_name3 = input.nextLine().toUpperCase();
+	System.out.println("Enter your last name:");
+	String last_name3 = input.nextLine().toUpperCase();
+	String full_name3=first_name3+" "+last_name3;
+	System.out.println("How many items did you purchase?");
+	int num_items3 = input.nextInt();
+	
+    //Create initials:
+	String initial1=full_name1.substring(0, 1);
+	String initial2=full_name2.substring(0, 1);
+	String initial3=full_name3.substring(0, 1);
+	
+	//create random numbers:
+	Random objGenerator = new Random();
+	int randNum1 = objGenerator.nextInt(9_000);
+	int randNum2 = objGenerator.nextInt(9_000);
+	int randNum3 = objGenerator.nextInt(9_000);
+	
+	//Create custID:
+	String id1=initial1+randNum1;
+	String id2=initial1+randNum2;
+	String id3=initial1+randNum3;
+	
+	double subtotal1=Math.round(num_items1*13.99)*100.0/100.0;
+	double discount1=0;
+	double total1=0;
+	
+	double subtotal2=num_items2*13.99;
+	double discount2=0;
+	double total2=0;
+	
+	double subtotal3=num_items3*13.99;
+	double discount3=0;
+	double total3=0;
+	
+	if (num_items1>3) {
+		discount1=subtotal1-(subtotal1/1.07);
+		total1=(subtotal1-discount1);
+	} else {
+		total1=subtotal1;
+	}
+	if (num_items2>3) {
+		discount2=subtotal2-(subtotal2/1.07);
+		total2=subtotal2-discount2;
+	} else {
+		total2=subtotal2;
+	}
+	if (num_items3>3) {
+		discount3=subtotal3-(subtotal3/1.07);
+		total3=subtotal3-discount3;
+	} else {
+		total3=subtotal3;
+	}
+	
+	double final1=total1*1.0625;
+	double final2=total2*1.0625;
+	double final3=total3*1.0625;
+	
+	double tax1=final1-total1;
+	double tax2=final2-total2;
+	double tax3=final3-total3;
+	
+    System.out.println("CORNER CD COLLECTION SALES REPORT\n");
+	System.out.printf("Cust# \t"+ "Name \t"+ "Items \t"+"Subtotal \t"+"Discount \t"+"Tax \t"+"Total \t");
+	System.out.println();
+	System.out.println("-----------------------------------------------------------------------------");
+	System.out.println(id1+'\t'+full_name1+'\t'+num_items1+'\t'+subtotal1+'\t'+discount1+'\t'+tax1+'\t'+final1);
+	System.out.println(id2+'\t'+full_name1+'\t'+num_items2+'\t'+subtotal2+'\t'+discount2+'\t'+tax2+'\t'+final2);
+	System.out.println(id3+'\t'+full_name3+'\t'+num_items3+'\t'+subtotal3+'\t'+discount3+'\t'+tax3+'\t'+final3);
+	
+	double allSales=Math.round((subtotal1+subtotal2+subtotal3)*100.0)/100.0;
+	double allTax=Math.round((tax1+tax2+tax3)*100.0)/100.0;
+	double allDiscount=Math.round((discount1+discount2+discount3)*100.0)/100.0;
+	double grandTotal=Math.round((final1+final2+final3)*100.0)/100.0;
+	
+	System.out.println("Total Sales: "+allSales);
+	System.out.println("Total Taxes: "+allTax);
+	System.out.println("Total Discount: "+allDiscount);
+	System.out.println("Grand Total: "+grandTotal);
+	
+	input.close();
+	}
+}
+/* 
+Draft 1: https://github.com/ScottFrederickSchmidt/Java-Masterclass-and-IT168-Java/blob/master/Project2%20Draft1
+
+Feedback from above link:
+Strive for the simplest solution to the problem.  What you have written is way too complex and complicated given the problem.  This problem could be solved (without a loop) by:
+Asking for Customer 1 information
+Asking for Customer 2 information
+Asking for Customer 3 information
+Calculating Customer 1 taxes, discount and total
+Calculating Customer 2 taxes, discount and total
+Calculating Customer 3 taxes, discount and total
+Printing the results
+ The Random class should be used to generate random numbers instead of Math.random().  Doing so also eliminates the need for an explicit cast and the “complicated” math.
+Your constants: tax rate, cost of poster, and discount rate should be declared outside the main method and have the public static modifier applied
+All other variables in this assignment should not be declared as final
+You can use the String.format method, but an easier solution would be to use the NumberFormat class and its pre-written formatters (percentage, currency, etc.).
+Your input.close() call does not work because the input object reference is declared within the while loop.  To get around this, declare the input object reference prior to the while loop (if you decide to keep it).
+To get the “columns” spaced better, use the tab character  \t
+Your for loops will not work properly.  Java is not an indentation language like Python is.  Java uses the opening and closing curly braces { } to control the body of a loop. 
+Be consistent in how you name your variables.  Some start with an upper case letter, some do not.
+Also, give your variables meaningful names.  Subtotal1, 2, 3 isn’t very meaningful.  What does each one represent?  That should be the name given.
+There should not be a need to use the explicit casting operator: i.e. (double), (int), etc. in this assignment. 
+ * 
+ * 
+ */
