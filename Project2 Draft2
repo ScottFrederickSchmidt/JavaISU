@@ -32,19 +32,19 @@ public class PosterSales {
 	
 	//Person2
 	System.out.println("Enter your first name:");
-	String first_name2 = input.nextLine().toUpperCase();
+	String first_name2 = input.next().toUpperCase();
 		
 	System.out.println("Enter your last name:");
-	String last_name2 = input.nextLine().toUpperCase();
+	String last_name2 = input.next().toUpperCase();
 	String full_name2=first_name2+" "+last_name2;
 	System.out.println("How many items did you purchase?");
 	int num_items2 = input.nextInt();
 	
 	//Person3
 	System.out.println("Enter your first name:");
-	String first_name3 = input.nextLine().toUpperCase();
+	String first_name3 = input.next().toUpperCase();
 	System.out.println("Enter your last name:");
-	String last_name3 = input.nextLine().toUpperCase();
+	String last_name3 = input.next().toUpperCase();
 	String full_name3=first_name3+" "+last_name3;
 	System.out.println("How many items did you purchase?");
 	int num_items3 = input.nextInt();
@@ -60,49 +60,60 @@ public class PosterSales {
 	int randNum2 = objGenerator.nextInt(9_000);
 	int randNum3 = objGenerator.nextInt(9_000);
 	
-	//Create custID:
-	String id1=initial1+randNum1;
-	String id2=initial1+randNum2;
-	String id3=initial1+randNum3;
+	//Create initials:
+	String first1=first_name1.substring(0, 1);
+	String first2=first_name2.substring(0, 1);
+	String first3=first_name3.substring(0, 1);
 	
-	double subtotal1=Math.round(num_items1*13.99)*100.0/100.0;
+	String last1=last_name1.substring(0, 1);
+	String last2=last_name2.substring(0, 1);
+	String last3=last_name3.substring(0, 1);
+	
+	String id1=first1+last1+randNum1;
+	String id2=first2+last2+randNum2;
+	String id3=first3+last3+randNum3;
+	
+	double subtotal1=Math.round((num_items1*13.99)*100.0)/100.0;
 	double discount1=0;
 	double total1=0;
 	
-	double subtotal2=num_items2*13.99;
+	double subtotal2=Math.round((num_items2*13.99)*100.0)/100.0;
 	double discount2=0;
 	double total2=0;
 	
-	double subtotal3=num_items3*13.99;
+	double subtotal3=Math.round((num_items3*13.99)*100.0)/100.0;
 	double discount3=0;
 	double total3=0;
 	
 	if (num_items1>3) {
 		discount1=subtotal1-(subtotal1/1.07);
-		total1=(subtotal1-discount1);
+		discount1=Math.round((discount1)/100)*100;
+		total1=subtotal1-discount1;
 	} else {
 		total1=subtotal1;
 	}
 	if (num_items2>3) {
 		discount2=subtotal2-(subtotal2/1.07);
+		discount2=Math.round((discount2)/100)*100;
 		total2=subtotal2-discount2;
 	} else {
 		total2=subtotal2;
 	}
 	if (num_items3>3) {
 		discount3=subtotal3-(subtotal3/1.07);
+		discount3=Math.round((discount3)/100)*100;
 		total3=subtotal3-discount3;
 	} else {
 		total3=subtotal3;
 	}
 	
-	double final1=total1*1.0625;
-	double final2=total2*1.0625;
-	double final3=total3*1.0625;
+	double final1=Math.round((total1*1.0625)*100)/100;
+	double final2=Math.round((total2*1.0625)*100)/100;
+	double final3=Math.round((total3*1.0625)*100)/100;
 	
-	double tax1=final1-total1;
-	double tax2=final2-total2;
-	double tax3=final3-total3;
+	double tax1=Math.round((final1-total1)*100.0)/100.0;
+	double tax2=Math.round((final2-total2)*100.0)/100.0;
+	double tax3=Math.round((final3-total3)*100.0)/100.0;
 	
     System.out.println("CORNER CD COLLECTION SALES REPORT\n");
 	System.out.printf("Cust# \t"+ "Name \t"+ "Items \t"+"Subtotal \t"+"Discount \t"+"Tax \t"+"Total \t");
@@ -125,6 +136,7 @@ public class PosterSales {
 	input.close();
 	}
 }
+
 /* 
 Draft 1: https://github.com/ScottFrederickSchmidt/Java-Masterclass-and-IT168-Java/blob/master/Project2%20Draft1
 
@@ -149,4 +161,35 @@ Also, give your variables meaningful names.  Subtotal1, 2, 3 isn’t very meanin
 There should not be a need to use the explicit casting operator: i.e. (double), (int), etc. in this assignment. 
  * 
  * 
+ * 
+ TEST RUN: 
+Enter your first name:
+scott
+Enter your last name:
+schmidt
+How many items did you purchase?
+4
+Enter your first name:
+elon
+Enter your last name:
+musk
+How many items did you purchase?
+1
+Enter your first name:
+bill
+Enter your last name:
+gagtes
+How many items did you purchase?
+2
+CORNER CD COLLECTION SALES REPORT
+
+Cust# 	Name 	Items 	Subtotal 	Discount 	Tax 	Total 	
+-----------------------------------------------------------------------------
+SS565	SCOTT SCHMIDT	4	55.96	0.0	3.04	59.0
+EM4302	SCOTT SCHMIDT	1	13.99	0.0	0.01	14.0
+BG8937	BILL GAGTES	2	27.98	0.0	1.02	29.0
+Total Sales: 97.93
+Total Taxes: 4.07
+Total Discount: 0.0
+Grand Total: 102.0
  */
