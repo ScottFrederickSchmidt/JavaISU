@@ -1,0 +1,67 @@
+/* Created on Sept 27, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+import java.util.Scanner;
+
+/**
+< Project 3, Encrypt> 
+@author Scott Schmidt
+
+Example:
+String abcd= "abcdefghijklmnopqrstuvwxyz"; //may not be needed?
+String Code= "bopcardxshewityjlqfguvzmkn";
+
+Enter the message: Hello, world!
+Your encrypted message is:
+auwwr, jrvwm! 
+ */
+public class Cypher {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		boolean flag = true;
+		
+		while (flag==true) {
+		System.out.println("You may:");
+		System.out.println("\t 1) Encrypt a message");
+		System.out.println("\t 2) Decrypt a message");
+		System.out.println("\t 3) Quit");
+		System.out.println("Enter choice (1, 2, or 3):");
+		
+		Scanner input = new Scanner(System.in);
+		int userNum = input.nextInt(); //user inputs their selection
+		
+		String Code="bopcardxshewityjlqfguvzmkn"; 
+		
+		if (userNum ==1) {
+			System.out.println("Enter your message: \n");
+			String message=input.next();
+			for (int i=0; i<message.length(); i++) {
+				//System.out.println(i); //correctly loops i
+				String s=message.substring(i,i+1);
+				int n = Code.indexOf(s);
+				System.out.print(n);
+				
+				//String s=message[i]; // Error: type must be array
+				//int n=Encrypt.indexOf(s);
+			}
+			System.out.println("Enter your message: \n"+message);
+			continue;
+		} else if(userNum ==2) {
+			System.out.println("Enter your message");
+			String Decrypt=input.next();
+			System.out.println("Your decrypted message is: \n"+Decrypt);
+			continue; //needed or throws error
+		} else if(userNum==3) {
+			System.out.println("Quit Selected");
+			flag=false; //turns while loop off
+		}
+		//Prints once while loop ends:
+		System.out.println("Thank you for using the Normal Encrypter!");
+		input.close();
+	}
+}
+}
