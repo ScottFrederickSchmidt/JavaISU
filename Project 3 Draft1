@@ -24,7 +24,6 @@ public class Cypher {
 	public static void main(String[] args) {
 		String abcd= "abcdefghijklmnopqrstuvwxyz";
 		String code= "bopcardxshewityjlqfguvzmkn";
-		
 		boolean flag = true;
 		
 		while (flag==true) {
@@ -41,33 +40,20 @@ public class Cypher {
 			System.out.println("Enter your message: \n");
 			String message=input.next().toLowerCase();
 			String newMessage="";
-			//StringBuilder = new StringBuilder("");
+
 			for (int i=0; i<message.length(); i++) {
-				//System.out.println(i); //correctly loops i
-				//String s=message.substring(i,i+1);
-				//boolean b = Character.isAlphabetic(s); //s is not a char
 				char aChar = message.charAt(i);
 				int codeIndexNum = code.indexOf(aChar);
 				if (Character.isLetter(aChar)) {
 					//System.out.println(codeIndexNum); //correct index within code
 					String newLetter=abcd.substring(codeIndexNum, codeIndexNum+1);
 					newMessage=newMessage+newLetter; //adds letter to newMessage
-					//System.out.println(newLetter);
-					//String s=message[i]; // Error: type must be array
-					//int n=Encrypt.indexOf(s);
-				}else if (Character.isWhitespace(aChar)) { // check if blank
-					String blank=new String(" ");
-					//String padded = String.format("%-20s", newMessage);
-					//newMessage.append(" ");
-					//newMessage=newMessage+" ";
-					newMessage=newMessage+blank;
-					//newMessage=newMessage+new String(" "); //should add a blank space
 				} else  {
 					newMessage=newMessage+aChar; //adds letter to newMessage
 				}
 			}
 			System.out.println("Enter your message: \n"+newMessage);
-			continue;
+			continue; // Exception in thread "main" java.util.NoSuchElementException
 		} else if(userNum ==2) {
 			System.out.println("Enter your message");
 			String unMessage=input.next().toLowerCase();
@@ -79,14 +65,12 @@ public class Cypher {
 				if (Character.isLetter(aChar)) {
 					String newLetter=code.substring(abcdIndexNum, abcdIndexNum+1);
 					newUnMessage=newUnMessage+newLetter;
-				}else if (Character.isWhitespace(aChar)) { // check if blank
-					newUnMessage=newUnMessage+" "; //should add a blank space
 				} else {
 					newUnMessage=newUnMessage+aChar;
 				}
 			}
 			System.out.println("Your decrypted message is: \n"+newUnMessage);
-			continue; //needed or throws error
+			continue; //Exception in thread "main" java.util.NoSuchElementException
 		} else if(userNum==3) {
 			System.out.println("Quit Selected");
 			flag=false; //turns while loop off
@@ -98,13 +82,32 @@ public class Cypher {
 }
 }
 /* 
+You may:
+	 1) Encrypt a message
+	 2) Decrypt a message
+	 3) Quit
+Enter choice (1, 2, or 3):
+1
+Enter your message: 
+
 hello,world!
 Enter your message: 
 jkqqb,lbfqg!
-
+You may:
+	 1) Encrypt a message
+	 2) Decrypt a message
+	 3) Quit
+Enter choice (1, 2, or 3):
+2
+Enter your message
 jkqqb,lbfqg!
 Your decrypted message is: 
 hello,world!
+You may:
+	 1) Encrypt a message
+	 2) Decrypt a message
+	 3) Quit
+Enter choice (1, 2, or 3):
 
 
  char aChar = str.charAt(index);
@@ -113,4 +116,26 @@ if (Character.isLetter(aChar)) {
 } else {
 // copy it from source to target
 } 
+
+
+DEBUGGING THE ISCHARACTER LOOP:
+//System.out.println(i); //correctly loops i
+//String s=message.substring(i,i+1);
+//boolean b = Character.isAlphabetic(s); //s is not a char
+ //System.out.println(newLetter);
+//String s=message[i]; // Error: type must be array
+//int n=Encrypt.indexOf(s);
+ 
+
+ATTEMPT TO ADD A BLANK WHICH WAS LATER FOUND UNEEEDED:
+//StringBuilder = new StringBuilder("");
+else if (Character.isWhitespace(aChar)) { // check if blank
+String blank=new String(" ");
+//String padded = String.format("%-20s", newMessage);
+//newMessage.append(" ");
+//newMessage=newMessage+" ";
+newMessage=newMessage+blank;
+//newMessage=newMessage+new String(" "); //should add a blank space
+}
+
  */
