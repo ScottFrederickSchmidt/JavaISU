@@ -1,0 +1,137 @@
+/* Created on Oct 1, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+
+/**
+ * < Lab07 Exam Scores > 
+ * @author Scott Schmidt
+ */
+package ilstu.edu;
+import java.util.*;
+
+public class ExamCalculations {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	
+		int count=0; //stores num of exams
+		int countA=0; //stores num of A's
+		int maxNum=0; //stores max exam score
+		int minNum=100; //scores min exam score
+		double total=0.0; //keeps track of total to later get average
+		
+		Scanner input= new Scanner(System.in);
+		System.out.println("Enter exam score");
+		System.out.println("Enter -1 to end program");
+		int number = input.nextInt();
+		
+		while (number!=-1) {
+			total=total+number;
+			System.out.println(number);
+			count=count+1; //keeps track of how many exams;
+			
+			if (number>89) {
+				countA=countA+1; //stores 'A's
+			}
+			if (number>maxNum) {
+				maxNum=number; //stores max number;
+			}
+			if (number<minNum) {
+				minNum=number; //stores min number;
+			}
+			System.out.println("Enter exam score");
+			System.out.println("Enter -1 to end program");
+			number = input.nextInt();
+		} 
+		double average=total/count;
+		System.out.println(count+" is the amount of exams taken.");
+		System.out.println("number of A's: "+countA);
+		System.out.println("average score: "+Math.round((average)*100.0)/100.0); //rounds;
+		System.out.println("Min: " + minNum); 
+        System.out.println("Max: " + maxNum); 
+	
+		input.close();
+	}
+}	
+
+/* TEST is correct:
+Enter exam score
+Enter -1 to end program
+0
+0
+Enter exam score
+Enter -1 to end program
+100
+100
+Enter exam score
+Enter -1 to end program
+-1
+2
+number of A's: 1
+average score: 50.0
+Min: 0
+Max: 100
+ */
+
+
+
+/* Created on Oct 1, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package ilstu.edu;
+import java.util.Scanner;
+
+/**
+ * < Lab07 Print Triangles > 
+ * @author Scott Schmidt
+ */
+public class PrintTriangle {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Scanner input= new Scanner(System.in);
+		System.out.println("Enter a number between 3 and 40");
+		int number = input.nextInt();
+		
+		while (number < 3 || number > 40) {
+			System.out.println("Error. Try Again below between 3 and 40:");
+			number = input.nextInt(); //will ask user again for new number;
+		}
+		
+		for (int i=1; i <= number; ++i ) {			
+			for (int j=1; j<= i; ++j) {
+				System.out.print("*");
+			}
+			System.out.println("");
+		}
+	
+		input.close();
+	}
+}
+
+/*
+Enter a number between 3 and 40
+1
+Error. Try Again below between 3 and 40:
+3
+*
+**
+***
+
+
+Enter a number between 3 and 40
+5
+*
+**
+***
+****
+
+
+Enter a number between 3 and 40
+1
+Error. Try Again
+ */
