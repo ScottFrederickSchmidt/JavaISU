@@ -1,0 +1,138 @@
+/* Created on Sept 27, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+import java.util.Scanner;
+
+/**
+< Project 3, Encrypt> 
+@author Scott Schmidt
+
+Example:
+String abcd= "abcdefghijklmnopqrstuvwxyz"; 
+String Code= "bopcardxshewityjlqfguvzmkn";
+ */
+public class Cypher {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String abcd= "abcdefghijklmnopqrstuvwxyz"; //regular 
+		String code= "bopcardxshewityjlqfguvzmkn"; //encryption code
+		
+		Scanner input = new Scanner(System.in);
+		System.out.println("You may:");
+		System.out.println("\t 1) Encrypt a message");
+		System.out.println("\t 2) Decrypt a message");
+		System.out.println("\t 3) Quit");
+		System.out.println("Enter choice (1, 2, or 3):");
+		int userNum = input.nextInt(); //user inputs their selection
+		
+		if (userNum ==1) {
+			System.out.println("Encypt your message: ");
+			String newMessage="";
+			input.nextLine();
+			String message=input.nextLine().toLowerCase();
+			//System.out.println("Original message: "+message); //to dubug
+			
+			for (int i=0; i<message.length(); i++) {
+				char aChar = message.charAt(i);
+				int codeIndexNum = code.indexOf(aChar);
+				if (Character.isLetter(aChar)) {
+					//System.out.println(codeIndexNum); //correct index within code
+					String newLetter=abcd.substring(codeIndexNum, codeIndexNum+1);
+					newMessage=newMessage+newLetter; //adds letter to newMessage
+				} else  {
+					newMessage=newMessage+aChar; //adds letter to newMessage
+				}
+			}
+		    System.out.println(message+" is now: "+newMessage +" when encrypted.");
+
+		} else if(userNum ==2) {
+			System.out.println("Decrypt your message: ");
+			String newUnMessage="";
+			input.nextLine();
+			String unMessage=input.nextLine().toLowerCase();
+		
+			for (int i=0; i <unMessage.length(); i++) {
+				char aChar = unMessage.charAt(i);
+				int abcdIndexNum = abcd.indexOf(aChar);
+				if (Character.isLetter(aChar)) {
+					String newLetter=code.substring(abcdIndexNum, abcdIndexNum+1);
+					newUnMessage=newUnMessage+newLetter;
+				} else {
+					newUnMessage=newUnMessage+aChar;
+				}
+			}
+			System.out.println(unMessage+ " is now: "+newUnMessage);
+			
+		} else if(userNum==3) {
+			System.out.println("Quit Selected");
+			System.out.println("Thank you for using the Normal Encrypter!");
+			System.out.println("Closing Scanner");
+			input.close();
+		}
+	}
+}
+/* 
+You may:
+	 1) Encrypt a message
+	 2) Decrypt a message
+	 3) Quit
+Enter choice (1, 2, or 3):
+1
+Encypt your message: 
+hello, world!
+hello, world! is now: jkqqb, lbfqg! when encrypted.
+
+
+Enter choice (1, 2, or 3):
+2
+Decrypt your message: 
+jkqqb, lbfqg!
+jkqqb, lbfqg! is now: hello, world!
+
+
+You may:
+	 1) Encrypt a message
+	 2) Decrypt a message
+	 3) Quit
+Enter choice (1, 2, or 3):
+3
+Quit Selected
+Thank you for using the Normal Encrypter!
+Closing Scanner
+
+-----------------------------------------------------------------------
+OLD CODE TAKEN OUT IS BELOW:
+
+ char aChar = str.charAt(index);
+if (Character.isLetter(aChar)) {
+// translate it
+} else {
+// copy it from source to target
+} 
+
+
+DEBUGGING THE ISCHARACTER LOOP:
+//System.out.println(i); //correctly loops i
+//String s=message.substring(i,i+1);
+//boolean b = Character.isAlphabetic(s); //s is not a char
+ //System.out.println(newLetter);
+//String s=message[i]; // Error: type must be array
+//int n=Encrypt.indexOf(s);
+ 
+
+ATTEMPT TO ADD A BLANK WHICH WAS LATER FOUND UNEEEDED:
+//StringBuilder = new StringBuilder("");
+else if (Character.isWhitespace(aChar)) { // check if blank
+String blank=new String(" ");
+//String padded = String.format("%-20s", newMessage);
+//newMessage.append(" ");
+//newMessage=newMessage+" ";
+newMessage=newMessage+blank;
+//newMessage=newMessage+new String(" "); //should add a blank space
+}
+
+ */
