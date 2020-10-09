@@ -1,0 +1,126 @@
+/* Created on Oct 8, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+import java.util.Scanner;
+
+/**
+ * Circle Project;
+ * @author Scott Schmidt
+ * Constructor methods of CircleCheck;
+ */
+public class Circle {
+	public final double PI =3.14159;
+	public double radius;
+	
+	/**
+	 * Constructor 
+	 * @param radius  - radius of circle in CircleCheck;
+	 */
+	public Circle (double radius) {
+		this.radius=radius;
+	}
+	
+	/**
+	 * 
+	 *@return the radius;
+	 */
+	public double getRadius() {
+		return radius;
+	}
+	
+	/**
+	 * No return so need void:
+	 *@param radius  this radius
+	 */
+	public void setRadius() {
+		this.radius=radius;
+	}
+	
+	/**
+	 * Takes radius times 2;
+	 * @return the diameter of circle;
+	 */
+	public double calculateDiameter() {
+		return radius*2;
+	}
+	
+	/**
+	 * Calculates 2*PI*radius;
+	 * @return the circumference of circle;
+	 */
+	public double calculateCircumference() {
+		return 2*PI*radius;
+	}
+	
+	/**
+	 * Calculates PI*radius*radius;
+	 * @param radius 
+	 * @return the area;
+	 */
+	public double calculateArea() {
+		return PI * radius * radius;
+	}
+}
+
+/**
+Please Enter Radius: 
+5
+Area = 78.53975
+Diameter = 10.0
+circumference = 31.4159
+ */
+
+
+
+
+
+
+
+
+
+/* Created on Oct 8, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+import java.util.Scanner;
+
+/**
+ * Circle Project;
+ * @author Scott Schmidt;
+ * Should return the area and circumference of circle using Circle.Java;
+ */
+public class CircleCheck {
+	public static void main(String[] args) {
+		
+	Circle cir;	
+		
+	Scanner input= new Scanner(System.in);
+	System.out.println("Please Enter Radius: ");
+	double radius = input.nextDouble();
+	cir=new Circle(radius);
+	
+	double diameter=cir.calculateDiameter();
+	double area=cir.calculateArea();
+	double circu=cir.calculateCircumference();
+
+	System.out.println("Area = "+ area);
+	
+	//double diameter = calculateDiameter(radius);
+	System.out.println("Diameter = "+diameter);
+	
+	//double circumference = calculateCircumference(radius);
+	System.out.println("Circumference = "+ circu);
+	input.close();
+    }
+}
+
+/**
+Please Enter Radius: 
+5
+Area = 78.53975
+Diameter = 10.0
+Circumference = 31.4159
+ */
