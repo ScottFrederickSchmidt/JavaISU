@@ -1,0 +1,184 @@
+/* Created on Oct 14, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+/**
+ * Prelab09;
+ * @author Scott Schmidt
+ */
+public class Time {
+	int minutes;
+	int hours;
+	/**
+	 * Constructor 
+	 */
+	public Time()
+	{
+		hours=0;
+		minutes=0;
+	}
+	
+	/**
+	 * Constructor 
+	 * @param minutes - minutes within 60;
+	 * @param hours   - double hours within 24;
+	 */
+	public Time (int hours, int minutes)
+	{
+		if ( (hours>=0 && hours< 24) && (minutes>=0 && minutes <60) )
+		{
+			this.hours=hours;
+			this.minutes=minutes;
+			//System.out.println(hours+" : "+minutes);
+		}
+		else 
+		{
+			this.hours=0;
+			this.minutes=0;
+			//System.out.println(hours+" : "+minutes);
+		}
+	}
+	
+	/**
+	 * Constructor 
+	 * @param minutes - minutes within 60;
+	 * @param hours   - double hours within 24;
+	 * @param timeOfDay - String
+	 */
+	public Time(int hours, int minutes, String timeOfDay) {
+		if ((hours>0 && hours< 23) && (minutes>0 && minutes <59) && timeOfDay.equalsIgnoreCase("am") ||timeOfDay.equalsIgnoreCase("pm")) 
+		{
+			if (timeOfDay.equalsIgnoreCase("am") ) {
+				if (hours==12) {
+					setHours(0);
+					setMinutes(minutes);
+				} else {
+					setMinutes(minutes);
+					setHours(hours);
+				}
+			}
+				else {
+					if (hours==12) {
+						setHours(hours);
+						setMinutes(minutes);
+					} else {
+						setMinutes(minutes);
+						setHours(hours+12);
+					}
+				}
+			}
+		else {
+			setHours(0);
+			setMinutes(0);
+		}
+		
+	}
+
+	/**
+	 * will return hours : minutes
+	 * @return hours and minutes
+	 */
+	public String toString() {
+		return hours + " : " + minutes;
+ 	}
+	
+	/**
+	 * If equal returns true;
+	 * @return boolean
+	 */
+	public String get12HourTime () {
+		if (this.hours>12) {
+			return hours-12 + " : " + minutes + "PM";
+		} else if (this.hours==12) {
+			return hours+" : " + minutes + "PM";
+		} else if (this.hours==0) {
+			return hours+" : " + minutes + "AM";
+		} else {
+			return hours + " : " + minutes + "AM";
+		}
+	}
+
+	/**
+	 * Setter for hours;
+	 * @param hours - as an int
+	 */
+	public void setHours(int hours)
+	{
+		this.hours=hours;
+	}
+	
+	/**
+	 * Setter for minutes
+	 * @param minutes  - as an int
+	 */
+	public void setMinutes(int minutes) {
+		this.minutes=minutes;
+	}
+	
+	/**
+	 * Gets hours as an int
+	 * @return hours
+	 */
+	public int getHours(){
+		return hours;
+	}
+	
+	/**
+	 * Gets minutes 
+	 * @return minutes
+	 */
+	public int getMinutes(){
+		return minutes;
+	}
+	
+	/**
+	 * If equal returns true;
+	 * @return boolean
+	 */
+	public boolean equals (Time time) {
+		if (time.hours==hours && time.minutes==minutes)
+			return true;
+		else 
+			return false;
+	}
+}
+
+
+
+
+
+
+/* Created on Oct 15, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+/**
+ * Lab09 TimeTester with Hours, Minutes, and Time;
+ * @author Scott Schmidt
+ */
+public class TimeTester {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{	
+		Time time1= new Time(2,30);
+		//time1 object created with hours: 2 and minutes: 30
+		System.out.println(time1 +" is time1 which should be 2 hours 30min");
+
+		Time time2 = new Time(2, 45, "PM");
+		System.out.println(time2+" is time2");
+		//time1 object created with hours: 14 and minutes: 45
+
+		Time time3= new Time(14,45);
+		System.out.println(time3+" is time3 should print 14 hours and 45 minutes");
+		//time1 object created with hours: 14 and minutes: 45
+
+		Time time4 = new Time(25,50);
+		System.out.println(time4 +" is time4 which should be 0 because its invalid");
+		//time4 object created with hours: 0 and minutes: 0 (midnight – because of invalid		input)
+	}
+}
