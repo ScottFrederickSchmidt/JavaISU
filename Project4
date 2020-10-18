@@ -105,3 +105,86 @@ Regular student; Starting current BrainPower is: 135.0
 Scott , A g won with a score of: 10.0 with a brainpower of 128.0
 Mason , A r lost with a score of: 9.0 with a brainpower of 70.0
  */
+ 
+ 
+ 
+ 
+ 
+ 
+ /* Created on Oct 11, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+import java.util.Random;
+
+/**
+ * Project3: Student Quiz Bowl;
+ * Student.Java is input; 
+ * @author Scott Schmidt
+ */
+public class Student {
+	int currentScore=0;
+	double currentBrainPower=0;
+	public String studentType;
+	public String name;
+	
+	/**
+	 * Constructor: 
+	 * @param name - name of student;
+	 * @param studentType - char type of student;
+	 */
+	public Student(String name, String studentType)
+	{
+		this.name = name;
+		this.studentType = studentType;
+	}
+	
+	/** 
+	 * Adds to score if correct;
+	 * @param  - will add 1 to current score;
+	 */
+	public void creditForBestAnswer() {
+		currentScore= currentScore+1;
+		//System.out.println(currentScore); //debug purposes only;
+	}
+	/**
+	 * g is genius; r is regular student;
+	 * @param time - as an int for hours studied;
+	 */
+	public void study (int time) {		
+		if (studentType.equals("g") ) {
+			currentBrainPower=currentBrainPower+50;
+			currentBrainPower=currentBrainPower*2*time; 
+			//increased brainpower at a rate of 2 times per hour studied;
+			System.out.println("Genuis student; Starting current BrainPower is: "+currentBrainPower);
+		} else if(studentType.equals("r") ){
+			currentBrainPower=currentBrainPower+30;
+			currentBrainPower= currentBrainPower*time*.75;
+			//increases their currentBrainPower at the rate of .75 times each hour studied. 
+			System.out.println("Regular student; Starting current BrainPower is: "+currentBrainPower);
+		} else {
+			System.out.println("Unknown Student Type.");
+		}
+	}
+	
+	/**
+	 * Regular student looses 5 points;
+	 * Genius student each rand_num generates looses 3 points;
+     * genius student +- 15 within points;
+	 * @return hint
+	 */
+	public int answerQuestion() {
+		Random objGenerator = new Random();
+		Object randAnswer = objGenerator.nextInt(100);
+		return (int) randAnswer;
+	}
+	
+	/**
+	 * @return currentScore
+	 */
+	public double getScore() {
+		return this.currentScore;
+	}
+}
+
