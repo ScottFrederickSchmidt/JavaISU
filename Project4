@@ -1,0 +1,107 @@
+/* Created on Oct 11, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+import java.util.Random;
+
+/**
+ * Project 3: QuizBowl;
+ * Output; Connects to Student.java; 
+ * @author Scott Schmidt
+ */
+public class QuizBowl {
+	public static void main(String[] args)
+	{
+		Student gen1;
+		Student reg1;
+		
+		boolean flag=true; //will become false to turn off game;
+		
+		gen1=new Student("Scott", "g");
+		gen1.study(2); //I am a genius, and studied for 2 hours only;
+		
+		reg1=new Student("Mason","r");
+		reg1.study(6); //regular student studies for 6 hours;
+		
+		while (flag==true) {
+		Random objGenerator = new Random();
+		int answer = objGenerator.nextInt(100);
+		//System.out.println(answer+" is the correct answer"); //test if provides random num
+		
+		int genAnswer=gen1.answerQuestion();
+		
+		int regAnswer=reg1.answerQuestion();
+		reg1.currentBrainPower-=5;
+		//regular student answers.. costing the student a loss of brain power of 5 points
+		
+		if (reg1.currentBrainPower<=0) {
+			//genius student wins:
+			System.out.println(gen1.name+" , a "+gen1.studentType+" won with a score of: "+gen1.getScore()+" with a brainpower of "+gen1.currentBrainPower);
+			System.out.println(reg1.name+" , a "+reg1.studentType+" lost with a score of: "+reg1.getScore()+" with a brainpower of "+ reg1.currentBrainPower);
+			flag=false;
+		}
+		
+		int regDiff=regAnswer;
+		int genDiff=Math.abs(genAnswer-answer);
+		
+		//if genius student guess is not within 15 of the correct answer:
+		while (genDiff>16) {
+			genAnswer=gen1.answerQuestion();
+			genDiff=Math.abs(genAnswer-answer);
+			gen1.currentBrainPower-=3;
+			// each random num a genius student generates..lost of brain power loss of 3 points; 
+
+			if(gen1.currentBrainPower<=0) {
+				//regular student wins:
+				System.out.println(reg1.name+" , A"+reg1.studentType+ "Regular student won: "+reg1.getScore()+" with a brainpower of "+reg1.currentBrainPower);
+				System.out.println(gen1.name+" , A"+gen1.studentType+" lost: " +gen1.getScore()+ " with a currentBrainpower of "+ gen1.currentBrainPower);
+				flag=false;
+			}
+		}
+		
+		if (genDiff<16) {
+			//System.out.println("Genius found an answer within 15"); //dubug purposes only;
+			if (genDiff < regDiff ) {
+				gen1.creditForBestAnswer();//genScore=genScore+1;
+				if (gen1.getScore()==10) {
+					//genius student wins:
+					System.out.println(gen1.name+" , A "+gen1.studentType+" won with a score of: "+gen1.getScore()+" with a brainpower of "+gen1.currentBrainPower);
+					System.out.println(reg1.name+" , A "+reg1.studentType+" lost with a score of: "+reg1.getScore()+" with a brainpower of "+ reg1.currentBrainPower);
+					flag=false;
+			} else {
+				reg1.creditForBestAnswer(); //regScore=regScore+1
+				if (reg1.getScore()==10) {
+					//regular student wins:
+					System.out.println(reg1.name+" , A "+reg1.studentType+ "Regular student won: "+reg1.getScore()+" with a brainpower of "+reg1.currentBrainPower);
+					System.out.println(gen1.name+" , A "+gen1.studentType+" lost: " +gen1.getScore()+ " with a currentBrainpower of "+ gen1.currentBrainPower);
+					flag=false;
+			}
+		}
+   }
+}
+}
+}
+}
+
+/**
+TEST1:
+Genuis student; Starting current BrainPower is: 200.0
+Regular student; Starting current BrainPower is: 135.0
+Scott , A g won with a score of: 10.0 with a brainpower of 143.0
+Mason , A r lost with a score of: 9.0 with a brainpower of 80.0
+
+
+TEST2:
+Genuis student; Starting current BrainPower is: 200.0
+Regular student; Starting current BrainPower is: 135.0
+Scott , A g won with a score of: 10.0 with a brainpower of 149.0
+Mason , A r lost with a score of: 9.0 with a brainpower of 80.0
+
+
+TEST3:
+Genuis student; Starting current BrainPower is: 200.0
+Regular student; Starting current BrainPower is: 135.0
+Scott , A g won with a score of: 10.0 with a brainpower of 128.0
+Mason , A r lost with a score of: 9.0 with a brainpower of 70.0
+ */
