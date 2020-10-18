@@ -179,12 +179,22 @@ public class Student {
 		Object randAnswer = objGenerator.nextInt(100);
 		return (int) randAnswer;
 	}
-	
 	/**
 	 * @return currentScore
 	 */
 	public double getScore() {
 		return this.currentScore;
 	}
+	/**
+	 * @return studentType
+	 */
+	public String getType() {
+		return this.studentType;
+	}
+	/**
+	 * @return name
+	 */
+	public String getName() {
+		return this.name;
+	}
 }
-
