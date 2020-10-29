@@ -1,0 +1,227 @@
+/* Created on Oct 22, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.util.Scanner;
+
+/**
+ * Carpet Sales;
+ * @author Scott Schmidt
+ */
+public class CarpetSales {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		double length;
+		double width;
+		double CURRENT_PRICE;
+		RoomDimension dimen;
+		RoomCarpet room;
+		//RoomDimension area=new RoomDimension(3, 6);
+	
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Enter Length: ");
+		length=input.nextDouble();
+		
+		System.out.println("Enter width: ");
+		width=input.nextDouble();
+		
+		System.out.println("Enter price: ");
+		CURRENT_PRICE=input.nextDouble();
+		
+		dimen = new RoomDimension(length, width);
+		room= new RoomCarpet(dimen, CURRENT_PRICE);
+		
+		System.out.println(room.toString());
+		input.close();
+		//System.out.println(area.toString());
+	}
+}
+
+
+
+
+/* Created on Oct 22, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.text.NumberFormat;
+
+/**
+ * Room Dimension;
+ * @author Scott Schmidt
+ */
+public class RoomDimension {	
+	/**
+	 * Constructor 
+	 * @param side - the side of the room
+	 * 	@param wide - the width of the room
+	 */
+	private double side;
+	private double wide;
+	public RoomDimension(double side, double wide ) {
+		this.side=side;
+		this.wide=wide;
+	}
+	
+	
+	/**
+	 * calculates area by doing side times wide:
+	 * 	@return area
+	 */
+	public double calculateArea() {
+		 return side*wide;
+	}
+	
+	/**
+	 * returns the strings of area, wide, and side:
+	 * @return wide 
+	 */
+	public String toString()
+	{
+		return this.side+ " is the side.  "+this.wide+ " is the wide. " +this.wide*this.side+ " is the area";
+	}
+}
+
+
+
+
+/* Created on Oct 22, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.text.NumberFormat;
+
+/**
+ * Room Dimension;
+ * @author Scott Schmidt
+ */
+public class RoomDimension {	
+	/**
+	 * Constructor 
+	 * @param side - the side of the room
+	 * 	@param wide - the width of the room
+	 */
+	private double side;
+	private double wide;
+	public RoomDimension(double side, double wide ) {
+		this.side=side;
+		this.wide=wide;
+	}
+	
+	
+	/**
+	 * calculates area by doing side times wide:
+	 * 	@return area
+	 */
+	public double calculateArea() {
+		 return side*wide;
+	}
+	
+	/**
+	 * returns the strings of area, wide, and side:
+	 * @return wide 
+	 */
+	public String toString()
+	{
+		return this.side+ " is the side.  "+this.wide+ " is the wide. " +this.wide*this.side+ " is the area";
+	}
+}
+
+
+
+
+
+
+/* Created on Oct 22, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+/**
+ * Lab10 TryIt.Java: Solving 8 Problems
+ * @author Scott Schmidt
+ */
+public class TryIt {
+	/**
+	 * @param args
+	 */
+	private static void main(String [] args) {
+		//QUESTION1 START---
+		String varName= "string literal";
+		String varName2="string literal";
+		String varName3="random";
+		
+		System.out.println("Does varName equal varName2? be True:");
+		System.out.println(varName==varName2);
+		System.out.println("Does varName equal varName3? Should be False:" );
+		System.out.println(varName==varName3);
+		
+		String name1 = new String("scott");
+		String name2 = new String("scott");
+		String name3 = new String("arsalan"); //WHAT UP?! DO YOU READ THESE?
+		
+		System.out.println("Does name1 equal name2? Should be True:");
+		System.out.println(name1==name2);
+		System.out.println("Does name1 equal name3? Should be False:");
+		System.out.println(name1==name3); 
+		//QUESTION1 ENDs----
+	}
+	
+	//QUESTION 2 START----
+	
+	/**
+	 * Array Testing in loops:
+	 * @param 
+	 */
+	static void testTempVars() {
+		int [] myArray= {3, 4, 5} ;
+		for (int i=0; i<myArray.length; i++) {
+			System.out.println(myArray[i]);
+			System.out.println("Original Values");
+	    }
+		arrayPassing(myArray);
+		for (int i=0; i<myArray.length; i++) {
+			System.out.println(myArray[i]);
+			
+		}
+		System.out.println("these are the original values after arrayPassing executes:");
+		System.out.println(myArray); //print out values in array again
+	}
+	/**
+	 * Array Testing in loops:
+	 * @param int []theArray
+	 */
+	static void arrayPassing(int []theArray) {
+		for (int i=0; i<theArray.length; i++) {
+			System.out.println(theArray[i]);
+			System.out.println("arrayPassing values");
+	    }
+	}
+	//QUESTION2 END----
+}
+
+
+
+
+
+
+
+
+
+
+
+
