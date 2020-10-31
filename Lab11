@@ -1,0 +1,110 @@
+/* Created on Oct 29, 2020
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+import java.util.Scanner;
+
+/**
+Declare a variable to keep track of the number of integers currently in the array
+ Call the fillArray method described below, passing the appropriate arguments and
+storing the result in the appropriate variable.
+Call the computeProduct method described below, passing the appropriate
+arguments, and print the result to the screen with an appropriate label
+Ask the user for an integer and store in a variable named factor
+Use the countMultiples method described below to compute the number of multiples
+of that factor and print the result with an appropriate label
+Use the printArray method to print out the values in the array
+
+ * @author Scott Schmidt
+ */
+public class Lab11 {	
+	public static void main(String[] args) {
+		Scanner input= new Scanner(System.in);	//create a Scanner object to read from the keyboard
+		int []arr= new int [100]; //Declare and create an array that will hold up to 100 integers
+		int value=fillArray(arr, input);
+		computeProduct(arr, value);
+		int factor = 2;
+		countMultiples(arr, value, factor);
+		printArray(arr, value);
+	}
+	
+	public static int fillArray(int arr[], Scanner input) { 
+		int value=0;
+		System.out.println("Enter a num, Enter -999 to stop");
+		System.out.println("Please enter another number");
+		int num=input.nextInt();
+	
+		while (num!=-999) {
+			arr[value]=num;
+			value++;
+			System.out.println("Enter a num, Enter -999 to stop");
+			System.out.println("Please enter another number");
+			num=input.nextInt();
+			input.nextLine();
+		}
+		return value;
+	}
+
+	/**
+	 * return product of two integers
+	 * @return product of integers
+	 */
+	public static int computeProduct (int [] arr, int value)
+	{
+		int product=1;
+		for (int i=0; i< value; i++) {
+			product=product*i;
+		}
+		return product;
+	}
+	
+	/**
+	 * Takes in numbers and counts how many are factors
+	 * @return count
+	 */
+	public static int countMultiples(int[] arr, int value, int factor) {
+		int count=0;
+		for (int i=0; i < value; i++) {
+			if (arr[i]%factor==0) {
+				count++;
+			}
+		}
+		return count;
+	}
+	/**
+	 * Get an array and print out the values individually
+	 * @param int[] arr;
+	 */
+	public static void printArray(int [] arr, int value) {
+		for (int i=0; i<value; i++) {
+			System.out.println(arr[i]);
+		}
+	}
+}
+
+
+/** 
+FILL ARRAY:
+The static fillArray method will accept two parameters: an integer array and a
+Scanner. It must ask the user for values to add to the array, beginning at index 0,
+stopping when the user enters -999. Make sure that the -999 is not included in the
+array. The method will return the number of values put into the array.
+ 
+ COMPUTE PRODUCT:
+The static computeProduct method will accept two parameters: an integer array
+and an integer representing the number of valid values in the array. The method
+will return the product of the integers in the array. Note: test this with relatively
+small values or short arrays.
+
+COUNT MULTIPLES:
+The static countMultiples method will accept three parameters: an integer array, an
+integer representing the number of valid values in the array, and an integer
+representing a factor. The method will count the number of valid values in the array
+that are multiples of the factor and will return the count.
+
+PRINT ARRAY:
+The static printArray method will accept two parameters: an integer array and an
+integer representing the number of valid values in the array. The method will print
+the valid values from the array to the screen, one per line.
+ */
