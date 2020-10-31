@@ -15,7 +15,6 @@ Ask the user for an integer and store in a variable named factor
 Use the countMultiples method described below to compute the number of multiples
 of that factor and print the result with an appropriate label
 Use the printArray method to print out the values in the array
-
  * @author Scott Schmidt
  */
 public class Lab11 {	
@@ -29,6 +28,12 @@ public class Lab11 {
 		printArray(arr, value);
 	}
 	
+	/**
+	 * fills array with numbers until -999 entered:
+	 * @param arr, - as an int array
+	 * @param input - from scanner
+	 * @return value 
+	 */
 	public static int fillArray(int arr[], Scanner input) { 
 		int value=0;
 		System.out.println("Enter a num, Enter -999 to stop");
@@ -48,7 +53,9 @@ public class Lab11 {
 
 	/**
 	 * return product of two integers
-	 * @return product of integers
+	 * @param arr -  as an int array 
+	 * @param value - as an int 
+	 * @return product
 	 */
 	public static int computeProduct (int [] arr, int value)
 	{
@@ -61,6 +68,9 @@ public class Lab11 {
 	
 	/**
 	 * Takes in numbers and counts how many are factors
+	 * @param arr - as an int array
+	 * @param value - as a value 
+	 * @param factor - as an int
 	 * @return count
 	 */
 	public static int countMultiples(int[] arr, int value, int factor) {
@@ -74,7 +84,8 @@ public class Lab11 {
 	}
 	/**
 	 * Get an array and print out the values individually
-	 * @param int[] arr;
+	 * @param arr - int array
+	 * @param value - int
 	 */
 	public static void printArray(int [] arr, int value) {
 		for (int i=0; i<value; i++) {
