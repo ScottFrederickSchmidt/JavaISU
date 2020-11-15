@@ -1,0 +1,343 @@
+package edu.ilstu;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+
+/**
+ * Lab12 Part 1: Reads data.txt ints and stores them in array; Finds the min and
+ * max value in array.
+ * 
+ * @author Scott Schmidt
+ *
+ */
+public class ArrayManager {
+
+	// declare instance variables here:
+	private int[] arr; // array of integers;
+	private int count; // num of elements currently in array;
+
+	/**
+	 * Constructor 
+	 */
+
+	public ArrayManager() {
+		arr = new int[17];
+		count = 0;
+	}
+	
+	/**
+	 * fills the arr[] with the numbers from data.txt;
+	 */
+	
+	public void fillArray() {
+		int curVal;
+		Scanner input = null;
+		try {
+			input = new Scanner(new File("data.txt"));
+			count = 0; // set the current number of items in the array to zero
+			while (input.hasNextInt()) {
+			// add code to store curVal into the array and update other information as
+				// needed
+				curVal = input.nextInt();
+				arr[count] = curVal;
+				//System.out.println(curVal);
+				count = count + 1;
+			}
+			input.close();
+		}
+
+		catch (FileNotFoundException e) {
+			System.out.println("Could not find data.txt file");
+			System.exit(1);
+		}
+	}
+	
+	/**
+	 * returns the smallest number in an array
+	 * @return minNum
+	 */
+
+	public int findSmallestValue() {
+		int minNum = 100;
+		int curVal;
+		for (int i = 0; i < arr.length; i++) {
+			curVal = arr[i];
+			//System.out.println("curVal for min is: "+curVal);
+			if (curVal < minNum) {
+				minNum = curVal;
+				//System.out.println("Found new min is: "+minNum);
+			}
+		}
+		return minNum;
+	}
+	
+	/**
+	 * returns the largest number in an array
+	 * @return maxNum
+	 */
+
+	public int findLargestValue() {
+		int maxNum = 0;
+		int curVal;
+		int i=0;
+		//System.out.println(arr+" is current array");
+		for (i = 0; i < arr.length; i++) {
+			curVal = arr[i];
+			//System.out.println("curVal for max is: "+curVal);
+			if (curVal > maxNum) {
+				maxNum = curVal;
+				//System.out.println("Found new max is: "+maxNum);
+			}
+		}
+		return maxNum;
+	}
+	
+	/**
+	 * returns the index of a value in an array;
+	 * @return index
+	 * @param value - as an int
+	 */
+
+	public int findIndexValue(int value) {
+		int index=-1; //-1 is false, will update value if new index is found
+		int indexCount=0;
+		for (int i = 0; i < arr.length; i++) {
+			indexCount=indexCount+1; //keeps track of index
+			// System.out.println(arr[i]);
+			if (arr[i]==value) {
+				index=indexCount; //sets the index to indexCount
+				break;
+			} else {
+				index=-1; //index not found if -1;
+			}
+		}
+		return index;
+	}
+}
+
+
+
+
+
+
+/* Created on Nov 12, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.util.Scanner;
+
+/**
+ * Lab12; Arrays; read data.txt file and find the min, max, and index numbers.
+ * 
+ * @author Scott Schmidt
+ */
+public class MoreFunArrays {
+	/**
+	 * @param args
+	 */
+	
+	/**
+	 * Constructor 
+	 */
+	public MoreFunArrays() {
+		ArrayManager array = new ArrayManager();
+	}
+
+	public static void main(String[] args) {
+
+		ArrayManager array = new ArrayManager();
+		array.fillArray();
+		int smallestInt = array.findSmallestValue();
+		int largestInt = array.findLargestValue();
+		System.out.println("The smallest value is: " + smallestInt);
+		System.out.println("The largest value in array is: " + largestInt);
+
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter a number:");
+		int num = input.nextInt();
+		while (num != -999) {
+			int indexFound = array.findIndexValue(num);
+			if (indexFound == -1) {
+				System.out.println("Value not found");
+				System.out.println("Enter a number:");
+				num = input.nextInt();
+			} else {
+				System.out.println("The index found is: " + indexFound);
+				System.out.println("Enter a number:");
+				num = input.nextInt();
+			}
+		}
+		System.out.println("Program Ended. Pressed -999");
+		input.close();
+	}
+}
+
+
+/**
+ My output is correct:
+The smallest value is: -10
+The largest value in array is: 10
+Enter a number:
+10
+The index found is: 7
+Enter a number:
+4
+The index found is: 1
+Enter a number:
+2
+Value not found
+Enter a number:
+-10
+The index found is: 2
+Enter a number:
+-999
+Program Ended. Pressed -999
+ */
+
+
+
+
+
+
+
+
+
+package edu.ilstu;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class HighTemps {
+	// declare instance variables here:
+	private static int[] arr; // array of integers;
+	private int count; // num of elements currently in array;
+	
+	/**
+	 * Constructor 
+	 */
+
+	public HighTemps() {
+		arr = new int[100];
+		count = 0;
+	}
+	
+	/**
+	 * fills the arr[] with the numbers from data.txt;
+	 */
+	
+	public void fillArray() {
+		int curVal;
+		Scanner input = null;
+		try {
+			input = new Scanner(new File("temps.txt"));
+			count = 0; // set the current number of items in the array to zero
+			while (input.hasNextInt()) {
+			// add code to store curVal into the array and update other information as
+				// needed
+				curVal = input.nextInt();
+				arr[count] = curVal;
+				//int timesOccured=countNum(curVal);
+				//System.out.println(curVal+"\t \t"+timesOccured);
+				//array is not fully filled yet so not counting "all numbers"
+				count = count + 1;
+			}
+			input.close();
+		}
+
+		catch (FileNotFoundException e) {
+			System.out.println("Could not find temps.txt file");
+			System.exit(1);
+		}
+	}
+	/**
+	 * Counts the amount of numbers a value appears in the array
+	 * @return count
+	 * @param curVal - as an int
+	 */
+	
+	public static int countNum (int curVal) {
+		int count=0;
+		for (int i=0; i<arr.length; i++) {
+			//System.out.println(arr[i]+"  "+curVal)
+			if(arr[i]==curVal) {
+				count=count+1;
+				//System.out.println(count);
+			}
+	    }
+		return count;
+	}
+	
+
+	public static void main(String[] args) {
+		HighTemps array=new HighTemps();
+		System.out.println("Temperatures"+"     "+"Number of Days");
+		array.fillArray();
+		for (int i=0; i<arr.length; i++) {
+			if(arr[i]!=0) {
+			System.out.println(arr[i]+"\t \t"+countNum(arr[i]));
+		}
+	}
+	}
+}
+
+/**
+My Output is correct:
+Temperatures     Number of Days
+-40	 	3
+-10	 	1
+45	 	3
+69	 	2
+78	 	2
+11	 	1
+-3	 	1
+89	 	1
+69	 	2
+45	 	3
+45	 	3
+-40	 	3
+78	 	2
+79	 	1
+99	 	1
+110	 	1
+-40	 	3
+
+
+
+ORIGINAL LAB12:
+Write a program that reads a series of daily high temperatures from the keyboard and 
+then prints to the screen the number of days that each high was achieved. 
+•	Assume that the temperatures will fall between -40 and 110, inclusive. 
+•	You'll print the temperature and then the number of days for each temperature that was the high at least once. 
+ So your output will be in two columns.
+•	The key to this is that you'll have an array where the indices of the array represent the temperatures and 
+the contents are the number of days where that temperature was the high.
+
+Implement the program you designed for prelab. 
+Remember that you are using the indices of the array to represent the temperatures and then storing the actual counts in the array. 
+Do not store any temperatures in an array.
+ Your printout should not include any highs that never appeared in the file, only values that actually show up in the file.
+
+The temperatures will be read from the file temps.txt.
+ Use the example code in ArrayManager’s fillArray method to help you write the file reading piece.
+ 
+
+Sample output:
+
+Temperatures	Number of Days
+-40			3
+-10			1
+-3			1
+11			1
+45			3
+69			2
+78			2
+79			1
+89			1
+
+ */
