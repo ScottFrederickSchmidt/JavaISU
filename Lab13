@@ -1,0 +1,280 @@
+/* Created on Nov 19, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+import java.io.*;
+import java.util.Scanner;
+import java.nio.file.Paths;
+
+/**
+ * Lab13: A class to maintain an array of students
+ * Constructor in Student.java file
+ */
+public class StudentList
+{
+	// add appropriate instance variables here: need an array of Students
+	int count; //keep track of how many students are in the list
+	//   call your array stuArray
+	Student [] stuArray;  //assume there will never be more than 100 students
+	
+	/**
+	 * Constructor
+	 * provide a default constructor that sets up an empty student array
+	 */
+	
+	public StudentList() {
+		count=0;
+		stuArray = new Student[100];
+	}
+	
+	  /**
+	  * provide a private helper method that accepts a Student's name and
+	  * is not in the array. This method should be called by the
+	  * displayStudent method
+     * @return index
+     * @param name - as a String
+     */
+	
+	private int findStudent(String name  ) {
+		int index=-1; //-1 is false, will update value if new index is found
+		int i=0;
+		while (i < count && stuArray[i].getName()==name) {
+		    {
+				index=i;
+				break;
+			} 
+		}
+		return index; //returns the index of the student in the array or -1 if the student
+	} 
+		
+		// fill in code to read a list of students from a file
+		// into the array -- this should end with StudentList
+		// consisting of exactly those students in the file--so
+		// the first student in the file will be the first student
+		// in the array, and all operations on the list will only
+		// affect the set of students in the file until additional
+		// students are added using the addStudent method below.
+		// Make sure you don't overfill the array.
+		// For each student, create the Student object using the default
+		// constructor and then use the read method of Student to get
+		// the data from the file
+	
+	/**Reads a list of students from a file
+	 * @param fileName - as a String
+	 *   Name of the file to read from
+	 */
+
+	public void readList(String fileName) {
+		Scanner input = null;
+		try {
+			input = new Scanner(new File(fileName));
+			while (input.hasNext()) {	
+				Student student1=new Student();
+				student1.read(input);
+				stuArray[count]=student1;
+				System.out.println(stuArray[count]);
+				count = count + 1;
+			}
+			input.close();
+		}
+
+		catch (FileNotFoundException e) {
+			System.out.println("Could not find file");
+			System.exit(1);
+		}
+	}
+
+	/** Writes a list of students to a file
+	 * @param fileName
+	 *   Name of the file to write to
+	 */
+	
+	// use a for loop to write all of the Student objects from
+	// the array to output.txt by calling the Student's write 
+	// method and passing it outfile
+	public void writeList(String fileName)
+	{
+		PrintWriter outfile = null; 
+		System.out.println("writeList method called..");
+		
+		try
+		{
+			outfile = new PrintWriter(new FileWriter("output.txt"));
+			for (int i=0; i<count; i++) {
+				System.out.println(count+ " is the count; inside for loop with object: " +stuArray[i]);
+				stuArray[i].write(outfile); 
+			}
+			System.out.println("Wrote text completed, closing file.");
+			outfile.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("An error occurred: "+e);
+			System.out.println("The list of students was not written");
+		}
+	}
+
+	/** Add a student to the end of the list
+	 * @param aStudent
+	 *   The student to add
+	 */
+	// write code to add a student to the end of the list of students only if there is room
+	public void addStudent(Student aStudent)
+	{
+		//Student aStudent= new studentList();
+		aStudent=new Student();
+		if (count<100) {
+		stuArray[count+1]=aStudent;
+		System.out.println("Student added. Student info: "+aStudent);
+	 } else {
+		 System.out.println("Error. More than 100 students.");
+	 }
+	}
+
+	/**
+	 * @param studentName - as a String
+	 */
+	public void displayStudent(String studentName)
+	{
+		// fill in missing pieces of the following code and uncomment it
+		// add appropriate code to handle an incorrect name
+		System.out.println("displayStudent method called..");
+		int index;
+		index = findStudent(studentName);
+		if (index==-1) {
+			System.out.println("Student not found or error occured");
+		} else {
+			System.out.println(this.stuArray[index]);
+		}
+	}
+	
+	
+	/**
+	 * 	// Write a method to count the number of freshmen, sophomores, juniors and seniors in the array 
+	//  and print the counts to the screen.  The Student class has a getClassLevel method that 
+	//  returns a String with the value "Freshman", "Sophomore", "Junior" or "Senior". Use an array 
+	//  to store your counts.
+	// add an appropriate javadoc comment
+	 * 
+	 */
+
+	public void printClassCounts()
+	{
+		int Class[]={0,0,0,0};
+		System.out.println("PrintClassCount called.. count is currently: "+ count);
+		for (int i=0; i<count; i++) {
+		String grade = stuArray[i].getClassLevel();
+			if (grade=="Freshmen") {
+				Class[0]=1;
+			} else if(grade=="Sophmore") {
+				Class[1]+=1;
+			} else if(grade=="Junior") {
+				Class[2]+=1;
+			} else {
+				Class[3]+=1;
+			}
+			System.out.println("Number of freshmen: " +Class[0]);
+			System.out.println("Number of sohpmore: " +Class[1]);
+			System.out.println("Number of junior: " +Class[2]);
+			System.out.println("Number of senior: " +Class[3]);
+	   }
+	}
+}
+
+
+
+
+
+
+
+
+/* Created on Nov 19, 2020
+ * 
+ * ULID: sschmi2
+ * CLASS: IT168
+ */
+package edu.ilstu;
+
+/**
+ * Lab13 Main script connects to Student.java file
+ * @author Scott Schmidt
+ * 
+ 	Student Constructor:
+ 	private String name;
+    private String major;
+    private double gpa;
+    private int hoursCompleted;
+ */
+public class StudentListTester {
+	public static void main(String[] args) {
+		StudentList studentList= new StudentList();
+		Student student2 = new Student("Scott", "IT", 4.0, 0);
+	
+		//studentList.readList("output.txt");
+		studentList.addStudent(student2); //Student added. Student info:  is a Freshman who has completed 0 hours with a 0.000 gpa.
+		studentList.readList("students.txt");
+		studentList.writeList("output.txt");
+		studentList.displayStudent("Ann Hawkins");
+		studentList.printClassCounts();
+		
+		
+		//Testing the Student.Java class:
+		String major2=student2.getMajor();
+		String class2=student2.getClassLevel();
+		String name2=student2.getName();
+		//System.out.println(name2+" is student2 with a major: "+major2+" who is a "+class2);
+		//Above Correctly Prints: Scott is student2 with a major: IT who is a Freshman
+	}
+}
+
+
+/**
+TEST CODE WORKS!
+Student added. Student info:  is a Freshman 
+who has completed 0 hours with a 0.000 gpa.
+
+Ann Hawkins is a Freshman English
+who has completed 16 hours with a 3.600 gpa.
+
+Miles Kimball is a Sophomore Computer Science
+who has completed 33 hours with a 3.800 gpa.
+
+Mary Ellen de Silva is a Senior Arts Technology
+who has completed 94 hours with a 2.970 gpa.
+
+writeList method called..
+3 is the count; inside for loop with object: Ann Hawkins is a Freshman English
+who has completed 16 hours with a 3.600 gpa.
+
+3 is the count; inside for loop with object: Miles Kimball is a Sophomore Computer Science
+who has completed 33 hours with a 3.800 gpa.
+
+3 is the count; inside for loop with object: Mary Ellen de Silva is a Senior Arts Technology
+who has completed 94 hours with a 2.970 gpa.
+
+Wrote text completed, closing file.
+displayStudent method called..
+Student not found or error occured
+PrintClassCount called.. count is currently: 3
+Number of freshmen: 0
+Number of sohpmore: 0
+Number of junior: 0
+Number of senior: 1
+Number of freshmen: 0
+Number of sohpmore: 0
+Number of junior: 0
+Number of senior: 2
+Number of freshmen: 0
+Number of sohpmore: 0
+Number of junior: 0
+Number of senior: 3
+
+ */
+
+
+
+
+
