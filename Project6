@@ -1,0 +1,958 @@
+package edu.ilstu;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Scanner;
+
+/**
+ * Project6: Files, Arrays, Classes
+ * 
+ * @author Scott Schmidt
+ */
+public class Course {
+	/**
+	 * @param args
+	 */
+	private static int MAX_STUDENTS_PER_COURSE = 40; // constant: max num of students is 40
+
+	String courseName;
+	int numberStudents;
+	int countQuiz;
+	int countExam;
+	int countPaper;
+
+	int currentGrade;
+	int examScore = 0;
+	int quizScore = 0;
+	int paperScore = 0;
+
+	private String lastName;
+	private String firstName;
+	private String studentID; // make this a string
+	private int numAbsences;
+
+	// private int countQuiz;
+	private int[] quizScores = new int[45];
+
+	// private int countExam;
+	private int[] paperScores = new int[40]; // or 8? Index 39 out of range for length 4
+
+	private int[] examScores = new int[100]; // 4.
+	// private int countPaper;
+
+	int count;
+	Student[] stuArray;
+
+	/**
+	 * Default Constructor
+	 */
+	public Course() {
+		count=0;
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param courseName - as a String
+	 */
+
+	public Course(String courseName) {
+		this.courseName = courseName;
+	}
+
+	/**
+	 * Gets the courseName with a return;
+	 * 
+	 * @param courseName - as a String
+	 * @return courseName
+	 */
+
+	public String getCourseName(String courseName) {
+		return courseName;
+	}
+
+	/**
+	 * gets the number of papers
+	 * 
+	 * @param numPapers - as an int
+	 * @return numPapers
+	 */
+
+	public int getNumPapers(int numPapers) {
+		return countPaper;
+	}
+
+	/**
+	 * return numQuiz
+	 * 
+	 * @param numQuiz - as an int
+	 */
+
+	public int getNumQuiz(int numQuiz) {
+		return countQuiz;
+	}
+
+	/**
+	 * sets the courseName
+	 */
+	public void setCourseName() {
+		this.courseName = courseName;
+	}
+
+	/**
+	 * A recordQuiz method that takes the quiz score the student received and adds
+	 * it to the student’s quiz scores.
+	 * 
+	 * @param quizScore - as an int
+	 */
+
+	public void recordQuiz(int quizScore) {
+		//System.out.println(quizScore + " is a quizScore");
+		quizScores[countQuiz] = quizScore;
+		countQuiz += 1;
+	}
+
+	/**
+	 * A recordPaper method that takes the paper score the student received and adds
+	 * it to the student’s paper scores
+	 * 
+	 * @param paperScore - as an int
+	 */
+
+	public void recordPaper(int paperScore) {
+		//System.out.println(paperScore + " is a paperScore");
+		paperScores[countPaper] = paperScore;
+		countPaper += 1;
+	}
+
+	/**
+	 * A recordExam method that takes the exam score the student received and adds
+	 * it to the student’s exam scores
+	 * 
+	 * @param examScore - as an int
+	 */
+
+	public void recordExam(int examScore) {
+		//System.out.println(examScore + " is an examScore");
+		examScores[countExam] = examScore;
+		countExam += 1;
+	}
+	
+	/**
+	 * A read method that accepts a Scanner and reads in all information about a Course. The
+	 * format of this information will be as specified for the file below. The Student
+	 * information will be in the form used by the Student class’s read method. Make sure that
+	 * you create each Student object before attempting to read into it
+	 * 
+	 * @param fileName - as a String
+	 */
+
+	public void read(String fileName) {
+		Scanner input = null;
+
+		try {
+			input = new Scanner(new File(fileName));
+			stuArray = new Student[MAX_STUDENTS_PER_COURSE];
+			
+			courseName=input.nextLine(); // get rid of first line
+			this.setCourseName();
+			int quizs = input.nextInt();
+			System.out.println(quizs + " should be quizCount");
+			int papers = input.nextInt();
+			System.out.println(papers + " should be paperCount");
+			int exams = input.nextInt();
+			System.out.println(exams + " should be examCount");
+			
+			while ( input.hasNext() )  {
+//				Student s = new Student(this.lastName, this.firstName, this.studentID, this.numAbsences, this.countExam,
+//						this.examScores, this.countPaper, this.paperScores, this.countQuiz, this.quizScores);
+				Student s = new Student();
+				stuArray[count] = s;
+				s.read(input);
+				System.out.println(s + " got to end of while loops");
+				count++;
+				System.out.println(count);
+			}
+			input.close();
+			System.out.println("Finished. Closed file: ");
+		}
+
+		catch (FileNotFoundException e) {
+			System.out.println("Could not find file");
+			System.exit(1);
+		}
+	}
+
+	/**
+	 * @return quizScore
+	 */
+
+	public String getStudentID() {
+		return studentID;
+	}
+
+	/**
+	 * @param studentID - as a String
+	 */
+
+	public int findStudent(String studentID) {
+		int index = -1; // -1 is false, will update value if new index is found
+		int i = 0;
+		// System.out.println(studentID);
+		while (i < count) {
+			if (stuArray[i].getStudentID().equalsIgnoreCase(studentID)) {
+				index = i;
+				// System.out.println("found student id" +index);
+				break;
+			}
+			// System.out.println(stuArray[i].studentID);
+			i = i + 1;
+		}
+		return index; // returns the index of the student in the array or -1 if the student
+	}
+	
+	/**
+	 * @param Percentage - as an int
+	 */
+	public String getCourseGrade(int Percentage) {
+		
+		if(Percentage >= 90)
+	    {
+			return "A";
+		}
+		else if(Percentage >= 80)
+	    {
+			return "B";
+		}
+		else if(Percentage >= 70)
+	    {
+			return "C";
+		}
+		else if(Percentage >= 60)
+	    {
+			return "D";
+		}
+		else 
+	    {
+			return "F";
+		} 
+	}
+		
+	/**
+	 * A correctQuizScore method that accepts a studentID, an exam score, and an
+	 * index between 0 and numExams-1, and updates the appropriate exam score.
+	 * 
+	 * @param studentID - as a String
+	 * @param newScore  - as an int
+	 * @param index     - as an int
+	 */
+
+	public void correctQuizScore(String studentID, int newScore, int countQuiz) {
+		this.countQuiz = countQuiz;
+		count = findStudent(studentID);
+		recordQuiz(newScore);
+	}
+
+	/**
+	 * A correctPaperScore method that accepts a studentID, an quiz score, and an
+	 * index between 0 and numQuiz-1, and updates the appropriate quiz score.
+	 * 
+	 * @param studentID - as a String
+	 * @param newScore  - as an int
+	 * @param index     - as an int
+	 */
+
+	public void correctPaperScore(String studentID, int newScore, int countPaper) {
+		this.countPaper = countPaper;
+		count = findStudent(studentID);
+		recordQuiz(newScore);
+	}
+
+	/**
+	 * A correctExamScore method that accepts a studentID, an exam score, and an
+	 * index between 0 and numExams-1, and updates the appropriate exam score.
+	 * 
+	 * @param studentID - as a String
+	 * @param newScore  - as an int
+	 * @param index     - as an int
+	 */
+
+	public void correctExamScore(String studentID, int newScore, int countExam) {
+		this.countExam = countExam;
+		count = findStudent(studentID);
+		recordExam(newScore);
+	}
+
+	/**
+	 * A getCourseGrade method that accepts a studentID and returns that student’s
+	 * current grade in the course.
+	 * 
+	 * @param studentID - as a String
+	 */
+	public int getCourseGrade(String studentID) {
+		return currentGrade;
+	}
+
+	/**
+	 * A printStudentReport method that accepts a studentID and prints all
+	 * information about that student to the screen.
+	 * 
+	 * @param studentID - as a String
+	 */
+	public void printStudentReport(String studentID) {
+		Course course = new Course();
+		course.read("coursefile.txt");
+		int i = course.findStudent(studentID);
+		System.out.println(stuArray[i].toString());
+	}
+
+	/**
+	 * A printCourseReport method that accepts a studentID and prints all
+	 * information about that student to the screen.
+	 */
+
+	public void printCourseReport() {
+		System.out.println(stuArray.toString());
+	}
+
+	/**
+	 * Add an option to your program to sort the student array. This will involve
+	 * writing a sortStudents method in Course.
+	 */
+
+	public void sortStudents() {
+	    Arrays.sort(stuArray);
+        System.out.println(Arrays.toString(stuArray));
+	}
+
+	/**
+	 * Add an option to your program to write all of the information about the
+	 * course to a file (name specified by the user). This file must be in exactly
+	 * the same format as the data read in. You will need to add methods in Student
+	 * and Course to print the data properly to a file.
+	 * 
+	 * @param fileName - as a String
+	 */
+
+	public void writeList(String fileName) {
+		PrintWriter outfile = null;
+		System.out.println("writeList method called..");
+
+		try {
+			outfile = new PrintWriter(new FileWriter(fileName));
+			for (int i = 0; i < count; i++) {
+				System.out.println(count + " is the count; inside for loop with object: " + stuArray[i]);
+				stuArray[i].write(outfile);
+			}
+			System.out.println("Wrote text completed, closing file.");
+			outfile.close();
+		} catch (IOException e) {
+			System.out.println("An error occurred: " + e);
+			System.out.println("The list of students was not written");
+		}
+	}
+
+	public static void main(String[] args) {
+		Course course = new Course();
+		course.read("coursefile.txt"); // Finished. Closed file. Course name was: British Literature to 1800
+		// course.correctExamScore(studentID, newScore, index);
+
+		Student student = new Student();
+		//student.read("coursefile.txt");
+		
+
+		// course.printCourseReport("123456789");
+		student.calculateGrade(2);
+
+//		int indexTest1=student.findStudent("123456789"); //correctly found index1\ 1
+//		System.out.println(indexTest1);
+		course.printCourseReport();
+		course.writeList("output.txt");
+	}
+}
+
+
+
+
+
+
+
+
+package edu.ilstu;
+
+import java.util.Arrays;
+import java.util.Scanner;
+import java.io.*;
+
+/**
+ * Project6: Files, Arrays, Classes
+ * 
+ * @author Scott Schmidt
+ */
+public class Student {
+	/**
+	 * Named Constants: Remember that there should be just one copy of each constant
+	 * for the whole class, not one per object. Also remember that these constants
+	 * should still be information kept only in the class, not something available
+	 * to other classes. //8 papers, each graded out of 40 points. The papers are
+	 * worth 30% of the grade. //45 quizzes, each graded out of 5 points. The
+	 * quizzes are worth 40% of the grade //4 exams, each graded out of 100 points.
+	 * The exams are worth 30% of the grade
+	 */
+	final int maxPointsQuiz = 5; // 45 quizzes
+	final int maxPointsPaper = 40; // 8 papers
+	final int maxPointsExam = 100; // 4 exams
+	final double percentQuiz = .40;
+	final double percentPaper = .30;
+	final double percentExam = .30;
+	private int MAX_STUDENTS_PER_COURSE=40;
+
+	/**
+	 * Instance Variables: Use appropriate types for each instance variable, and
+	 * make sure that all attributes are private.
+	 */
+
+	private String courseName;
+	private String lastName;
+	private String firstName;
+	private String studentID; // make this a string
+	private int numAbsences;
+
+	private int countQuiz;
+	private int[] quizScores = new int[45];
+
+	private int countExam;
+	private int[] paperScores = new int[8]; // or 8? Index 39 out of range for length 4
+
+	private int[] examScores = new int[4]; // 4.
+	private int countPaper;
+
+	int quizScore;
+	int examScore;
+	int paperScore;
+	double currentGrade;
+
+	int count;
+	Student[] stuArray;
+
+	/**
+	 * Default Constructor: A constructor that takes the Student’s names and ID and
+	 * sets absences and numbers of grades to zero.
+	 */
+
+	public Student() {
+		numAbsences = 0;
+		countExam = 0;
+		countQuiz = 0;
+		countPaper = 0;
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param lastName    - as a string
+	 * @param firstName   - as a string
+	 * @param studentID   - as an int
+	 * @param numAbsences - as an int
+	 * @param countExam   - as an int
+	 * @param examScores  - as an int[]
+	 * @param countPaper  - as an int
+	 * @param paperScores - as an int[]
+	 * @param countQuiz   - as an int
+	 * @param quizScores  - as an int[]
+	 */
+
+	public Student(String lastName, String firstName, String studentID, int numAbsences, int countExam,
+			int[] examScores, int countPaper, int[] paperScores, int countQuiz, int[] quizScores) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.setStudentID(studentID);
+		this.numAbsences = numAbsences;
+		this.countExam = countExam;
+		this.examScores = examScores;
+		this.countPaper = countPaper;
+		this.paperScores = paperScores;
+		this.countQuiz = countQuiz;
+		this.quizScores = quizScores;
+	}
+	
+	
+
+	/**
+	 * @return quizScore
+	 */
+
+	public int getQuizScore() {
+		return quizScore;
+	}
+	
+	/**
+	 * @return paperScore;
+	 */
+
+	public int getPaperScore() {
+		return paperScore;
+	}
+
+	/**
+	 * @return examScore
+	 */
+
+	public int getExamScore() {
+		return examScore;
+	}
+	
+	/**
+	 * @return studentID
+	 */
+
+	public String getStudentID() {
+		return studentID;
+	}
+	
+	/**
+	 * @return lastName
+	 */
+
+	public String getLastName() {
+		return lastName;
+	}
+	
+	/**
+	 * @return firstName
+	 */
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * MUTATOR: this method will need to take an integer parameter that indicates
+	 * which quiz score to change
+	 * 
+	 * @param quizScore - as an int;
+	 */
+
+	public void setQuizScore(int quizScore) {
+		this.quizScore = quizScore;
+	}
+
+	/**
+	 * MUTATOR: sets the paper score
+	 * 
+	 * @param paperScore - as an int;
+	 */
+	public void setPaperScore(int paperScore) {
+		this.paperScore = paperScore;
+	}
+
+	/**
+	 * MUTATOR: this method will need to take an integer parameter that indicates
+	 * which exam score to change
+	 * 
+	 * @param examScore - as an int;
+	 */
+
+	public void setExamScore(int examScore) {
+		this.examScore = examScore;
+	}
+	
+	/**
+	 * @param studentID - as a String
+	 * @return index
+	 */
+	
+	public int findStudent(String studentID) {
+		int index = -1; // -1 is false, will update value if new index is found
+		int i = 0;
+		// System.out.println(studentID);
+		while (i < 10) {
+			if (stuArray[i].getStudentID().equalsIgnoreCase(studentID)) {
+				index = i;
+				System.out.println("found student id" +index);
+				break;
+			}
+			// System.out.println(stuArray[i].studentID);
+			i = i + 1;
+		}
+		return index; // returns the index of the student in the array or -1 if the student
+	}
+
+	
+	
+	/**
+	 * @return currentGrade
+	 * @param stuIndex - as an int;
+	 */
+
+	public double calculateGrade(int stuIndex) {
+		System.out.println("Calculating grade for stuIndex: "+stuIndex);
+		double quizTotal = 0;
+		double paperTotal = 0;
+		double examTotal = 0;
+
+		int[] quizArr = stuArray[stuIndex].quizScores;
+		int[] paperArr = stuArray[stuIndex].paperScores;
+		int[] examArr = stuArray[stuIndex].examScores;
+//		System.out.println("Quizzes");
+//		for(int i=0; i<quizArr.length;i++) {
+//			if(quizArr[i]==stuIndex) {}
+//			else System.out.println(quizArr[i]);
+//		}
+
+//		System.out.println("Papers");
+//		for(int i=0; i<paperArr.length;i++) {
+//			if(paperArr[i]==0) {}
+//			else System.out.println(paperArr[i]);
+//		}
+//		System.out.println("Exams:");
+
+//		for(int i=0; i<examArr.length;i++) {
+//			if(examArr[i]==0) {}
+//			else System.out.println(examArr[i]);
+//		}
+//		System.out.println(quizArr[stuIndex]);
+//
+//		quizTotal = Arrays.stream(quizArr).sum();
+//		paperTotal = Arrays.stream(paperArr).sum();
+//		examTotal = Arrays.stream(examArr).sum();
+
+		for (int i = 0; i < countQuiz; i++) {
+			System.out.println("quiz score: "+ quizArr[i]);
+			quizTotal = quizTotal + quizArr[i];
+		}
+		for (int i = 0; i < countPaper; i++) {
+			System.out.println("paper score "+paperArr[i]);
+			paperTotal = paperTotal + paperArr[i];
+		}
+		for (int i = 0; i < countExam; i++) {
+			System.out.println("exam score "+examArr[i]);
+			examTotal = examTotal + examArr[i];
+		}
+		System.out.println(quizTotal + " quizzes; " + paperTotal + " papers; " + examTotal + " exams");
+		examTotal = examTotal / (maxPointsExam*5);
+		paperTotal = paperTotal / (maxPointsPaper *8);
+		quizTotal = quizTotal / (maxPointsQuiz*45);
+
+		double currentGrade = (examTotal*percentExam) + (paperTotal*percentPaper) + (quizTotal*percentQuiz);
+		System.out.println("current grade is : " + 100*currentGrade);
+		return currentGrade *100;
+	}
+
+	/**
+	 * A read method that accepts a Scanner object and reads all data about one
+	 * Student and stores that data in the object (see below for data format)
+	 * 
+	 * @param fileName - as a String
+	 */
+
+	public void read(Scanner input) {
+		System.out.println("Student read scanner function");
+		this.lastName = input.next();
+		System.out.println(lastName+ "is lastName");
+		this.firstName = input.next();
+		int tempInt = input.nextInt();
+		studentID = String.valueOf(tempInt);
+		//this.setStudentID(studentID);
+		System.out.println(this.studentID + " is studentID");
+		this.numAbsences = input.nextInt();
+		System.out.println(this.numAbsences + " is num absences");
+
+		int i = 0;
+		countQuiz = input.nextInt();
+		System.out.println(countQuiz+ " is the quizCount");
+		recordQuiz(input.nextInt());
+		recordQuiz(input.nextInt());
+		recordQuiz(input.nextInt());
+		recordQuiz(input.nextInt());
+		recordQuiz(input.nextInt());
+		
+		countPaper = input.nextInt();
+		recordPaper(input.nextInt());
+		
+		countExam = input.nextInt();
+		recordExam(input.nextInt());
+//		while (i < countQuiz) {
+//			recordQuiz(input.nextInt());
+//			i++;
+//		}
+//		i = 0;
+//		countPaper = input.nextInt();
+//		while (i < countPaper) {
+//			recordPaper(input.nextInt());
+//			i++;
+//		}
+//		i = 0;
+//		countExam = input.nextInt();
+//		while (i < countExam) {
+//			recordExam(input.nextInt());
+//			i++;
+//		}
+		System.out.println("Finished reading file");
+	}
+
+	/**
+	 * A toString method that returns a String containing all data about the student
+	 * in a nice neat format. Note that this should include the Student’s overall
+	 * course grade
+	 */
+
+	public String toString() {
+		return "Last Name: "+this.lastName + "\n " + " First Name: "+ this.firstName + " \n" +" Student ID: "+ this.getStudentID() +" \n "+ "Absences: "+ this.numAbsences + " "
+		 + "\n Current Grade: " + this.currentGrade;
+	}
+
+	/**
+	 * A recordAbsence method that takes no parameters and adds one to the student’s
+	 * absences
+	 */
+
+	public void recordAbsence() {
+		numAbsences += 1;
+	}
+
+	/**
+	 * A recordQuiz method that takes the quiz score the student received and adds
+	 * it to the student’s quiz scores.
+	 * 
+	 * @param quizScore - as an int
+	 */
+
+	public void recordQuiz(int quizScore) {
+		 System.out.println(quizScore+" is a quizScore");
+		quizScores[countQuiz] = quizScore;
+		countQuiz += 1;
+	}
+
+	/**
+	 * A recordPaper method that takes the paper score the student received and adds
+	 * it to the student’s paper scores
+	 * 
+	 * @param paperScore - as an int
+	 */
+
+	public void recordPaper(int paperScore) {
+		System.out.println(paperScore+" is a paperScore");
+		paperScores[countPaper] = paperScore;
+		countPaper += 1;
+	}
+
+	/**
+	 * A recordExam method that takes the exam score the student received and adds
+	 * it to the student’s exam scores
+	 * 
+	 * @param examScore - as an int
+	 */
+
+	public void recordExam(int examScore) {
+		System.out.println(examScore+ " is an examScore");
+		examScores[countExam] = examScore;
+		countExam += 1;
+	}
+
+	/**
+	 * setstudentID
+	 * 
+	 * @param studentID
+	 */
+
+	public void setStudentID(String studentID) {
+		this.studentID = studentID;
+	}
+
+	/**
+	 * Add an option to your program to write all of the information about the
+	 * course to a file (name specified by the user). This file must be in exactly
+	 * the same format as the data read in. You will need to add methods in Student
+	 * and Course to print the data properly to a file
+	 * 
+	 * @param output
+	 */
+
+	public void write(PrintWriter output) {
+		output.println(courseName);
+		output.println(countQuiz);
+		output.println(countPaper);
+		output.println(countExam);
+		int stuLength = 0;
+		int numStudents = 3; // stuArray.length glitches the output file?
+
+		if (stuLength < numStudents && count < 41) {
+			output.println(this.lastName);
+			output.println(this.firstName);
+			output.println(studentID);
+			output.println(numAbsences);
+
+			output.println(countQuiz);
+			int i = 0;
+			while (i < countQuiz) {
+				output.println(quizScores[i]);
+				i++;
+			}
+
+			i = 0;
+			output.println(countPaper);
+			while (i < countPaper) {
+				output.println(paperScores[i]);
+				i++;
+			}
+
+			i = 0;
+			output.println(countExam);
+			while (i < countExam) {
+				output.println(examScores[i]);
+				i++;
+			}
+			stuLength++;
+		}
+	}
+
+	public static void main(String[] args) {
+		Course course = new Course();
+		Student student = new Student();
+		course.read("coursefile.txt");
+		
+		int indexTest1 = student.findStudent("123456789"); // correctly found index1
+		int indexTest2 = student.findStudent("555555555"); // correctly found index2
+		int indexTest3 = course.findStudent("987654321"); // correctly found index2
+		student.calculateGrade(indexTest3);
+		// System.out.println(indexTest1+" "+indexTest2);
+	}
+}
+
+
+
+
+
+
+package edu.ilstu;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+/**
+ * Project6: Files, Arrays, Classes
+ * 
+ * @author Scott Schmidt
+ */
+public class GraderApp {
+	/**
+	 * @param args
+	 */
+	public GraderApp(String[] string)
+	{
+		this.menuItems = string;
+	}
+	static Scanner input= new Scanner(System.in);
+	
+	static String [] menuItems= {
+			"Press 1 to enter in scores using a file", 
+			"Press 2 to correct an exam, paper, or quiz score", 
+			"Press 3 to get a student's grade", 
+			"Press 4 to get info on a student", 
+			"Press 5 to get all information of students",
+			"Press 6 to quit the program."
+			};
+	
+	// displays the menu to the screen
+		private void displayMenu()
+		{
+			System.out.println();
+			System.out.println("Menu Options are as follows:");
+			for (int i = 0; i < menuItems.length; i++)
+			{
+				System.out.println("  " + (i + 1) + "  " + menuItems[i]);
+			}
+			System.out.println();
+		}
+
+		// validates the menu choice
+		private int validateChoice(String input)
+		{
+			int choice;
+			try
+			{
+				choice = Integer.parseInt(input);
+			}
+			catch (NumberFormatException e)
+			{
+				choice = -1;
+			}
+			if (choice < 1 || choice > menuItems.length)
+			{
+				choice = -1;
+			}
+			return choice;
+		}
+	
+	public static void main(String[] args) {
+		Course course = new Course();
+		Student student = new Student();
+		GraderApp menu = new GraderApp(menuItems);
+	
+		while(true) {
+		menu.displayMenu();
+		int choice=input.nextInt();
+		//menu.validateChoice(choice);
+		
+		if (choice==1) {
+			System.out.println("Enter text file");
+			String fileName=input.next();
+			course.read(fileName); //course.read("coursefile.txt")
+		} else if (choice==2) {
+			System.out.println("Enter in 1) studentID 2)new score and 3)new exam scores");
+			int tempID=input.nextInt();
+			String studentID=String.valueOf(tempID);
+			int newScore=input.nextInt();
+			int countExam=input.nextInt();
+			course.correctExamScore(studentID, newScore, countExam-1);
+		} else if (choice==3) {
+			System.out.println("Enter studentID to get grade");
+			int tempID=input.nextInt();
+			String studentID=String.valueOf(tempID);
+			int stuIndex=course.findStudent(studentID);
+			student.calculateGrade(stuIndex);
+			
+		} else if(choice==4) {
+			System.out.println("Enter studentID to get report");
+			String studentID=input.next();
+			//String studentID=String.valueOf(tempID);
+			course.printStudentReport(studentID);
+		} else if(choice==5) {
+			System.out.println("Get course information");
+			course.printCourseReport();
+		} else if(choice==6) {
+			System.out.println("GoodBye. Quit Program");
+			break;
+		} else if (choice==7) {
+			course.writeList("output.txt"); //EXTRA CREDIT THING
+		} else {
+			System.out.println("Error. Try Again.");
+			System.out.println("Enter a choice between: 1 and "+menuItems.length);
+		}
+	}
+	}
+}
+
+/**
+ * The GraderApp class will use the Student, Course, and TextMenu (from program
+ * 5) classes to create a program that presents a menu that allows the user to
+ * do the following: • Enter a set of scores for an exam, paper, or quiz for all
+ * students These scores will come from a file, which will be in the same order
+ * as the initial data file (guaranteed). The user will need to supply the name
+ * of the file. • Correct an exam, paper, or quiz score for a student. The user
+ * will need to supply the student’s id, information about which exam/quiz/paper
+ * needs to be corrected, and the correct score. Remember that users think the
+ * first item is item number 1, not item number 0. • Get a particular student’s
+ * current course grade. The user will need to supply the student’s id. • Print
+ * to the screen all information about a student. The user will need to supply
+ * the student’s id. • Print a listing of all student names, ids and current
+ * course grades. • Quit the program. Note that you may want to use more than
+ * one instance of the TextMenu class. You should use your work on program 5 to
+ * help you design this part of the program.
+ */
