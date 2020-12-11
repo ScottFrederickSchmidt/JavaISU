@@ -28,3 +28,16 @@ public class SumOddRange {
      
      
      
+public class FirstLastDigitSum {
+    public static int sumFirstAndLastDigit(int number) {
+    	if (number<0) {
+            return -1;
+        } 
+        
+        int lastDigit=number%10; //gets the remainder which is last digit
+        while (number>9) {
+            number=number/10; //keeps dividing until only first number remains
+        }
+        return lastDigit+number; //gets sum of first and last digit
+    }
+}
