@@ -1,0 +1,30 @@
+public class SumOddRange {
+
+	public static boolean isOdd(int number) {
+	    if (number<0 || number %2==0) {
+	        return false;
+	    }  else {
+	        return true;
+	    }
+	}    
+	public static int sumOdd(int start, int end) {
+		int total=-1;
+		if (start>0 && end>0 && end>=start) {
+	        total=0;
+	    for (int i=start; i<=end; i++) {
+	    	System.out.println(i);
+	        if (isOdd(i)) {
+	            total=total+i;
+	            System.out.println(i + " new total is: "+total);
+	        }
+	    }
+	    }
+	    return total;
+	}
+	}
+	   
+     
+     
+     
+     
+     
