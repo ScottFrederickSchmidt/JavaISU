@@ -1,0 +1,335 @@
+package finalPractice;
+
+// Write a method called printTriangle that will accept an integer length as a parameter and prints out a triangle of stars. 
+// The number of stars on the base of the triangle is equal to the length. 
+// For example, if the length was equal to 5, the following will be printed: (use for loops in your method)
+
+//*****
+//
+//****
+//
+//***
+//
+//**
+//
+//*
+
+public class Question1 {
+
+	public static void printTriangle(int rows) {
+
+        for (int i = 1; i <= rows; i++) { 
+
+            // loop to print the number of stars in each row 
+            for (int j = 1; j <= i; j++) { 
+                System.out.print("* "); 
+            } 
+  
+            // for new line after printing each row 
+            System.out.println(); 
+        } 
+	}
+
+	public static void main(String[] args) {
+		printTriangle(5);
+	}
+}
+
+
+
+
+
+public class Club {
+	Club[] clubArray;
+	int numberOfmembers;
+
+	String clubName;
+	int yearOfEst;
+
+	public Club() {
+		numberOfmembers = 0;
+	}
+
+	public Club(String clubName, int yearOfEst) {
+		this.clubName = clubName;
+		this.yearOfEst = yearOfEst;
+	}
+
+	public void read(String fileName) {
+		Scanner input = null;
+
+		try {
+			input = new Scanner(new File(fileName));
+			System.out.println("Read Method");
+			while (input.hasNext()) {
+				this.clubName = input.next();
+				this.yearOfEst = input.nextInt();
+				Club c = new Club(this.clubName, this.yearOfEst);
+				clubArray[numberOfmembers] = c;
+				numberOfmembers++;
+			}
+		}
+
+		catch (FileNotFoundException e) {
+			System.out.println("Could not find file");
+			System.exit(1);
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	}
+}
+
+
+
+
+
+
+public class Customer {
+
+//	The Customer class has getters for years of service and military branch as well as an isUSACitizen predicate
+//	that accepts no parameters and returns true if the customer is a USA citizen and false otherwise.
+
+String id;
+int countCitizen;
+int yearsService;
+String militaryType;
+
+static Customer[] custArray; 
+int count=0;
+
+public Customer (String id, int cit, int yearsService, String militaryType) {
+	this.id=id;
+	this.countCitizen = cit;
+	this.yearsService=yearsService;
+	this.militaryType=militaryType;
+}
+
+public String getMilitaryType() {
+	return militaryType;
+}
+
+public boolean isCitizen(int cit) {
+	if (cit==1) {
+	 return true; //isCitizen
+	} else {
+		return false;
+	}
+}
+
+public int getServiceYears() {
+	return yearsService;
+}
+
+//Non-USA citizens must be Navy veterans with 6 years of service or higher.
+//USA citizens must be Navy or Army veterans with 4 years of service or higher.
+public boolean checkDiscount( ) {
+	if ( isCitizen(countCitizen) && yearsService>4  ) {
+		return true;
+	}  else {
+		return false; 
+	}
+}
+//The method accepts a Customer object as a parameter and returns true if the Customer is eligible for the discount and false otherwise.
+	
+	public static void main(String[] args) {
+		Customer c = new Customer("id123", -1, 10,  "Navy");
+		custArray[0] = c;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+public class Person {
+	
+	String firstName; //-firstName: String
+	String lastName; //-lastName: String
+	int netWorth; //-netWorth: int
+	double age; //-age: double
+	
+	int count=0;
+	Person [] personArray;
+	
+	//+Person(String fn, int nw, String ln)	
+	public Person(String fn, int nw, String ln) {
+		this.firstName=fn;
+		this.netWorth=nw;
+		this.lastName=ln;
+	}
+
+	// Write a method called writeToFile that will accept an array of people (see
+	// below UML) as a parameter.
+
+	// Your method should handle any exception that might be encountered when
+	// writing to the file.
+	// Below is a sample of what the file will look like:
+	//
+	// Elon Musk
+	// Bill Gates
+	// Warren Buffett
+	public void write(String fileName) {
+		PrintWriter output = null;
+		System.out.println("writeList method called..");
+
+		try {
+			output = new PrintWriter(new FileWriter(fileName));
+			// The method will store the first and last name of every person who’s net worth
+			// is less than $10,000 in a file called lowNetWorth.txt.
+			for (int i=0; i<personArray.length; i++) {
+				if (personArray[i].netWorth <10_000 ) {
+					output.write(firstName);
+					output.write(lastName);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		output.flush();
+		output.close();
+	}
+	
+	public void firstName(String firstName) {
+		this.firstName=firstName;
+	}
+	
+	//+getFirstName():String
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	//+getAge():double
+	public double getAge() {
+		return age;
+	}
+	
+	//+getNetWorth():int
+	
+	public int getNetWorth() {
+		return netWorth;
+	}
+	
+	//+getLastName():String
+	public String getLastName() {
+		return lastName;
+	}
+	
+	//+setNetWorth(int nw):void
+	
+	public void setNewWorth(int netWorth) {
+		this.netWorth=netWorth;
+	}
+	
+	public String toString() {
+		return " First Name: " +this.firstName +" Last Name: " +this.lastName;
+	}
+	
+	
+	public static void main(String[] args) {
+		Person p = new Person("Scott", 2, "Schmidt");
+		String test= p.toString();
+		System.out.println(test);
+		//p.write("output.txt");
+//		Person p1 = new Person("Scott", 2000, "Schmidt");
+//		personArray[0]=p1;
+//		p1.write("output.txt");
+//		
+//		Person p2 = new Person("Bill", 1000, "Gates");
+//		personArray[1]=p2;
+//		
+//		Person p3 = new Person("Elon", 999999, "Musk");
+//		personArray[2]=p3;
+		
+		//p2.write("output.txt");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public class Persons {
+	String name;
+	String id;
+	double dues;
+	
+	int personArr[];
+	
+	//	Club (String name, String id, double dues) {
+//		int personArr[] = new int[10];
+//	}
+	
+	
+	public Persons (String name, String id, double dues) {
+		  this.name=name;
+		  this.id=id;
+		  this.dues=dues;
+	  }
+
+	//Write the toString method in the Club class that returns the information of all the members in the following format: (6 points)
+	//Name: Alice In Wonderland
+	//ID: 1234
+	//Dues Paid: $12.00
+
+	//Name: Bob Barker
+	//ID: 4321
+	//Dues Paid: $10.25
+	public String toString() {
+	    	return this.name+" \n " + this.id+ " \n "+ " "+this.dues;
+	    }
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	}
+}
+
+
+
+
+
+
+
+/Write a method named, computeAverage, which takes an integer array as input 
+// and returns the average of the values contained within the array.
+
+public class Question12 {
+	
+	public static int computeAverage( int[] arr ) {
+		int total=0;
+		int length=arr.length;
+		for (int i=0; i <length; i++) {
+			total=total+arr[i];
+		}
+		int average=total/length;
+		return average;
+	}
+
+	public static void main(String[] args) {
+		int[] intArray = new int[3];
+
+		intArray[0] = 1;
+		intArray[1] = 2;
+		intArray[2] = 3;
+		int avg = computeAverage( intArray );
+		System.out.println(avg);
+	}
+}
+
+
+
