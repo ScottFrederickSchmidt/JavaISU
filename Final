@@ -1,0 +1,253 @@
+public class Book {
+	
+String name;
+int isbn;	
+double price;
+String publisher;
+int count=0;
+Book[] bookArray;
+
+Book(String name, int isbn, String publisher) {
+	this.name=name;
+	this.isbn=isbn;
+	this.publisher=publisher;
+}
+
+public void write(PrintWriter output) {
+	output.println();
+}
+
+//write a method called writeToFile that will accept an array of books (see below UML) as a parameter.
+//The method will store the ISBN and name of every book that costs less than 5 dollars in a file called cheapBooks.txt.
+//Your method should handle any exception that might be encountered when writing to the file.
+//Below is a sample of what the file will look like:
+//978-1-284-14099-6         Java Illuminated
+//978-0-13-354519-7         Corporate Computer Security
+//978-0-13-428910-6         Technology In Action
+
+public void writeTofile(String fileName) {
+	PrintWriter outfile = null;
+
+	try {
+		outfile = new PrintWriter(new FileWriter(fileName));
+		for (int i = 0; i < count; i++) {
+			if (bookArray[i].getPrice()<5) {
+			bookArray[i].write(outfile);
+			}
+		}
+		System.out.println("Wrote text completed, closing file.");
+		outfile.close();
+	} catch (IOException e) {
+		System.out.println("An error occurred: " + e);
+		System.out.println("The list of students was not written");
+	}
+}
+
+public void setPrice(double price) {
+	this.price=price;
+}
+
+public int getIsbn() {
+	return isbn;
+}
+
+public String getPublisher() {
+	return publisher;
+}
+
+public String getName() {
+	return name;
+}
+
+public double getPrice( ) {
+	return price;
+}
+
+	public static void main(String[] args) {
+		// Create Objects here
+		Book b = new Book("Java Illuminated", 978-1-284-14099-6, "Terry Plickelbaum");
+	}
+}
+
+
+
+
+
+
+public class Customer {
+
+//	The Customer class has getters for years of service and military branch as well as an isUSACitizen predicate
+//	that accepts no parameters and returns true if the customer is a USA citizen and false otherwise.
+
+String id;
+int countCitizen;
+int yearsService;
+String militaryType;
+
+static Customer[] custArray; 
+int count=0;
+
+public Customer (String id, int cit, int yearsService, String militaryType) {
+	this.id=id;
+	this.countCitizen = cit;
+	this.yearsService=yearsService;
+	this.militaryType=militaryType;
+}
+
+public String getMilitaryType() {
+	return militaryType;
+}
+
+public boolean isCitizen(int cit) {
+	if (cit==1) {
+	 return true; //isCitizen
+	} else {
+		return false;
+	}
+}
+
+public int getServiceYears() {
+	return yearsService;
+}
+
+//Non-USA citizens must be Navy veterans with 6 years of service or higher.
+//USA citizens must be Navy or Army veterans with 4 years of service or higher.
+public boolean checkDiscount( ) {
+	if ( isCitizen(countCitizen) && yearsService>4  ) {
+		return true;
+	}  else {
+		return false; 
+	}
+}
+//The method accepts a Customer object as a parameter and returns true if the Customer is eligible for the discount and false otherwise.
+	
+	public static void main(String[] args) {
+		Customer c = new Customer("id123", -1, 10,  "Navy");
+		custArray[0] = c;
+	}
+}
+
+
+
+
+
+
+
+/Write a method called printRectangle that will accept an integer length as a parameter and prints out a rectangle of stars. \
+//The width of rectangle will be half the length(round down if the length was an odd value). 
+//If the length was an odd number, the rectangle will be printed in a landscape mode.
+//If the length was an even number, the rectangle will be printed in portrait mode. 
+//For example, if the length was equal to 7, the following will be printed: 
+//* * * * * * * 
+//* * * * * * * 
+//* * * * * * *
+//If the length was equal to 8, the following will be printed:
+//* * * * 
+//* * * * 
+//* * * * 
+//* * * * 
+//* * * * 
+//* * * * 
+//* * * * 
+//* * * *
+//(use for loops in your method)
+
+
+public class finalQ2 {
+
+public static void printRectangle(int length ) {
+	int newNum=0;
+	newNum=length/2;
+	String str="* ";
+	if (length%2!=0) {
+		for (int i=0; i<newNum; i++) {
+			System.out.println( str.repeat(length) );
+		}
+	} else {
+		for (int i=0; i<length; i++) {
+			System.out.println( str.repeat(newNum) );
+		}
+	}
+}
+	
+	public static void main(String[] args) {
+		printRectangle(7);
+		printRectangle(8);
+	}
+}
+
+
+
+
+
+
+
+public class Employee {
+
+	Employee[] empArray;
+	int numberOfEmployees=0;
+	final String ORGANIZATION_NAME = "FIFA";
+	
+	String name;
+	String id;
+	double hourlyWage;
+	
+	Employee (String name, String id, double hourlyWage) {
+		this.name=name;
+		this.id=id;
+		this.hourlyWage=hourlyWage;
+	}
+	
+	public String OrganizationToString () {
+		String allInfo="";
+		for (int i=0; i<empArray.length; i++ ) {
+			allInfo=allInfo+ "NAME: "+ this.name+ "\n ID:" + id +"\n WAGE: "+hourlyWage;
+			System.out.println(" ");
+		}
+		return allInfo;
+	}
+	
+	public void addEmployee (Employee employee) {
+		empArray[numberOfEmployees]=employee;
+		numberOfEmployees++;
+	}
+
+	public int getEmployeeInfo (String id) {
+		int index = -1; 
+		int i = 0;
+		while (i < numberOfEmployees) {
+			if (empArray[i].getID().equalsIgnoreCase(id)) {
+				index = i;
+				System.out.println("found student id" +index);
+				break;
+			}
+			i = i + 1;
+		}
+		return index;
+	}
+
+	private String getID() {
+		return id;
+	}
+
+	public String toString () {
+		return "NAME: "+ this.name+ "\n ID:" + id +"\n WAGE: "+hourlyWage;
+	}
+	public static void main(String[] args) {
+		//Could create objects here with more time to test code.
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
