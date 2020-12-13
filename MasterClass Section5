@@ -41,3 +41,39 @@ public class FirstLastDigitSum {
         return lastDigit+number; //gets sum of first and last digit
     }
 }
+
+
+
+
+
+
+
+
+
+public class EvenDigitSum {
+    public static int getEvenDigitSum(int number) {
+        if (number<0) {
+            return -1;
+        } else {
+        
+        int total=0;
+        String strNum = String.valueOf(number);
+        
+        for (int i=0; i<strNum.length(); i++) {
+                       int digit=Integer.parseInt(strNum.substring(i, i+1));
+        	if (digit%2==0) {
+                total=total+digit;
+            }
+        }
+        return total; 
+    }
+}
+}
+
+
+
+
+
+
+
+
