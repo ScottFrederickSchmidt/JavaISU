@@ -142,3 +142,22 @@ public class Cuboid extends Rectangle {
 
 
 
+
+import java.util.Scanner;
+
+public class InputCalculator{
+public static void inputThenPrintSumAndAverage() {
+    Scanner input = new Scanner(System.in); 
+    
+    int sum=0;
+    int count=0;
+    
+        while (input.hasNextInt() ) {
+            sum=sum+input.nextInt();
+            count=count+1;
+        }
+        int avg= (int) Math.round((double) sum/count);
+        System.out.println("SUM = " + sum + " AVG = " + avg);
+        input.close();
+    }
+}
