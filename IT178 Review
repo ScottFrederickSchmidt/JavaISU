@@ -45,149 +45,164 @@ public class Bicycle {
 
 
 public class BicycleInventory {
-	//Instance variables:
-	private static Bicycle[] data;  // Bicycle array that stores each Bicycle in the inventory
-	private static int actualSize;//variable that represents the size of the Bicycle array
-	public static int SIZE=100;
-	
-	//default constructor that instantiates the array to a size of 100 and sets the variable size to zero:
+	// Instance variables:
+	private static Bicycle[] data; // Bicycle array that stores each Bicycle in the inventory
+	private static int actualSize;// variable that represents the size of the Bicycle array
+	public static int SIZE = 100;
+
+	// default constructor that instantiates the array to a size of 100 and sets the
+	// variable size to zero:
 	public BicycleInventory() {
-		data=new Bicycle[SIZE];
-	    //actualSize=0;
+		data = new Bicycle[SIZE];
+		actualSize = 0;
+	}
+
+	// this method reads the data from the bicycle.txt file and stores it in the
+	// array.
+	public void readInventory() {
+		try {
+			Scanner reader = new Scanner(new File("bicycle.txt"));
+			reader.nextLine();
+			int counter = 0;
+			while (reader.hasNextLine()) 
+			{
+				String[] info = reader.nextLine().split(" ");
+				String type = String.valueOf(info[0]);
+				int wheelSize = Integer.parseInt(info[1]);
+				boolean assembled = Boolean.parseBoolean(info[2]);
+				char g = info[3].charAt(0);
+				//System.out.println(" Original data: " + data);
+				data[counter++] = new Bicycle(type, wheelSize, assembled, g);
+			}
+			actualSize = counter;
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found.");
+			e.printStackTrace();
+		}
 	}
 	
-	//this method reads the data from the bicycle.txt file and stores it in the array. 
-	public void readInventory( ) {
-	   try {
-		     Scanner myReader = new Scanner(new File("bicycle.txt"));
-		     int counter=0;
-	        
-	     while (myReader.hasNextLine()) {
-	            String [] info = myReader.nextLine().split(" ");
-	            String type=String.valueOf(info[0]); 
-	            int wheelSize=Integer.parseInt(info[1]);   
-	            boolean assembled=Boolean.parseBoolean(info[2]); 
-	            char g=info[3].charAt(0);
-	            System.out.println(" Original data: "+data+" . type: "+ type+" wheelSize: "+wheelSize+" assembled: "+assembled+" gender: "+g);
-	            data[counter++]=new Bicycle(type, wheelSize, assembled, g);
-	     }        
-	     actualSize = counter;	
-	     } catch (FileNotFoundException e) {
-             System.out.println("File not found.");
-             e.printStackTrace();
-           }
-         }
-	   
+	public void displayBikes(Object [] bikeInfo)
+	{
+		System.out.println("Object length is: "+bikeInfo.length + "Type"+" "+ "WheelSize"+" "+ "Assembled"+" "+ "Gender");
+		for (int i=0; i<bikeInfo.length; i++) {
+			System.out.println(((Bicycle) bikeInfo[i]).getType() +" "+ data[i].getWheelSize()+" "+ data[i].getAssembled()+" "+data[i].toString(data[i].getGender() ));
+		}
+	}
+	
+	public void displayAllBikes()
+	{
+		System.out.println("Type"+" "+ "WheelSize"+" "+ "Assembled"+" "+ "Gender");
+		for(int i=0; i<actualSize; i++)
+		{
+			System.out.println(data[i].getType() +" "+ data[i].getWheelSize()+" "+ data[i].getAssembled()+" "+data[i].toString(data[i].getGender() ));
+		}
+	}
+
 //	   getChoices- this method will be overloaded multiple times to accept each of the four parameters, as well as a number. 
 //	   It will retrieve a specific number of bikes indicated by the number input.
-	public static Object[] getChoices(String type, int wheelSize, boolean assembled, char gender, int amount ) {
-		Object[] bikes= { };
-		int count=0;
-		if (amount<count) 
-		for (int i=0; i<SIZE; i++) {
-			if (data[i].type==type && data[i].wheelSize==wheelSize && data[i].assembled==assembled && data[i].gender==gender) {
-				bikes[count]=data[i];
-				count=count+1;
+	public static Object[] getChoices(String type, int wheelSize, boolean assembled, char gender, int amount) {
+		Object[] bikes = {};
+		int count = 0;
+		if (amount < count)
+			for (int i = 0; i < actualSize; i++) {
+				if (data[i].type == type && data[i].wheelSize == wheelSize && data[i].assembled == assembled
+						&& data[i].gender == gender) {
+					bikes[count] = data[i];
+					count = count + 1;
+				}
 			}
-		}
 		return bikes;
 	}
-	
+
 	public static Object[] getChoices(char gender, int amount) {
-		Object[] bikes= { };
-		int count=0;
-		if (amount<count)
-		for (int i=0; i<SIZE; i++) {
-			if (data[i].gender==gender) {
-				bikes[count]=data[i];
-				count=count+1;
+		Object[] bikes = {};
+		int count = 0;
+		for (int i = 0; i < amount; i++) {
+			if (data[i].gender == gender) {
+				bikes[count] = data[i];
+				count = count + 1;
 			}
 		}
 		return bikes;
 	}
-	
-	public static Object[] getChoices(boolean assembled, int amount) {
-		Object[] bikes= { };
-		int count=0;
-		if (amount<count)
-		for (int i=0; i<SIZE; i++) {
-			if (data[i].assembled=assembled) {
-				bikes[count]=data[i];
-				count=count+1;
+
+	public Object[] getChoices(boolean assembled, int amount) {
+		Object[] bikes = {};
+		int count = 0;
+			for (int i = 0; i < actualSize; i++) {
+				if (data[i].assembled = assembled) {
+					bikes[count+1] = data[i];
+				}
 			}
-		}
 		return bikes;
 	}
-	
-	public static Object[] getChoices(int wheelSize, int amount) {
-		Object[] bikes= { };
-		int count=0;
-		if (amount<count)
-		for (int i=0; i<SIZE; i++) {
-			if (data[i].wheelSize==wheelSize) {
-				bikes[count]=data[i];
-				count=count+1;
+
+	public Object[] getChoices(int wheelSize, int amount) {
+		Object[] bikes = {};
+		int count = 0;
+		for (int i = 0; i < amount; i++) {
+			if (data[i].wheelSize == wheelSize) {
+				bikes[count+1] = data[i];
+				}
 			}
-		}
 		return bikes;
 	}
-	
+
 	public static Object[] getChoices(String type, int amount) {
-		Object[] bikes= { };
-		int count=0;
-		if (amount<count)
-		for (int i=0; i<SIZE; i++) {
-			if (data[i].type==type) {
-				bikes[count]=data[i];
-				count=count+1;
+		Object[] bikes = {};
+		int count = 0;
+		for (int i = 0; i < amount; i++) {
+			if (data[i].type == type) {
+				bikes[count+1] = data[i];
 			}
 		}
 		return bikes;
 	}
-	
+
 //	chooseOne- this method will also be overloaded multiple times with the same parameters as getChoices.
 //	It will call getChoices with the same parameters. 
 //	This method returns a randomly selected bicycle from the list of bicycles provided from getChoices. 
-	public static Object chooseOne(String type, int wheelSize, boolean assembled, char gender ) {
-		Object[] bikes=getChoices(type, wheelSize, assembled, gender, data.length );
+	public Object chooseOne(String type, int wheelSize, boolean assembled, char gender) {
+		Object[] bikes = getChoices(type, wheelSize, assembled, gender, data.length);
 		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);   
-		return Array.get(bikes, randInt);
-	}
-	
-	public static Object chooseOne(String type ) {
-		Object[] bikes=getChoices(type, data.length );
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);   
-		return Array.get(bikes, randInt);
-	}
-	
-	public static Object chooseOne(int wheelSize ) {
-		Object[] bikes=getChoices(wheelSize, data.length );
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);   
-		return Array.get(bikes, randInt);
-	}
-	
-	public static Object chooseOne(boolean assembled ) {
-		Object[] bikes=getChoices(assembled, data.length );
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);   
-		return Array.get(bikes, randInt);
-	}
-	
-	public static Object chooseOne(char gender ) {
-		Object[] bikes=getChoices(gender, data.length );
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);   
-		return Array.get(bikes, randInt);
+		int randInt = r.nextInt(bikes.length);
+		return bikes[randInt];
 	}
 
-	//get Instant Variables:
+	public Object chooseOne(String type) {
+		Object[] bikes = getChoices(type, data.length);
+		Random r = new Random();
+		int randInt = r.nextInt(bikes.length);
+		System.out.printf(" is bike length", randInt, " is random number");
+		return bikes[randInt];
+	}
+
+	public Object chooseOne(int wheelSize) {
+		Object[] bikes = getChoices(wheelSize, data.length);
+		Random r = new Random();
+		int randInt = r.nextInt(bikes.length);
+		return bikes[randInt];
+	}
+
+	public Object chooseOne(boolean assembled) {
+		Object[] bikes = getChoices(assembled, data.length);
+		Random r = new Random();
+		int randInt = r.nextInt(bikes.length);
+		return bikes[randInt];
+	}
+
+	public Object chooseOne(char gender) {
+		Object[] bikes = getChoices(gender, data.length);
+		Random r = new Random();
+		int randInt = r.nextInt(bikes.length);
+		return bikes[randInt];
+	}
+
+	// get Instant Variables:
 	public int getSize() {
 		return actualSize;
 	}
-	
+
 	public static Bicycle[] getBikeArr() {
 		return data;
 	}
@@ -237,7 +252,7 @@ public class BicycleDriver {
 		Scanner input= new Scanner(System.in);
 		BicycleInventory b = new BicycleInventory();
 		b.readInventory();
-
+		
 		while (true) {
 			displayMenu();
 			int choice=input.nextInt();
@@ -250,19 +265,19 @@ public class BicycleDriver {
 				if(chooseOne==1) {
 					System.out.println("What is the wheel size(14 or 16)? ");
 					int wheelSize=input.nextInt();
-					BicycleInventory.chooseOne(wheelSize);
+					b.chooseOne(wheelSize);
 				} else if (chooseOne==2) {
 					System.out.println("Enter type:");
 					String type=input.nextLine();
-					BicycleInventory.chooseOne(type);
+					b.chooseOne(type);
 				} else if (chooseOne==3) {
 					System.out.println("Enter gender: m or f:");
 					char g=input.next().charAt(0);
-					BicycleInventory.chooseOne(g);
+					b.chooseOne(g);
 				} else if (chooseOne==4) {
 					System.out.println("Assembled? true or false");
 					boolean assembled=input.nextBoolean();
-					BicycleInventory.chooseOne(assembled);
+					b.chooseOne(assembled);
 				} else if (chooseOne==5) {
 					System.out.println("What is the wheel size(14 or 16)? ");
 					int wheelSize=input.nextInt();
@@ -272,61 +287,70 @@ public class BicycleDriver {
 					boolean assembled=input.nextBoolean();
 					System.out.println("Enter gender: m or f:");
 					char g=input.next().charAt(0);
-					
-					BicycleInventory.chooseOne(type, wheelSize, assembled, g);
+					b.chooseOne(type, wheelSize, assembled, g);
 				}
+			}
 			
-			//2- List inventory by wheelSize
-			if (choice==2) {
+			//2- List inveBintory by wheelSize
+			else if (choice==2) 
+			{
 				System.out.println("What is the wheel size(14 or 16)? ");
 				int wheelSize=input.nextInt();
 				System.out.println("How many results?");
 				int amount=input.nextInt();
-				BicycleInventory.getChoices(wheelSize, amount);
+				Object[] bikeObj=b.getChoices(wheelSize, amount);
+				b.displayBikes(bikeObj);
 			}
 			
 			//3- List inventory by type
-			if (choice==3) {
-				System.out.println("What is the inventory type? ");
-				String type=input.nextLine();
+			else if (choice==3)
+			{
+				System.out.println("What is the inventory type? (Dirt, Road, Speed, Mountain) ");
+				String type=input.next();
 				System.out.println("How many results?");
 				int amount=input.nextInt();
-				BicycleInventory.getChoices(type, amount);
+				Object[] bikeObj=BicycleInventory.getChoices(type, amount);
+				b.displayBikes(bikeObj);
 			}
 			
 			//4- List inventory by gender
-			if (choice==4) {
+			else if (choice==4) 
+			{
 				System.out.println("What is the gender? Enter g or f");
-				char g=input.nextLine().charAt(0);
+				char g=input.next().charAt(0);
 				System.out.println("How many results?");
 				int amount=input.nextInt();
-				BicycleInventory.getChoices(g, amount);
+				Object[] bikeObj=BicycleInventory.getChoices(g, amount);
+				b.displayBikes(bikeObj);
 			}
 			
 			//5- List inventory by assembled
-			if (choice==5) {
+			else if (choice==5) 
+			{
 				System.out.println("Is it assembled? Enter true or false");
 				boolean assembled=input.nextBoolean();
 				System.out.println("How many results?");
 				int amount=input.nextInt();
-				BicycleInventory.getChoices(assembled, amount);
+				Object[] filtered=b.getChoices(assembled, amount);
+				b.displayBikes(filtered);
 			}
 				
 			//6- List entire inventory
-			if (choice==6) {
+			else if (choice==6)
+			{
 				System.out.println("Here is the entire inventory:");
-				BicycleInventory.getBikeArr();
+				b.displayAllBikes();
 			}
 			
 			//7- Quit
-			} if (choice==7) {
+			else if (choice==7)
+			{
 				break; 
 			}
 		}
 		input.close();
 	}
 }
-
 
 //bicycle.txt file is below:
 Hybrid 14 true m
@@ -354,6 +378,3 @@ Hybrid 16 true f
 Road 16 false m
 Road 14 false m
 Dirt 14 false m
-
-
-
