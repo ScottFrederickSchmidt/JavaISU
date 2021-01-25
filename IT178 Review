@@ -5,6 +5,15 @@ public class Bicycle {
 	boolean assembled; //whether the bike comes assembled
 	char gender; //single character- f or m
 	
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param type - as a String
+	 * @param wheelSize - as an int
+	 * @param assembled - as a boolean
+	 * @param gender - as a char
+	 */
 	public Bicycle (String type, int wheelSize, boolean assembled, char gender) { 
 		this.type=type;
 		this.wheelSize=wheelSize;
@@ -12,26 +21,44 @@ public class Bicycle {
 		this.gender=gender;
 	}
 	
+	/**
+	 * Gets the type with a return;
+	 */
+	
 	public String getType() {
 		return type;
 	}
+	
+	/**
+	 * Gets the wheelSize with a return;
+	 */
 	
 	public int getWheelSize() {
 		return wheelSize;
 	}
 	
-	public boolean assembled() {
+	/**
+	 * Gets the assembled with a return;
+	 */
+	public boolean getAssembled() {
 		return assembled;
 	}
+	
+	/**
+	 * Gets the gender as a char with a return;
+	 */
 	
 	public char getGender() {
 		return gender;
 	}
 	
-	// toString- should be automatically created by Eclipse, 
+	/**
+	 * prints out "female" or "male" depending on the char
+	 * @param gender as a char
+	 */ 
 	public String toString(char gender) {
 		String g=Character.toString(gender);
-		if (g=="m") {
+		if (g.equalsIgnoreCase("m") ){
 			return "male"; //gender prints out the full gender, not just the character. 
 		} else {
 			return "female";
@@ -44,22 +71,32 @@ public class Bicycle {
 
 
 
+/**
+ * BiycleInventory
+ * @author Scott Schmidt
+ */
 public class BicycleInventory {
 	// Instance variables:
 	private static Bicycle[] data; // Bicycle array that stores each Bicycle in the inventory
 	private static int actualSize;// variable that represents the size of the Bicycle array
 	public static int SIZE = 100;
-
-	// default constructor that instantiates the array to a size of 100 and sets the
-	// variable size to zero:
+	
+	/**
+	 * Default Constructor:
+	 * 
+	 * default constructor that instantiates the array to a size of 100;
+	 * and sets the variable size to zero:
+	 */
 	public BicycleInventory() {
 		data = new Bicycle[SIZE];
 		actualSize = 0;
 	}
 
-	// this method reads the data from the bicycle.txt file and stores it in the
-	// array.
-	public void readInventory() {
+	/**
+	 * this method reads the data from the bicycle.txt file and stores it in the array
+	 */
+	
+	public void readInventory(){
 		try {
 			Scanner reader = new Scanner(new File("bicycle.txt"));
 			reader.nextLine();
@@ -81,6 +118,24 @@ public class BicycleInventory {
 		}
 	}
 	
+	/**
+	 * displays a random bike within the object below:
+	 * @param bikeInfo - as an object[]
+	 */
+	
+	public void displayRandBike(Object [] bikeInfo)
+	{
+		System.out.println("Type"+" "+ "WheelSize"+" "+ "Assembled"+" "+ "Gender");
+		Random r = new Random();
+		int i = r.nextInt(bikeInfo.length);
+		System.out.println(((Bicycle) bikeInfo[i]).getType() +" "+ data[i].getWheelSize()+" "+ data[i].getAssembled()+" "+data[i].toString(data[i].getGender() ));
+	}
+	
+	/**
+	 * displays all bikes within the object below:
+	 * @param bikeInfo - as an object[]
+	 */
+	
 	public void displayBikes(Object [] bikeInfo)
 	{
 		System.out.println("Type"+" "+ "WheelSize"+" "+ "Assembled"+" "+ "Gender");
@@ -88,6 +143,10 @@ public class BicycleInventory {
 			System.out.println(((Bicycle) bikeInfo[i]).getType() +" "+ data[i].getWheelSize()+" "+ data[i].getAssembled()+" "+data[i].toString(data[i].getGender() ));
 		}
 	}
+	
+	/**
+	 * displays all bikes, has no parameter
+	 */
 	
 	public void displayAllBikes()
 	{
@@ -98,15 +157,24 @@ public class BicycleInventory {
 		}
 	}
 
-//	   getChoices- this method will be overloaded multiple times to accept each of the four parameters, as well as a number. 
-//	   It will retrieve a specific number of bikes indicated by the number input.
+	/**
+	 * getChoices- this method will be overloaded multiple times to accept each of the four parameters, as well as a number. 
+	 * It will retrieve a specific number of bikes indicated by the number input.
+	 * @param type - as a String
+	 * @param wheelSize - as an int
+	 * @param assembled - as a boolean
+	 * @param gender - as a char
+	 * @param amount - as an int
+	 */
+
 	public static Object[] getChoices(String type, int wheelSize, boolean assembled, char gender, int amount) {
 		Bicycle[] bikes= new Bicycle[amount] ;  
 		int count = 0;
 		for (int i = 0; count < amount; i++) {
-				if (data[i].type == type && data[i].wheelSize == wheelSize && data[i].assembled == assembled
-						&& data[i].gender == gender) 
-				{
+				String one=String.valueOf(data[i].getGender());
+				String two=String.valueOf(gender);
+				if (data[i].type.equalsIgnoreCase(type) && data[i].getWheelSize()==wheelSize && data[i].getAssembled() == assembled
+						&& one.equalsIgnoreCase(two) ) {
 					bikes[count] = new Bicycle(data[i].getType(), data[i].getWheelSize(), data[i].assembled, data[i].gender);
 					//System.out.println((data[i]).getType() +" "+ data[i].getWheelSize()+" "+ data[i].getAssembled()+" "+data[i].toString(data[i].getGender() ));
 					count = count + 1;
@@ -114,6 +182,13 @@ public class BicycleInventory {
 			}
 		return bikes;
 	}
+	
+	/**
+	 * getChoices- this method will be overloaded multiple times: 
+	 * It will retrieve a specific number of bikes indicated 
+	 * @param gender - as a char
+	 * @param amount - as an int
+	 */
 
 	public Object[] getChoices(char gender, int amount) {
 		Bicycle[] bikes= new Bicycle[amount] ;  
@@ -129,6 +204,13 @@ public class BicycleInventory {
 		}
 		return bikes;
 	}
+	
+	/**
+	 * getChoices- this method will be overloaded multiple times: 
+	 * It will retrieve a specific number of bikes indicated 
+	 * @param assembled - as a boolean
+	 * @param amount - as an int
+	 */
 
 	public Object[] getChoices(boolean assembled, int amount) {
 		Bicycle[] bikes= new Bicycle[amount];  
@@ -142,6 +224,13 @@ public class BicycleInventory {
 			}
 		return bikes;
 	}
+	
+	/**
+	 * getChoices- this method will be overloaded multiple times: 
+	 * It will retrieve a specific number of bikes indicated 
+	 * @param wheelSize - as an int
+	 * @param amount - as an int
+	 */
 
 	public Object[] getChoices(int wheelSize, int amount) {
 		Bicycle[] bikes= new Bicycle[amount];  
@@ -155,6 +244,13 @@ public class BicycleInventory {
 			}
 		return bikes;
 	}
+	
+	/**
+	 * getChoices- this method will be overloaded multiple times: 
+	 * It will retrieve a specific number of bikes indicated 
+	 * @param type - as a String
+	 * @param amount - as an int
+	 */
 
 	public Object[] getChoices(String type, int amount) {
 		Bicycle[] bikes= new Bicycle[amount];  
@@ -168,55 +264,87 @@ public class BicycleInventory {
 		}
 		return bikes;
 	}
+	
+	/**
+	 * chooseOne- this method will also be overloaded multiple times with the same parameters as getChoices.: 
+	 * It will call getChoices with the same parameters;
+	 * This method returns a randomly selected bicycle from the list of bicycles provided from getChoices.
+	 * @param type - as a String
+	 * @param wheelSize - as an int
+	 * @param gender - as a char
+	 * @param amount - as an int
+	 */
 
-//	chooseOne- this method will also be overloaded multiple times with the same parameters as getChoices.
-//	It will call getChoices with the same parameters. 
-//	This method returns a randomly selected bicycle from the list of bicycles provided from getChoices. 
-	public Object chooseOne(String type, int wheelSize, boolean assembled, char gender) {
-		Object[] bikes = getChoices(type, wheelSize, assembled, gender, data.length);
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);
-		return bikes[randInt];
+	public Object[] chooseOne(String type, int wheelSize, boolean assembled, char gender) {
+		Object[] bikes = getChoices(type, wheelSize, assembled, gender, 2);
+		return bikes;
 	}
+	
+	/**
+	 * chooseOne- this method will also be overloaded multiple times with the same parameters as getChoices.: 
+	 * It will call getChoices with the same parameters;
+	 * This method returns a randomly selected bicycle from the list of bicycles provided from getChoices.
+	 * @param type - as a String
+	 */
 
-	public Object chooseOne(String type) {
-		Object[] bikes = getChoices(type, data.length);
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);
-		System.out.printf(" is bike length", randInt, " is random number");
-		return bikes[randInt];
+	public Object[] chooseOne(String type) {
+		Object[] bikes = getChoices(type, 4);
+		return bikes;
 	}
+	
+	/**
+	 * chooseOne- this method will also be overloaded multiple times with the same parameters as getChoices.: 
+	 * It will call getChoices with the same parameters;
+	 * This method returns a randomly selected bicycle from the list of bicycles provided from getChoices.
+	 * @param wheelSize - as an int
+	 */
 
-	public Object chooseOne(int wheelSize) {
-		Object[] bikes = getChoices(wheelSize, data.length);
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);
-		return bikes[randInt];
+	public Object[] chooseOne(int wheelSize) {
+		Object[] bikes = getChoices(wheelSize, 10);
+		return bikes;
 	}
+	
+	/**
+	 * chooseOne- this method will also be overloaded multiple times with the same parameters as getChoices.: 
+	 * It will call getChoices with the same parameters;
+	 * This method returns a randomly selected bicycle from the list of bicycles provided from getChoices.
+	 * @param assembled - as a boolean
+	 */
 
-	public Object chooseOne(boolean assembled) {
-		Object[] bikes = getChoices(assembled, data.length);
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);
-		return bikes[randInt];
+	public Object[] chooseOne(boolean assembled) {
+		Object[] bikes = getChoices(assembled, 10);
+		return bikes;
 	}
+	
+	/**
+	 * chooseOne- this method will also be overloaded multiple times with the same parameters as getChoices.: 
+	 * It will call getChoices with the same parameters;
+	 * This method returns a randomly selected bicycle from the list of bicycles provided from getChoices.
+	 * @param gender - as a char
+	 */
 
-	public Object chooseOne(char gender) {
-		Object[] bikes = getChoices(gender, data.length);
-		Random r = new Random();
-		int randInt = r.nextInt(bikes.length);
-		return bikes[randInt];
+	public Object[]  chooseOne(char gender) {
+		Object[] bikes = getChoices(gender, 10);
+		return bikes;
 	}
 
 	// get Instant Variables:
+	/**
+	 * return actualSize as an int
+	 */
 	public int getSize() {
 		return actualSize;
 	}
+	
+	/**
+	 * returns data: an object of arrays that stores the bikes
+	 */
 
 	public static Bicycle[] getBikeArr() {
 		return data;
 	}
 }
+
 
 
 
@@ -274,19 +402,23 @@ public class BicycleDriver {
 				if(chooseOne==1) {
 					System.out.println("What is the wheel size(14 or 16)? ");
 					int wheelSize=input.nextInt();
-					b.chooseOne(wheelSize);
+					Object[] obj=b.chooseOne(wheelSize);
+					b.displayRandBike(obj);
 				} else if (chooseOne==2) {
 					System.out.println("Enter type:");
-					String type=input.nextLine();
-					b.chooseOne(type);
+					String type=input.next();
+					Object[] obj=b.chooseOne(type);
+					b.displayRandBike(obj);
 				} else if (chooseOne==3) {
 					System.out.println("Enter gender: m or f:");
 					char g=input.next().charAt(0);
-					b.chooseOne(g);
+					Object[] obj=b.chooseOne(g);
+					b.displayRandBike(obj);
 				} else if (chooseOne==4) {
 					System.out.println("Assembled? true or false");
 					boolean assembled=input.nextBoolean();
-					b.chooseOne(assembled);
+					Object[] obj=b.chooseOne(assembled);
+					b.displayRandBike(obj);
 				} else if (chooseOne==5) {
 					System.out.println("What is the wheel size(14 or 16)? ");
 					int wheelSize=input.nextInt();
@@ -296,7 +428,8 @@ public class BicycleDriver {
 					boolean assembled=input.nextBoolean();
 					System.out.println("Enter gender: m or f:");
 					char g=input.next().charAt(0);
-					b.chooseOne(type, wheelSize, assembled, g);
+					Object[] obj=b.chooseOne(type, wheelSize, assembled, g);
+					b.displayRandBike(obj);
 				}
 			}
 			
@@ -360,6 +493,8 @@ public class BicycleDriver {
 		input.close();
 	}
 }
+
+
 
 //bicycle.txt file is below:
 Hybrid 14 true m
