@@ -1,0 +1,216 @@
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.File;
+
+//Create three separate sorted arrays that are sorted using three different sorting algorithms. 
+public class student {	
+	String firstName;
+	String lastName;
+	String email;
+	
+	private static student[] data; 
+	private static int actualSize;
+	public static int SIZE = 16;
+	public static String abc="abcdefghijklmnopqrstuvqxuz";
+
+	public student(String lastName, String firstName,  String email) {
+		this.lastName=lastName;
+		this.firstName=firstName;
+		this.email=email;
+	}
+	
+	public student() {
+		data = new student[SIZE];
+		actualSize = 0;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public student[] getArr() {
+		return data;
+	}
+
+	public void readInventory(){
+		try {
+			Scanner reader = new Scanner(new File("roster.csv"));
+			reader.nextLine();
+			int counter = 0;
+			while (reader.hasNextLine()) 
+			{
+				String[] commas = reader.nextLine().toString().split(", ") ;
+				String firstName = String.valueOf(commas[0]);
+				String lastName = String.valueOf(commas[1]);
+				String email = String.valueOf(commas[2]);
+				//System.out.println(firstName+" "+lastName+" "+email);
+				data[counter++] = new student(firstName, lastName, email);
+			}
+			actualSize = counter;
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found.");
+			e.printStackTrace();
+		}
+	}
+	
+	public void displayAllStudents()
+	{
+		System.out.println("First Name"+" "+ "Last Name"+" "+ "Email");
+		for(int i=0; i<actualSize; i++)
+		{
+			System.out.println(data[i].getFirstName() +" "+ data[i].getLastName()+" "+ data[i].getEmail() );
+		}
+	}
+	
+	public static class SelectionSort	{
+	    private static int count=0;
+
+   	    public student[] selectSort(student[] arr)
+	    {
+   		    student[] sorted; 
+   	    	sorted = new student[16];
+	        int n = arr.length;
+
+	        for (int i = 0; i < n-1; i++)
+	        {
+	            int min_letter = 27;
+	            int letter=abc.indexOf(arr[i].getFirstName().toLowerCase().charAt(0) );
+	            for (int j = i+1; j < n; j++)
+	            	if (letter <  min_letter)
+	            		min_letter = letter;
+	            		count=count+1;
+	                sorted[letter] = new student(arr[i].getLastName(), arr[i].getLastName(), arr[i].getEmail() );
+	           
+	            //arr[min_letter] = arr[i];
+	            //sorted[i] = new student(arr[i].getLastName(), arr[i].getLastName(), arr[i].getEmail() );
+	        }
+	        return sorted;
+	       //System.out.println(count+ " is the selection sort count");
+	    }
+
+	    // Prints the array
+	    public void printArray(student[] arr)
+	    {
+	        int n = arr.length;
+	        for (int i=0; i<n; ++i)
+	            System.out.print(arr[i]+" ");
+	        System.out.println();
+	    }
+	}
+	
+	public static class BubbleSort
+	{
+	    private static int count=0;
+	    public void bubbleSort(student[] arr)
+	    {
+	        int n = arr.length;
+	        for (int i = 0; i < n-1; i++)
+	        {
+	            // Find the min value:
+	            int min_idx = i;
+	 //           for (int j = i+1; j < n; j++)
+	            int c=abc.indexOf(arr[i].getFirstName().toLowerCase().charAt(0) );
+	            if (c < arr[min_idx].getFirstName().toLowerCase().charAt(0))
+	            	min_idx = c;
+	                count=count+1;
+	            student temp = arr[min_idx];
+	            arr[min_idx] = arr[i];
+	            arr[i] = temp;
+	        }
+	        System.out.println(count+" is the count for bubbleSort");
+	    }
+	    /* Prints the array */
+	    public void printArray(student[] arr)
+	    {
+	        int n = arr.length;
+	        for (int i=0; i<n; ++i)
+	            System.out.print(arr[i] + " ");
+	        System.out.println();
+	    }
+	}
+	
+	public static class InsertionSort {
+	    /*Function to sort array using insertion sort*/
+	    private static int count=0;
+	    public static void insertSort(student[] arr)
+	    {
+	        int n = arr.length;
+	        for (int i = 0; i < n; i++)
+	        {
+	            // Find the min value:
+	            int min_idx = i;
+	 //           for (int j = i+1; j < n; j++)
+	            int c=abc.indexOf(arr[i].getFirstName().toLowerCase().charAt(0) );
+	            if (c < arr[min_idx].getFirstName().toLowerCase().charAt(0))
+	            	min_idx = c;
+	                count=count+1;
+	            student temp = arr[min_idx];
+	            arr[min_idx] = arr[i];
+	            arr[i] = temp;
+	        }
+	    }
+
+	    /* A utility function to print array of size n*/
+	    public static void printArray(student[] arr)
+	    {
+	        int n = arr.length;
+	        for (int i = 0; i < n; ++i)
+	            System.out.print(arr[i] + " ");
+	        System.out.println();
+	    }
+	} 
+}
+
+
+
+
+
+
+public class StudentDriver {
+
+	public static void main(String[] args) {
+		student s = new student();
+		s.readInventory();
+		//s.displayAllStudents();
+		student [] arr=s.getArr();
+		
+        //int arr[] = {64,25,12,22,11};
+        SelectionSort selectOBJ = new SelectionSort();
+        selectOBJ.selectSort(arr);
+        selectOBJ.printArray(arr);
+        
+        BubbleSort bubbleOBJ = new BubbleSort();
+        bubbleOBJ.bubbleSort(arr);
+        bubbleOBJ.printArray(arr);
+
+        InsertionSort insertOBJ = new InsertionSort();
+        InsertionSort.insertSort(arr);
+        InsertionSort.printArray(arr);
+	}
+}
+
+//I do not have Excel on my computer, so this is my roster.csv:
+//Aaberg, Tj, tjaaber
+//Dorang, Ryan, rdorang
+//Garapati, Satya, spgarap
+//Johansen, Kaleigh, ksjohan
+//Kennedy, Dayna, dakenn2
+//Leoni, James, jwleoni
+//Licking, Makenna, mmlicki
+//Lohmar, Jack, jclohm1
+//Martinez, Alexandro, amart64
+//Mennel, Michaela, mhmenne
+//Miranda, Richard, rmirand
+//Mozdzen, Konrad, kcmozdz
+//Pecoraro, Andrew, ampeco1
+//Sanders, Christine, crsand2
+//Schmidt, Scott, sschmi2
+//Unger, Rachel, rnunger
