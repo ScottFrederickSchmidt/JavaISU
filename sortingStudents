@@ -129,6 +129,54 @@ public class SelectionSort {
 
 
 
+package sortingProgram;
+import static java.util.Objects.isNull;
+
+public class InsertionSort {
+	private static int count = 0;
+	public static String abc = "abcdefghijklmnopqrstuvqxyz";
+
+    public Student[] insertSort(Student[] arr)
+    {
+		Student[] sorted;
+		sorted = new Student[16];
+		int n = arr.length-1;
+		
+		//for (int j = 1; j < n; j++) {  
+        for (int j = 1; j < n; j++) {
+            //int key = arr[i]; //original regular code
+        	int key = abc.indexOf(arr[j].getFirstName().toLowerCase().charAt(0));
+        	
+        	//int i = j-1; //ORIGINAL 
+            int i = j - 1;
+            
+            //arr[j] //is original code instead of below abc.indexOf()
+            while (i >= 0 && abc.indexOf(arr[j].getFirstName().toLowerCase().charAt(0)) > key ) {
+                //array [i+1] = array [i]; //ORIGINAL   
+                sorted[i+1]=new Student(arr[i].getFirstName(),arr[i].getLastName(),arr[i].getEmail());
+                i--;  
+                count=count+1;
+            }
+            //array[i+1] = key;  
+            sorted[i+1]=new Student(arr[i].getFirstName(),arr[i].getLastName(),arr[i].getEmail());
+        }
+		return sorted;
+    }
+    public static void printInsert(Student[]arr) {
+    	System.out.println(arr.length +" length of insert sorted array");
+    	System.out.println("FirstName" + "  " + "LastName" + "  " + "Email");
+			for (int i = 0; i < arr.length; i++) {
+			    {
+				System.out.println(arr[i].firstName + " " + arr[i].lastName + " " + arr[i].email);
+				}
+			}
+		}
+	}
+
+
+
+
+
 
 package sortingProgram;
 
@@ -145,11 +193,11 @@ public class BubbleSort {
 			for (int j = 0; j < n - i; j++) {
 				//	if (arr[j] > arr[j + 1]) {   //THIS IS ORIGINAL WAY:
 				if (abc.indexOf(arr[j].getFirstName().toLowerCase().charAt(0)) > abc.indexOf(arr[j+1].getFirstName().toLowerCase().charAt(0))) {					
-					//arr[j] = arr[j + 1]; //ORIGINAL
-					sorted[j]=sorted[j+1];
-				
-					//arr[j + 1] = int arr[j]; //ORIGINAL
-					sorted[j+1]=sorted[j];
+				    //int temp = arr[j];
+	                //arr[j] = arr[j+1];
+	                //arr[j+1] = temp;
+				    arr[j]=new Student(arr[j+1].getFirstName(),arr[j+1].getLastName(),arr[j+1].getEmail());
+				    arr[j+1]=new Student(arr[j].getFirstName(),arr[j].getLastName(),arr[j].getEmail());
 					
 					count = count + 1; //keeps track of how many changes
 				}
@@ -158,7 +206,7 @@ public class BubbleSort {
 		}
 		return sorted;
 	}
-	public void printBubble(Student[]arr) {
+	public static void printBubble(Student[]arr) {
 		System.out.println(arr.length +" length of bubble sorted array");
 		System.out.println("FirstName" + "  " + "LastName" + "  " + "Email");
 			for (int i = 0; i < arr.length; i++) {
@@ -166,68 +214,17 @@ public class BubbleSort {
 			}
 		}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-package sortingProgram;
-import static java.util.Objects.isNull;
 
-public class InsertionSort {
-	private static int count = 0;
-	public static String abc = "abcdefghijklmnopqrstuvqxyz";
 
-    public Student[] insertSort(Student[] arr)
-    {
-		Student[] sorted;
-		sorted = new Student[16];
-		int n = arr.length-1;
 
-        for (int i = 1; i < n; ++i) {
-            //int key = arr[i]; //original regular code
-        	int key = abc.indexOf(arr[i].getFirstName().toLowerCase().charAt(0));
-            int j = i - 1;
-            
-            //arr[j] //is original code instead of below abc.indexOf()
-            while (j >= 0 && abc.indexOf(arr[j].getFirstName().toLowerCase().charAt(0)) > key ) {
-                arr[j + 1] = arr[j];
-                j = j - 1;
-                count=count+1;
-            }
-            //arr[j + 1] = key;  //original
-            sorted[j+1]=arr[i];
-        }
-		return sorted;
-    }
-    public void printInsert(Student[]arr) {
-    	System.out.println(arr.length +" length of insert sorted array");
-    	System.out.println("FirstName" + "  " + "LastName" + "  " + "Email");
-			for (int i = 0; i < arr.length; i++) {
-			    {
-				System.out.println(arr[i].firstName + " " + arr[i].lastName + " " + arr[i].email);
-				}
-			}
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 package sortingProgram;
 
 public class StudentDriver {
@@ -237,18 +234,17 @@ public class StudentDriver {
 		//s.displayAllStudents();
 		Student [] arr=s.getArr();
 		
-        //int arr[] = {64,25,12,22,11};
         SelectionSort selectOBJ = new SelectionSort();
         Student[] selectSorted=selectOBJ.selectSort(arr);
         SelectionSort.printSelect(selectSorted);
         
-         //BubbleSort bubbleOBJ = new BubbleSort();
-         //Student[] bubbleSorted=bubbleOBJ.bubbleSort(arr);
-         //BubbleSort.printBubble(bubbleSorted);
+        BubbleSort bubbleOBJ = new BubbleSort();
+        Student[] bubbleSorted=bubbleOBJ.bubbleSort(arr);
+        BubbleSort.printBubble(bubbleSorted);
 		  
-		 //InsertionSort insertOBJ = new InsertionSort();
-         //Student[] insertSorted=insertOBJ.insertSort(arr);
-         //InsertionSort.printInsert(insertSorted);
+		InsertionSort insertOBJ = new InsertionSort();
+        Student[] insertSorted=insertOBJ.insertSort(arr);
+        InsertionSort.printInsert(insertSorted);
 	}
 }
 
@@ -268,7 +264,8 @@ public class StudentDriver {
 //Pecoraro, Andrew, ampeco1
 //Sanders, Christine, crsand2
 //Schmidt, Scott, sschmi2
-//Unger, Rachel, rnunger	
+//Unger, Rachel, rnunger
+
 	
 	
 	
