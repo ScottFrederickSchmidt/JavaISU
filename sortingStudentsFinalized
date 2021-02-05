@@ -75,21 +75,16 @@ public class Student {
 
 
 
-
-
-
-
-
 package sortingProgram;
 
 public class SelectionSort {
-	private static int count = 0;
 	public static String abc = "abcdefghijklmnopqrstuvqxyz";
 
 	public Student[] selectSort(Student[] arr) {
 		Student[] sorted;
 		sorted = new Student[16];
 		int n = arr.length;
+		int count = 0;
 
 		for (int i = 0; i < n; i++) {
 			//int min_letter = 27;
@@ -110,8 +105,8 @@ public class SelectionSort {
 			sorted[i] = new Student(arr[k].getLastName(),arr[k].getFirstName(),arr[k].getEmail());
 			arr[k] = new Student(arr[i].getLastName(),arr[i].getFirstName(),arr[i].getEmail());
 			arr[i] = sorted[i];		
-			//System.out.println("count" + " is the count of selectionSort");
 		}
+		System.out.println(count + " is the count of selectionSort");
 		return sorted;
 	}
 	public static void printSelect(Student[]arr) {
@@ -122,6 +117,49 @@ public class SelectionSort {
 		}
 	}
 
+
+
+
+
+
+
+
+
+
+public class BubbleSort {
+	public static String abc = "abcdefghijklmnopqrstuvqxyz";
+
+	public Student[] bubbleSort(Student[] arr) {
+		int count = 0;
+		Student[] sorted;
+		sorted = new Student[16];
+		int n = arr.length-1;
+		for (int i = 0; i < n; i++)	 {
+			for (int j = 0; j < n - i; j++) {
+				//	if (arr[j] > arr[j + 1]) {   //THIS IS ORIGINAL WAY:
+				
+				if (abc.indexOf(arr[j].getFirstName().toLowerCase().charAt(0)) < abc.indexOf(arr[j+1].getFirstName().toLowerCase().charAt(0))) {					
+				    //int temp = arr[j];
+	                //arr[j] = arr[j+1];
+	                //arr[j+1] = temp;
+				    sorted[j]= new Student(arr[j+1].getLastName(),arr[j+1].getFirstName(),arr[j+1].getEmail());
+				    sorted[j+1]= new Student(arr[j].getLastName(),arr[j].getFirstName(),arr[j].getEmail());
+					count++; //keeps track of how many changes
+				}
+				sorted[j]= new Student(arr[j+1].getLastName(),arr[j+1].getFirstName(),arr[j+1].getEmail());
+			}
+		}
+		System.out.println(count + " is the count of bubbleSort");
+		return sorted;
+	}
+	public static void printBubble(Student[]arr) {
+		System.out.println("FirstName" + "  " + "LastName" + "  " + "Email");
+			for (int i = 1; i < arr.length-1; i++)
+			{	
+				System.out.println(arr[i].getFirstName() + " " + arr[i].getLastName() + " " + arr[i].getEmail());
+			}
+		}
+		}
 
 
 
@@ -161,8 +199,8 @@ public class InsertionSort {
             //array[i+1] = key;  //ORIGINAL
             sorted[i]=new Student(arr[j].getLastName(),arr[j].getFirstName(),arr[j].getEmail());
         }
+        System.out.println(count +" is the count of InsertionSort");
 		return sorted;
-		//System.out.println(count);
     }
     public static void printInsert(Student[]arr) {
     	System.out.println("FirstName" + "  " + "LastName" + "  " + "Email");
@@ -181,40 +219,46 @@ public class InsertionSort {
 
 
 
+
 package sortingProgram;
 
-public class BubbleSort {
-	private static int count = 0;
-	public static String abc = "abcdefghijklmnopqrstuvqxyz";
-
-	public Student[] bubbleSort(Student[] arr) {
-		Student[] sorted;
-		sorted = new Student[16];
-		int n = arr.length-1;
-
-		for (int i = 0; i < n; i++)	 {
-			for (int j = 0; j < n - i; j++) {
-				//	if (arr[j] > arr[j + 1]) {   //THIS IS ORIGINAL WAY:
-				if (abc.indexOf(arr[j].getFirstName().toLowerCase().charAt(0)) > abc.indexOf(arr[j+1].getFirstName().toLowerCase().charAt(0))) {					
-				    //int temp = arr[j];
-	                //arr[j] = arr[j+1];
-	                //arr[j+1] = temp;
-				    sorted[j]= new Student(arr[j+1].getLastName(),arr[j+1].getFirstName(),arr[j+1].getEmail());
-				    sorted[j+1]= new Student(arr[j].getLastName(),arr[j].getFirstName(),arr[j].getEmail());
-
-					count = count + 1; //keeps track of how many changes
-				}
-				sorted[j]= new Student(arr[j+1].getLastName(),arr[j+1].getFirstName(),arr[j+1].getEmail());
-			}
-			//System.out.println(count + " is the count of bubbleSort");
-		}
-		return sorted;
+public class StudentDriver {
+	public static void main(String[] args) {
+		Student s = new Student();
+		s.readInventory();
+		//s.displayAllStudents();
+		Student [] arr=s.getArr();
+		
+        SelectionSort selectOBJ = new SelectionSort();
+        Student[] selectSorted=selectOBJ.selectSort(arr);
+        SelectionSort.printSelect(selectSorted); 
+        System.out.println("-------------------------");
+        
+        BubbleSort bubbleOBJ = new BubbleSort();
+        Student[] bubbleSorted = bubbleOBJ.bubbleSort(arr);
+        BubbleSort.printBubble(bubbleSorted); 
+        System.out.println("-------------------------");
+		  
+		InsertionSort insertOBJ = new InsertionSort();
+        Student[] insertSorted=insertOBJ.insertSort(arr);
+        InsertionSort.printInsert(insertSorted);
 	}
-	public static void printBubble(Student[]arr) {
-		System.out.println("FirstName" + "  " + "LastName" + "  " + "Email");
-			for (int i = 1; i < arr.length-1; i++)
-			{	
-				System.out.println(arr[i].getFirstName() + " " + arr[i].getLastName() + " " + arr[i].getEmail());
-			}
-		}
-		}
+}
+
+//I do not have Excel on my computer, so this is my roster.csv:
+//Aaberg, Tj, tjaaber
+//Dorang, Ryan, rdorang
+//Garapati, Satya, spgarap
+//Johansen, Kaleigh, ksjohan
+//Kennedy, Dayna, dakenn2
+//Leoni, James, jwleoni
+//Licking, Makenna, mmlicki
+//Lohmar, Jack, jclohm1
+//Martinez, Alexandro, amart64
+//Mennel, Michaela, mhmenne
+//Miranda, Richard, rmirand
+//Mozdzen, Konrad, kcmozdz
+//Pecoraro, Andrew, ampeco1
+//Sanders, Christine, crsand2
+//Schmidt, Scott, sschmi2
+//Unger, Rachel, rnunger
