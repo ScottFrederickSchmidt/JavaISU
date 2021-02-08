@@ -1,5 +1,11 @@
 package avgTemp;
 
+/* Created on Feb 7, 2021
+ * ULID: sschmi2
+ * CLASS: IT178
+ * jagged2DArray Project
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,7 +16,7 @@ import java.util.Scanner;
 
 public class TwoDarray {
 	//jagged double array:
-	static int[][] jaggedArr;
+	private static int[][] jaggedArr; 
 	
 	//double array method:
 	private static int data2D[][] ={ {0,0 }, {0,0 }, {0,0 } , {0,0 } , {0,0 }  , {0,0 }, 
@@ -74,9 +80,10 @@ public class TwoDarray {
 	 */
 	
 	public static int[][] jaggedArr() {
+		int jaggedArr [] [] = new int [12][];
 		try {
 			Scanner reader = new Scanner(new File("temps.txt"));
-			int jaggedArr [] [] = new int [12][];
+			
 				for (int i = 0; i < 12; i++) {
 					String row = reader.nextLine();
 					String[] nums=row.toString().split(",");
@@ -90,7 +97,7 @@ public class TwoDarray {
 						total=total+n;
 						//System.out.println(n);
 					}
-					System.out.println( displayMonth(i) + " Average Temp: "+total/numDays);
+					//System.out.println( displayMonth(i) + " Average Temp: "+total/numDays);
 					//System.out.println("---new line: --- month#: "+ displayMonth(i) );
 				}		
 		} catch (FileNotFoundException e) {
@@ -136,11 +143,11 @@ public class TwoDarray {
 		System.out.println("Jagged Double Array Method: ");
 		int total=0;
 		int count=0;
-		for (int i=0; i<11; i++) {
+		for (int i=0; i<12; i++) {
 			
-			for (int j=0; j<28; j++) {
+			for (int j=0; j<jaggedArr[i].length; j++) {
 				total=total+jaggedArr[i][j];
-				System.out.println(jaggedArr[i][j]);
+				//System.out.println(jaggedArr[i][j]);
 				count=count+1;
 			}
 		System.out.println( displayMonth(i)+ " Average Temp: "+ total/count);
@@ -192,11 +199,11 @@ public class TwoDarray {
 	 * Driver that will call the functions above 
 	 */
 	public static void main(String[] args) {
-	//readFile();
-	//displayAvgTemp(avgTemps, months); //single array method
-	//displayAvgTemp(data2D); //double array method
-	int[][] jagged=jaggedArr(); //jagged array method
-	displayJaggedArr(jagged );
+	readFile();
+	displayAvgTemp(avgTemps, months); //single array method
+	displayAvgTemp(data2D); //double array method
+	int[][] jagged=jaggedArr(); //jagged array method (and stores 2D jaggedArr)
+	displayJaggedArr(jagged ); //displays 2D jaggedArr
 	}
 }
 
