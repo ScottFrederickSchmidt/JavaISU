@@ -81,13 +81,17 @@ public class TwoDarray {
 					String row = reader.nextLine();
 					String[] nums=row.toString().split(",");
 					//System.out.println(nums.length +" is row length "+ row + " is the row");
-					jaggedArr[i]=new int [nums.length];
-					for (int j = 0; j < nums.length; j++) {
+					int total=0;
+					int numDays = nums.length;
+					jaggedArr[i]=new int [numDays];
+					for (int j = 0; j < numDays; j++) {
 						int n = Integer.parseInt(nums[j]); //must turn into an int for calculation
 						jaggedArr[i][j]=n;
+						total=total+n;
 						//System.out.println(n);
 					}
-					//System.out.println("---new line: --- month#: "+ i);
+					System.out.println( displayMonth(i) + " Average Temp: "+total/numDays);
+					//System.out.println("---new line: --- month#: "+ displayMonth(i) );
 				}		
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found.");
@@ -138,7 +142,6 @@ public class TwoDarray {
 				total=total+jaggedArr[i][j];
 				System.out.println(jaggedArr[i][j]);
 				count=count+1;
-				System.out.println(jaggedArr[i][j]);
 			}
 		System.out.println( displayMonth(i)+ " Average Temp: "+ total/count);
 		total=0; //reset total
