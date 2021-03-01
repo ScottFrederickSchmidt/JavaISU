@@ -221,9 +221,9 @@ public class Driver {
 	 */
 	public static void initializeCruiseList() {
 		//String cruiseName, String ship, String port,  String destination
-		cruise c1= new cruise("aaaCruiseName", "ship1", "port1Washington", "dest1Arizona");
-		cruise c2= new cruise("bbbCruiseName", "ship2", "port2Lincoln",     "dest2Boston");
-		cruise c3= new cruise("cccCruiseName", "ship3", "port3Jefferson", "dest3Cleveland");
+		cruise c1= new cruise("cruise1", "ship1", "port1Washington", "dest1Arizona");
+		cruise c2= new cruise("cruise2", "ship2", "port2Lincoln",     "dest2Boston");
+		cruise c3= new cruise("cruise3", "ship3", "port3Jefferson", "dest3Cleveland");
 		cruiseArr.add(c1);
 		cruiseArr.add(c2);
 		cruiseArr.add(c3);
@@ -263,6 +263,7 @@ public class Driver {
 		} else if(type.equalsIgnoreCase("active") ) {
 			//If the type is active, it will print a list of all the ships that are currently active, meaning it is in service.
 			// An active ships means it has been assigned a cruise
+			System.out.println("These are the active ships list:");
 			for (int i=0; i<shipsArr.size(); i++) {
 				if( shipsArr.get(i).getService() ) 
 					System.out.println(shipsArr.get(i).name );
@@ -363,7 +364,7 @@ public class Driver {
 	 */
 
 	public static void editShip() {
-		printShipList("list");
+		printShipList("name");
 		System.out.println("Which ship would you like to edit? ");
 		String editShip= scan.nextLine();
 		for (int i=0; i<shipsArr.size(); i++) {
@@ -408,11 +409,11 @@ public class Driver {
 	 *Make sure when you edit data that you are enforcing add restrictions
 	 */
 	public static void editCruise() {
-		printCruiseList("name");
+		printCruiseList("list");
 		System.out.println("Which cruise would you like to edit? ");
 		String cruiseName= scan.nextLine();
 		for (int i=0; i<cruiseArr.size(); i++) {
-			if(cruiseName.equalsIgnoreCase(shipsArr.get(i).getName() )) {
+			if(cruiseName.equalsIgnoreCase(cruiseArr.get(i).cruiseName )) {
 				System.out.println("New Ship Name?");
 				String ship = scan.nextLine();
 				System.out.println("New Port?");
@@ -425,7 +426,7 @@ public class Driver {
 			}
 		}
 		System.out.println("Updated Information should be as follows: ");
-		printCruiseList("full");
+		printCruiseList("details");
 		}
 	/**
 	 * addPassenger - this method adds a new passenger. It must first prompt the user for information about the passenger.
@@ -504,22 +505,22 @@ public class Driver {
 				 editPassenger();//"Edit Passenger";
 				 break;
 			case "a":
-				 printShipList("name");//"Print Ship Names";
+				 printShipList("name");//A Print Ship Names;
 				 break;
 			case "b":
-				 printShipList("details");//"Print Ship in Service List";
+				 printShipList("active");//B  "Print Ship in Service List";
 				 break;
 			case "c":
-				printShipList("full");//"Print Ship Full List";
+				printShipList("full");//C  "Print Ship Full List";
 				break;
 			case "d":
-				 printCruiseList("list");// "Print Cruise List";
+				 printCruiseList("full");//D "Print Cruise List";
 				 break;
 			case "e":
 				printCruiseList("details");//E Print Cruise Details
 				break;
 			case "f":
-				printPassengerList();//"Print Passenger List";
+				printPassengerList();//F  "Print Passenger List";
 				break;
 		    default:
 		    	 System.out.println("Possible Error");
