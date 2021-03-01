@@ -1,0 +1,531 @@
+public class cruise {
+String cruiseName; //cruiseName
+String ship;//name of the ship
+String port; //departure port
+String destination;//destination
+
+/**
+ * Constructor
+ * 
+ * @param cruiseName - as a String
+ * @param ship - as a String
+ * @param port - as a String
+ * @param destination - as a String
+ */
+public cruise(String cruiseName, String ship, String port,  String destination) {
+	this.cruiseName=cruiseName;
+	this.ship=ship;
+	this.port=port;
+	this.destination=destination;
+}
+
+/**
+ * return cruiseName
+ */
+public String getCruiseName() {
+	return cruiseName;
+}
+
+/**
+ * return ship
+ */
+public String getShip() {
+	return ship;
+}
+
+/**
+ * return port
+ */
+public String getPort() {
+	return port;
+}
+
+/**
+ * return destination 
+ */
+public String getDestination() {
+	return destination;
+}
+
+/**
+ * printCruiseDetails – This method will output the details for a single cruise
+ */
+public String cruiseDetails() {
+	return "Cruise Name is " + cruiseName+ " ; Ship is "+ ship+" ; Port is "+port+" ; Desination is "+destination;
+}
+
+/**
+ * toString – this method will return the cruise name
+ */
+public String toString() {
+	return cruiseName;
+	}
+}
+
+
+
+
+
+public class passenger {
+	String passengerName;
+	String cruiseName;
+	int type; //Number of each type of room: balcony, ocean view, suite, interior
+
+	/**
+	 * Constructor
+	 * 
+	 * @param passengerName - as a String
+	 * @param cruiseName - as a String
+	 * @param type - as an int
+	 */
+	public passenger(String passengerName, String cruiseName, int type) {
+		this.passengerName = passengerName;
+		this.cruiseName = cruiseName;
+		this.type = type; 
+	}
+
+	/**
+	 * return cruiseName
+	 */
+	public String getCruiseName() {
+		return cruiseName;
+	}
+	
+	/**
+	 * return passengerName
+	 */
+
+	public String getPassengerName() {
+		return passengerName;
+	}
+	
+	/**
+	 * return type
+	 */
+	public int getType() {
+		return type;
+	}
+
+	/**
+	 * Passenger method – this method will output the details for a single passenger
+	 */
+	public String printPassenger() {
+		return "Hello, "+ passengerName + ". Your cruise ship name is " +cruiseName;
+	}
+	
+	/**
+	 * toString – this method will only return the name of the passenger
+	 */
+	public String toString() {
+		return passengerName;
+	}
+}
+
+
+
+
+
+
+public class ship {
+//instant variables:
+	String name;
+	int room;
+	Boolean service;
+	Object[] ships;
+
+	/**
+	 * Constructor
+	 * 
+	 * @param name - as a String
+	 * @param room - as an int
+	 * @param service - as a boolean
+	 */
+	public ship(String name, int room, Boolean service) {
+		this.name = name;
+		this.room = room; // num of each type of room: balcony, ocean view, suite, interior
+		this.service = service; //true or false
+	}
+	
+	/**
+	 * return service
+	 */
+	
+	public boolean getService() {
+		return service;
+	}
+	
+	/**
+	 * return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * return room
+	 */
+	public int getRoom() {
+		return room;
+	}
+
+	/**
+	 * printShipData method – this method will be similar to what you would do in a toString but we are going to use the toString for something else,
+	 * so here we will output all the data about the ship. See the sample output.
+	 */
+	public String printShipData() {
+		return "Name is " + name +" ;  Room type is " + room + " ; Activation? "+ service;
+	}
+
+	/**
+	 *  toString method – this method will only return the name of the ship
+	 */
+	public String toString() {
+		return name;
+	}
+}
+
+
+
+
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Driver {
+	static Scanner scan = new Scanner(System.in);
+	
+	// Create three array lists to store a Ship, a Cruise, and a Passenger. Make these lists global.
+	static ArrayList<ship> shipsArr = new ArrayList<ship>(); 
+	static ArrayList<cruise> cruiseArr = new ArrayList<cruise>(); 
+	static ArrayList<passenger> peopleArr = new ArrayList<passenger>(); 
+	
+	/**
+	 * initializeShipList – this method will create four ships and load them into the ship array list. All the information will be hard coded in.
+	 * This will give you data to start with to test your other methods with, without having to load a bunch of data each tme.
+	 */
+	public static void initializeShipList() {
+		//String name, int room, Boolean service
+		ship Ship1 = new ship("ship1", 1, true);
+		ship Ship2 = new ship("ship2", 2, true);
+		ship Ship3 = new ship("ship3", 3, false);
+		ship Ship4 = new ship("ship4", 4, false);
+		shipsArr.add(Ship1); 
+		shipsArr.add(Ship2); 
+		shipsArr.add(Ship3); 
+		shipsArr.add(Ship4); 
+		//Source: https://www.tutorialkart.com/java/how-to-add-elements-to-arraylist-in-java/
+	}
+	
+	/**
+	 * initializeCruiseList – this method will create three cruises and load them into the cruise array list
+	 */
+	public static void initializeCruiseList() {
+		//String cruiseName, String ship, String port,  String destination
+		cruise c1= new cruise("aaaCruiseName", "ship1", "port1Washington", "dest1Arizona");
+		cruise c2= new cruise("bbbCruiseName", "ship2", "port2Lincoln",     "dest2Boston");
+		cruise c3= new cruise("cccCruiseName", "ship3", "port3Jefferson", "dest3Cleveland");
+		cruiseArr.add(c1);
+		cruiseArr.add(c2);
+		cruiseArr.add(c3);
+	}
+	
+	/**
+	 * initializePassengerList – this method will create six passengers and load them into the passenger array list
+	 * 	Note: balcony, ocean view, suite, interior are the int types
+	 */
+	public static void initializePassengerList() {
+		//String passengerName, String cruiseName, int type
+		passenger person1= new passenger("Nolin", "aCruise", 1); 
+		passenger person2= new passenger("Tonya", "bCruise", 2); 
+		passenger person3= new passenger("Scott", "cCruise", 3); 
+		passenger person4= new passenger("Tom", "dCruise", 1); 
+		passenger person5= new passenger("Bob", "eCruise", 2);
+		peopleArr.add(person1);
+		peopleArr.add(person2);
+		peopleArr.add(person3);
+		peopleArr.add(person4);
+		peopleArr.add(person5);
+	}
+	
+	/**
+	 * printShipList- this method accepts a String that indicates the type of list you want to be printed. 
+	 * It will then output information about the ship based on the type that was passed in. 
+	 */
+	public static void printShipList(String type ) {
+		//If there are no ships in the list, you should  print “There are no ships to print.”
+		if (type.equalsIgnoreCase("None") ) {
+			System.out.println("There are no ships to print"); 
+			//If the type is “name”, it will print a list of the names of all the ships using the toString method of ship
+		} else if(type.equalsIgnoreCase("name") ) {
+			for (int i=0; i<shipsArr.size(); i++) {
+				System.out.println(shipsArr.get(i).toString() ); 
+			}
+		} else if(type.equalsIgnoreCase("active") ) {
+			//If the type is active, it will print a list of all the ships that are currently active, meaning it is in service.
+			// An active ships means it has been assigned a cruise
+			for (int i=0; i<shipsArr.size(); i++) {
+				if( shipsArr.get(i).getService() ) 
+					System.out.println(shipsArr.get(i).name );
+				} 
+		} else if(type.equalsIgnoreCase("inactive") ) {
+			//If the type is inactive, it will print a list of all the ships that are currently inactive, meaning in service is false.
+			//An inactive ship means that it has not been assigned a cruise.
+			for (int i=0; i<shipsArr.size(); i++) {
+			if( shipsArr.get(i).getService() == false ) {
+				System.out.println(shipsArr.get(i).name ); 
+			}
+		  }
+		} else if(type.equalsIgnoreCase("full") ) {
+			for (int i=0; i<shipsArr.size(); i++) {
+				System.out.println(shipsArr.get(i).printShipData() );
+			}
+		} else {
+			System.out.println("Unknown type for printShipList function");
+		}
+	}
+	
+	/**
+	 *printCruiseList – this method accepts a String that indicates the type of list you want to be printed. 
+	 *It will then output information about the cruise based on the type that was passed in.
+	 *@param type - as a String (most likely will be details or list)
+	 */
+		public static void printCruiseList(String type) {
+			//If the  type is “details”, it will print all of the details of the cruise
+			if(type.equalsIgnoreCase("details")) {
+			for (int i=0; i<cruiseArr.size(); i++) {
+				System.out.println(cruiseArr.get(i).cruiseDetails() );
+			}
+			//If there are no cruises on the list, you should print “There are no cruises to print.”
+		  } else if(cruiseArr.size()==0 ) {
+			  System.out.println("There are no cruises to print");
+		  //If the type is “list”, it will print only the name of all cruises.
+		  } else if(type.equalsIgnoreCase("list")) {
+				for (int i=0; i<cruiseArr.size(); i++) {
+					System.out.println(cruiseArr.get(i).getCruiseName() );
+				}
+		  } else {
+			  System.out.println("printCruiseList possible error");
+		  }
+		}
+	
+	/**
+	 *	printPassengerList – this method outputs the details of each passenger
+	 */
+	public static void printPassengerList() {
+		for (int i=0; i<peopleArr.size(); i++) {
+			System.out.println(peopleArr.get(i).printPassenger() );
+		}
+	}
+	
+	/**
+	 *	displayMenu – this method will display the menu options. The menu will look like this:
+	 */
+	private static void displayMenu()
+	{
+		System.out.println("Luxury Ocean Cruise-Outings");
+		System.out.println("System Menu");
+		System.out.println("[1]- Add Ship");
+		System.out.println("[2]- Edit Ship");
+		System.out.println("[3]- Add Cruise");
+		System.out.println("[4]- Edit Cruise");
+		System.out.println("[5]- Add Passenger ");
+		System.out.println("[6]- Edit Passenger ");
+		System.out.println("[x]- Exit System");
+		System.out.println("[A] Print Ship Names");
+		System.out.println("[B] Print Ship In Service List");
+		System.out.println("[C] Print Ship Full List");
+		System.out.println("[D] Print Cruise List");
+		System.out.println("[E] Print Cruise Details");
+		System.out.println("[F] Print Passenger List");
+		System.out.println("Enter a menu selection:");
+	}
+	
+	/**
+	 * addShip – this method will add a ship to the ship array list. It must first prompt the user for information about the ship.
+	 */
+	public static void addShip() {
+		//String name, int room, Boolean service
+		System.out.println("What is the ship name?");
+		String shipName=scan.nextLine();
+		System.out.println("Enter a room type? Number 1, 2, 3, or 4");
+		int room=scan.nextInt();
+		System.out.println("Service? Enter true or false");
+		boolean service = scan.nextBoolean();
+		shipsArr.add(new ship(shipName, room, service ));
+		System.out.println(shipName+ " Ship has been added.");
+	}
+	
+	/**
+	 * editShip – this method will edit information about a ship already in the list. It will prompt the user to indicate which ship.
+	 * Your program should display a menu that displays all the ships on the list. The user will then choose which ship they wish to edit. 
+	 * It should then display a menu of the ship information to edit.
+	 * The user would then choose that option and make the requested change. One of the options on the menu should be update all items. 
+	 */
+
+	public static void editShip() {
+		printShipList("list");
+		System.out.println("Which ship would you like to edit? ");
+		String editShip= scan.nextLine();
+		for (int i=0; i<shipsArr.size(); i++) {
+			if(editShip.equalsIgnoreCase(shipsArr.get(i).getName() )) {
+				System.out.println("Enter a room type? Number 1, 2, 3, or 4");
+				int room=scan.nextInt();
+				System.out.println("Service? Enter true or false");
+				boolean service = scan.nextBoolean();
+				ship newShip = new ship(editShip, room, service); 
+				shipsArr.set(i, newShip);
+				System.out.println("Ship should now be upated");
+			}
+		}
+		System.out.println("Updated Information should be as follows: ");
+		printShipList("full");
+	}
+	
+	
+	/**
+	 * addCruise – this method will add a cruise to the cruise array list. 
+	 * It must prompt the user for information about the cruise. You cannot add a ship to a cruise unless the cruise is in the ship list. 
+	 * You can only add a ship that is not in service with another cruise
+	 * public cruise(String cruiseName, String ship, String port,  String destination)
+	 */
+	
+	public static void addCruise() {
+		System.out.println("What is the cruise name?");
+		String cruiseName=scan.nextLine();
+		System.out.println("What is the ship name");
+		String shipName=scan.nextLine();
+		System.out.println("What is the port name");
+		String port=scan.nextLine();
+		System.out.println("What is the destination");
+		String destination=scan.nextLine();
+		
+		cruiseArr.add( new cruise(cruiseName, shipName, port, destination ) );
+		System.out.println(cruiseName+ " Cruise has been added." );
+	}
+	
+	/**
+	 *editCruise – this method will edit information about a cruise already in the list. The same format should be applied as with ship. 
+	 *Make sure when you edit data that you are enforcing add restrictions
+	 */
+	public static void editCruise() {
+		printCruiseList("name");
+		System.out.println("Which cruise would you like to edit? ");
+		String cruiseName= scan.nextLine();
+		for (int i=0; i<cruiseArr.size(); i++) {
+			if(cruiseName.equalsIgnoreCase(shipsArr.get(i).getName() )) {
+				System.out.println("New Ship Name?");
+				String ship = scan.nextLine();
+				System.out.println("New Port?");
+				String port= scan.nextLine();
+				System.out.println("New destination?");
+				String destination = scan.nextLine();
+				cruise newCruise = new cruise(cruiseName, ship, port, destination); 
+				cruiseArr.set(i, newCruise);
+				System.out.println(cruiseName+ " cruise should now be upated");
+			}
+		}
+		System.out.println("Updated Information should be as follows: ");
+		printCruiseList("full");
+		}
+	/**
+	 * addPassenger - this method adds a new passenger. It must first prompt the user for information about the passenger.
+	 */
+	public static void addPassenger() {
+		//(String passengerName, String cruiseName, int type) 
+		System.out.println("What is the your name?");
+		String personName=scan.nextLine();
+		
+		System.out.println("Enter a room type? Number 1, 2, 3, or 4");
+		String room=scan.nextLine();
+		
+		System.out.println("Actve? Enter true" );
+		int type = scan.nextInt();
+		//You cannot add a cruise to the passenger list unless it is on the cruise list and in service
+		
+		peopleArr.add(new passenger(personName, room, type ) );
+		System.out.println(personName+ " Person has been added.");
+	}
+	
+	/**
+	 * 	editPassenger – this method works the same as the other two edit methods. Make sure when you edit data that you are enforcing add restrictions
+	 */
+	public static void editPassenger() {
+		printPassengerList();
+		System.out.println("Which person would you like to edit? ");
+		String editPerson= scan.nextLine();
+		for (int i=0; i<peopleArr.size(); i++) {
+			if(editPerson.equalsIgnoreCase(peopleArr.get(i).getPassengerName() )) {
+				System.out.println("What is the new cruise name?");
+				String cruiseName = scan.nextLine();
+				System.out.println("What is the new type? Enter 1, 2, 3, or 4");
+				int type = scan.nextInt();
+				passenger newPerson = new passenger(editPerson, cruiseName, type); 
+				peopleArr.set(i, newPerson);
+				System.out.println(editPerson+ " Person should now be upated");
+			}
+		}
+		System.out.println("Updated Information should be as follows: ");
+		printShipList("full");
+	}
+	
+	/**
+	 * main String[] args
+	 * Driver that will call the functions above 
+	 */
+	public static void main(String[] args) {
+		initializeShipList();
+		initializeCruiseList();
+		initializePassengerList();
+		while (true) { 
+			displayMenu();
+			String s = scan.nextLine().toLowerCase();
+			if (s.equalsIgnoreCase("x")) {
+				System.out.println("Exit System.");
+				break;
+			}
+			switch(s)
+			{
+			case "1":
+				addShip(); //"Add Ship";
+				break;
+			case "2":			
+				editShip();// "Edit Ship";
+				break;
+			case "3":
+				addCruise();// "Add Cruise";
+				break;
+			case "4":
+				 editCruise();//"Edit Cruise";
+				 break;
+			case "5":
+				 addPassenger();//"Add Passenger";
+				 break;
+			case "6":
+				 editPassenger();//"Edit Passenger";
+				 break;
+			case "a":
+				 printShipList("name");//"Print Ship Names";
+				 break;
+			case "b":
+				 printShipList("details");//"Print Ship in Service List";
+				 break;
+			case "c":
+				printShipList("full");//"Print Ship Full List";
+				break;
+			case "d":
+				 printCruiseList("list");// "Print Cruise List";
+				 break;
+			case "e":
+				printCruiseList("details");//E Print Cruise Details
+				break;
+			case "f":
+				printPassengerList();//"Print Passenger List";
+				break;
+		    default:
+		    	 System.out.println("Possible Error");
+		    	 break;
+			}
+		}
+	}
+}
+
