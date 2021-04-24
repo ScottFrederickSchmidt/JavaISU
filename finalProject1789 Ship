@@ -1,0 +1,361 @@
+package graphics;
+//Scott Schmidt; IT 178; Ship Captian Crew Project
+import java.util.Random;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.JFrame;
+ 
+/**
+You roll five dice up to three times, trying to get a 6, a 5, and a 4, in that order. You cannot save a 5 until you have the  
+and so forth. Points are only scored on the two remaining dice, once you have obtained 6,5,4. 
+*/
+
+public class Ship extends JFrame implements ActionListener{
+	Random objGenerator = new Random();
+	
+	int playerTurn=0;
+	
+    public static void main(String[] args){
+        new Ship();
+    }
+    public Ship(){
+        this.setSize(800,600);
+        this.setVisible(true);
+    }
+    
+  	Frame f=new Frame();
+  	Label player1 = new Label("Player1");
+  	Label p1=new Label("0");
+  	Label player2 = new Label("Player2");
+  	Label p2=new Label("0");
+  	Label player3 = new Label("Computer");
+  	Label p3=new Label("0");
+  	Label player4 = new Label("Player4");
+  	Label p4=new Label("0");
+  	
+  	static Label n1=new Label("n1");
+	static Label n2=new Label("n2");
+	static Label n3=new Label("n3");
+	
+	Label score= new Label("score");
+	
+	Label message1=new Label("Any dice that are eligible will disappear from here and be moved to above. ");
+  	Label message2=new Label("Dice will move up here if they are rolled in the correct order. ");
+  	
+	Label dice1=new Label("1");
+	Label dice2=new Label("2");
+	Label dice3=new Label("3");
+	Label dice4=new Label("4");
+	Label dice5=new Label("5");
+	
+	Button roll=new Button("Roll");
+	Button keep=new Button("Keep");
+	
+    public void paint(Graphics gc) {                
+        p1.setBounds(50,100,90,20);
+		p2.setBounds(150,100,90,20);
+		p3.setBounds(250,100,90,20);
+		p4.setBounds(350,100,90,20);
+		
+		player1.setBounds(50, 80,90,20);
+		player2.setBounds(150,80,90,20);
+		player3.setBounds(250,80,90,20);
+		player4.setBounds(350,80,90,20);
+		
+		//Three Box Dices:
+		Font boldFont = new Font("Serif", Font.BOLD, 24);
+		n1.setFont(boldFont);
+		n1.setBounds(50,170,80,20);
+		n2.setBounds(150,170,80,20);
+		n2.setFont(boldFont);
+		n3.setBounds(250,170,80,20);
+		n3.setFont(boldFont);
+		
+		gc.drawRect(50, 200, 15, 15);
+		gc.drawRect(50, 100, 15, 15);
+		gc.drawRect(0, 10, 15, 15);
+		
+		//dice message
+	  	message1.setBounds(30,420,3500,20);
+	  	message2.setBounds(30,220,350,20);
+		
+		dice1.setBounds(50,250,50,20);
+		dice2.setBounds(110,250,50,20);
+		dice3.setBounds(170,250,50,20);
+		dice4.setBounds(230,250,50,20);
+		dice5.setBounds(290,250,50,20);
+		
+		roll.setBackground(Color.blue);
+		keep.setBackground(Color.blue);
+		roll.setBounds(50,300,100,20);
+		keep.setBounds(170,300,100,20);
+	
+		//Adding components to the frame
+	    //f.addWindowListener((WindowListener) this);  
+		f.add(p1);
+		f.add(p2);
+		f.add(p3);
+		f.add(p4);
+		f.add(player1);
+		f.add(player2);
+		f.add(player3);
+		f.add(player4);
+		
+		f.add(n1);
+		f.add(n2);
+		f.add(n3);
+		
+		f.add(dice1);
+		f.add(dice2);
+		f.add(dice3);
+		f.add(dice4);
+		f.add(dice5);
+		
+		f.add(roll);
+		f.add(keep);
+	
+	  	f.add(message1);
+	  	f.add(message2);
+  
+		roll.addActionListener((ActionListener) this);
+		keep.addActionListener((ActionListener) this);
+	
+	  	f.setLayout(null);
+		f.setVisible(true);
+		f.setSize(500,900);    
+    }
+    
+    boolean hit=false;
+    int turn=0;
+    int points=0;
+    
+    public void roll6Dice() {
+    	int array [] = new int [5];
+    	int d1 = objGenerator.nextInt(6)+1;
+    	array[0]=d1;
+    	dice1.setText(String.valueOf(d1) );
+    	int d2 = objGenerator.nextInt(6)+1;
+    	array[1]=d2;
+    	dice2.setText(String.valueOf(d2) );
+    	int d3 = objGenerator.nextInt(6)+1;
+    	array[2]=d3;
+    	dice3.setText(String.valueOf(d3) );
+    	int d4 = objGenerator.nextInt(6)+1;
+    	array[3]=d4;
+    	dice4.setText(String.valueOf(d4) );
+    	int d5 = objGenerator.nextInt(6)+1;
+    	array[4]=d5;
+    	dice5.setText(String.valueOf(d5) );
+    	System.out.println("Six Dice rolled are: "+d1 +" "+ d2+" "+d3+" "+d4+" "+d5);
+    	
+    	if(checkFor654(array)) {
+    		int total=d1+d2+d3+d4+d4-6-5-4;
+    		System.out.println(total);
+    		hit=true;
+    	}
+    }
+    
+    /**
+     * roll2Dice:
+     * Once a player "hits", has a 654, only two dice are allowed to roll.
+     */
+    
+    public void roll2Dice(){
+    	int d5 = objGenerator.nextInt(6)+1;
+    	int d6 = objGenerator.nextInt(6)+1;
+    	points=d5+d6;
+    	System.out.println("Two Dice rolled are: "+ d5 +" "+d6);
+    }
+    
+    
+	 //boolean variables
+	 static boolean shipExist = false;
+	 static boolean captExist = false;
+	 static boolean crewExist = false;
+	 
+	  /**
+	   * checkFor654: will check to see if dice contain 6, 5, and 4 in that order.
+	   * @param int [] array: takes an array of 5 numbers that represent dice 
+	   */
+		
+  	public static boolean checkFor654(int []array ){
+
+  	    for(var i = 0; i < array.length; i++){
+  	        //temp variable that represents the current dice in the list	      
+  	      if (!shipExist) {
+  	          if (array[i] == 6) {
+  	              shipExist = true;
+  	              n1.setText("6");
+  	          }
+  	      }
+  	      if (shipExist && !captExist) {
+  	        if ( array[i] == 5) {
+  	          captExist = true;
+  	          n2.setText("5");
+  	        }
+  	      }
+  	      if (shipExist && captExist && !crewExist) {
+  	        if ( array[i] == 4) {
+  	            crewExist = true;
+  	            n3.setText("4");
+  	        }
+  	      }
+  	    }
+  		return crewExist;
+  	}
+ 	
+  	public void computerTurn() {
+  		//resets without adding one to turn;
+		n1.setText("n1");
+		n2.setText("n2");
+		n3.setText("n3");
+		turn=0;
+		points=0;
+		hit=false;
+		shipExist = false;
+		captExist = false;
+		crewExist = false;
+  		
+  		String s3=p3.getText();
+		int n3= Integer.valueOf(s3);
+		int new_score=n3+objGenerator.nextInt(4);
+		p3.setText( String.valueOf(new_score));
+		if (new_score>99) {
+			p3.setText("Computer Wins!");
+			System.out.println("Computer wins!");
+		}
+  	}
+  	
+    /**
+     * scoreNreset() 
+     * This will reset everything for a new turn and a new player:
+     */
+  	public void scorePoints () {
+  		if(playerTurn %2==0 ) {
+			String s1=p1.getText();
+			int n1= Integer.valueOf(s1);
+			int new_score=n1+points;
+			p1.setText( String.valueOf(new_score));
+			if (new_score>99) {
+				p1.setText("Player1 Wins!");
+				System.out.println("Player1 wins!");
+			}
+		} else  {
+			String s2=p2.getText();
+			int n2= Integer.valueOf(s2);
+			int new_score=n2+points;
+			p2.setText(String.valueOf(new_score));
+			if (new_score>99) {
+				p2.setText("Player2 Wins!");
+				System.out.println("Player 2 Wins!");
+			}
+	  		computerTurn();
+		}
+  		resetTurn();
+  	}
+  	
+  	public void resetTurn() {
+  		playerTurn++;
+		n1.setText("n1");
+		n2.setText("n2");
+		n3.setText("n3");
+		turn=0;
+		points=0;
+		hit=false;
+		shipExist = false;
+		captExist = false;
+		crewExist = false;
+  	}
+    
+    public void actionPerformed(ActionEvent e)
+		{
+		if(e.getSource()==roll) {
+			if(hit) {
+				roll2Dice();
+			}
+			else {
+				roll6Dice();
+			}
+			turn=turn+1;
+			if(turn==3) {
+				scorePoints();
+				System.out.println("Turn Over! Had 3 turns");
+			}
+		}
+		
+		if(e.getSource()==keep) {
+			scorePoints();
+		}
+	}	
+}
+
+/**
+    What skills did you have to learn and how did you learn them?
+	The hardest part for me was creating the algorithm that tests if a 6 comes first, then a 5, and finally a 4.  
+	The rest of the program was more simple because I have create a tic-tac-toe and memorization game before. 
+	
+	What resources did you use for your project? 
+	I used stackoverflow, like always when I get an error. The part I had to research the most was creating the checkFor654 function.
+	Luckily, for the game part I did not really have to use my previous resources of other game I have developed. 
+	
+	Describe any issues or problems that you encountered along the way and any steps you took to resolve the issues.
+	
+	What lessons were learned?
+	This project difficulty was really hard at first. However, I completed the project way faster than I thought. 
+	I basically broke down the project into smaller pieces. Once I had the check654 part done, the rest became less
+	overwhelming. 
+	
+	If you had more time, what might you do to improve your project?
+	If I had more time, I would definitely use constructors for the players. Constructors is something that I still 
+	have not mastered because I come more from a financial automation Python background. 
+ */
+
+
+/*
+ * You roll five dice up to three
+ * times, trying to get a 6, a 5, and a 4, in that order. You cannot save a 5
+ * until you have the and so forth. Points are only scored on the two remaining
+ * dice, once you have obtained 6,5,4. //
+ * //****************Scoring**************** //Only points can be scored if a
+ * 6,5,4 has been obtained within three rolls. If a player obtains a 6,5,4
+ * within three rolls, then the score on the additional two dice are totaled and
+ * added to the score. If the player has obtained 6,5,4 before the third roll,
+ * they can choose to either take the score they have or roll again, but they
+ * must roll both dice. If the player chooses to roll again, they are giving up
+ * their points in exchange for the score on the new roll. If a player is not
+ * able to get a 6,5,4 in the correct order after three rolls, their score is a
+ * zero for the round. // 
+ * 
+ * //*************After the Roll************** //After
+ * each roll, the player needs to set aside any dice that are a ship, captain or
+ * crew, but only if they appear in the correct order. For example, if a player
+ * rolls a 3,4,6,5,2, they cannot keep the 4 because it came before the 6 and
+ * the 5. They then set aside the 6. Since the 5 comes after the 6, the 5 would
+ * also be set aside. //Roll the remaining 3 dice. If any of those die are then
+ * a 4, then that die would also be set aside. If no 4, the player can roll a
+ * third time. //So lets say the second roll is 2,4,5. You would set a side the
+ * 4 and then the player would have a score of 7, based on the remaining die of
+ * 2 and 5. The player can choose to keep the 7 or roll both dice again, since
+ * they still have one remaining roll. If they choose to roll again, they must
+ * take the score that is rolled in the third roll. //Each player has a chance
+ * to have three rolls in each round. //***************Winning***************
+ * //Once all players have finished a round, if any player has reached 100 or
+ * more points wins the game. If there is more than one who has reached 100,
+ * then the player with the highest score wins. //**********GUI Game
+ * Development******* //Your game should be GUI based. Your GUI interaction
+ * needs to include the following: //1. It needs to have the scores for all
+ * players. There must be at least two players, and it must have the capability
+ * for one of those to be a computer. //2. It must show images of the actual
+ * dice being thrown. //3. The program should not allow a user to keep a die
+ * that hasn’t appeared in the correct order. You can have it automatically move
+ * die to the keep pile, or you can have the user move the die. //4. Any dice
+ * being kept must be moved aside and any remaining dice must be rolled again.
+ * //5. The roll button will only appear after each roll if there are rolls
+ * still available. //6. After 6,5,4 has been obtained, a button to keep will
+ * appear if there are more rolls available, as well as the roll button. The
+ * user can choose to roll again or keep. //7. If it is the third roll, then
+ * neither the roll or keep buttons should appear and the score is recorded
+ * automatically. //8. The players stats should include the players name, and
+ * game score. It should also indicate that the player has reached the 100,
+ * telling all other players that game is over at the end of the round.
+ */
