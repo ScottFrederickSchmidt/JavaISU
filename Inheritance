@@ -1,0 +1,295 @@
+package inheritance;
+
+/**
+Parallelogram class: This class inherits from Trapezoid
+No instance variables
+Constructor accepts the 4 sets of coordinates to pass to the super class
+getWidth()- This method calculates the width based on the x coordinates of two points
+toString  
+ */
+
+//Parallelogram class: This class inherits from Trapezoid
+public class Parallelogram extends Trapezoid {
+
+	//No instance variables
+	
+	/**
+	 * 	Constructor accepts the 4 sets of coordinates to pass to the super class
+	 *  @param Point a;
+	 *  @param Point b;
+	 *  @param Point c;
+	 *  @param Point d;
+	 */
+	public Parallelogram(Point a, Point b, Point c, Point d) {
+		super(a, b, c, d);
+	}
+	
+	/**
+	 * getWidth()- This method calculates the width based on the x coordinates of two points
+	 */
+	double getWidth() {
+		//System.out.println(a.x()+"  A   WIDTH  C: "+b.x());
+		return Math.abs(a.x() - b.x() );
+	}
+	
+	/**
+	 * getHeight()- This method calculates the height based on the y coordinates of two points.
+	 */
+		public double getHeight() {
+			//System.out.println(a.y()+" a  HEIGHT c: "+c.y());
+			return Math.abs(a.y() - c.y() );
+		}
+		/**
+		 * 
+		 */
+	public double getArea() {
+		return getWidth()*getHeight();
+	}
+	
+	/**
+	 * toString 
+	 * returns parallogram info as a String
+	 */
+	public String toString() {
+		return "Parallelogram height is: " +getHeight()+ " width: " +getWidth()+" . Area is: "+getArea() ;
+	}
+}
+
+//Parallelogram class: This class inherits from Trapezoid
+//•	No instance variables
+//•	Constructor accepts the 4 sets of coordinates to pass to the super class
+//•	getWidth()- This method calculates the width based on the x coordinates of two points
+//•	toString
+
+
+
+
+package inheritance;
+
+/**
+Point class: This class contains an x and y variable to represent coordinates.
+Create a custom constructor that accepts the coordinates, getters for each and a toString method.
+ */
+
+public final class Point { 
+		//Point class: This class contains an x and y variable to represent coordinates.
+	    public final double x;    // x-coordinate
+	    public final double y;    // y-coordinate
+	   
+	    
+	    /**
+	     * CONSTRUCTOR:
+	     * Create a custom constructor that accepts the coordinates, getters for each and a toString method.
+	     * @param double x 
+	     * @param double y
+	     */
+	 
+	    public Point(double x, double y) {
+	        this.x = x;
+	        this.y = y;
+	    }
+	    
+	    /**
+	     * returns x as double
+	     * returns y as double
+	     */
+	    
+	    public double x() { return x; }
+	    public double y() { return y; }
+	    
+	    /**
+	     * returns x and y as a coordinate 
+	     */
+	    public String toString() {
+	        return "(" + x + ", " + y + ")";
+	    } 
+}
+
+
+
+
+
+
+
+
+package inheritance;
+
+public class Quad {
+
+	/**
+     Quadrilateral class: This class contains four variables, which are each points. 
+	The constructor will accept 4 sets of coordinates and create points for these coordinates and assign the points to the instance variables. 
+	 */
+
+	public Point a;
+	public Point b;
+	public Point c;
+	public Point d;
+	
+	//Constructor: accepts the four sets of coordinates that will then be passed to the Quadrilateral constructor.
+	public Quad(Point a, Point b, Point c, Point d) {
+		this.a=a;
+		this.b=b;
+		this.c=c;
+		this.d=d;
+	}
+	
+
+	//create a method named getCoordinatesAsString which formats the coordinates which will be called by the toString method.
+	public String getCoordinatesAsString () {
+		return "(" +a+","+ b +") , ("+c + ","+d+")";
+	}
+	
+	//toString
+	public String toString() {
+		return getCoordinatesAsString();
+	}
+	
+}
+//Quadrilateral class: This class contains four variables, which are each points. 
+//The constructor will accept 4 sets of coordinates and create points for these coordinates and assign the points to the instance variables. 
+//Create getters for the four points and a toString. In addition, create a method named getCoordinatesAsString which formats the coordinates which will be called by the toString method. 
+
+
+
+
+
+
+
+
+package inheritance;
+
+/**
+Rectangle class: This class inherits from Parallelogram
+No instance variables
+Constructor that accepts the 4 sets of coordinates to pass to the super class
+toString method
+ */
+
+//Rectangle class: This class inherits from Parallelogram
+public class Rectangle extends Parallelogram{
+
+	//No instance variables
+	
+	/**
+	 * Constructor that accepts the 4 sets of coordinates to pass to the super class"
+	 * @param Point a;
+	 * @param Point b;
+	 * @param Point c;
+	 * @param Point d;
+	 */
+	public Rectangle(Point a, Point b, Point c, Point d) {
+		super(a, b, c, d);
+	}
+
+
+	/**
+	 *toString method 
+	 *returns Rectangle information as a String
+	 */
+	public String toString() {
+		return "Rectangle height is: " +getHeight()+ " Width: " +getWidth()+" . Area is: "+getArea() ;
+	}
+}
+
+//Rectangle class: This class inherits from Parallelogram
+//•	No instance variables
+//•	Constructor that accepts the 4 sets of coordinates to pass to the super class
+//•	toString method
+
+
+
+
+
+
+package inheritance;
+/**
+Square class: This class inherits from Parallelogram
+Constructor that accepts the 4 sets of coordinates to pass to the super class
+toString method
+Rectangle class: This class inherits from Parallelogram- Create a constructor and a toString 
+ */
+
+//Square class: This class inherits from Parallelogram
+public class Square extends Parallelogram
+{	
+	
+	/**
+	 * Constructor that accepts the 4 sets of coordinates to pass to the super class"
+	 * @param Point a;
+	 * @param Point b;
+	 * @param Point c;
+	 * @param Point d;
+	 */
+    public Square(Point a, Point b, Point c, Point d) {
+		super(a, b, c, d);
+	}
+
+	/**
+	 *toString method 
+	 *returns Square information as a String
+	 */
+	 
+	public String toString()
+    {
+        return "Square height is: " +getHeight()+ " width: " +getWidth()+" Area is: "+getArea() ;
+    }
+}
+
+//Square class: This class inherits from Parallelogram
+//•	Constructor that accepts the 4 sets of coordinates to pass to the super class
+//•	toString method
+//Rectangle class: This class inherits from Parallelogram- Create a constructor and a toString
+
+
+
+
+
+
+
+package inheritance;
+
+//Trapezoid class: This class inherits from Quadrilateral. 
+public class Trapezoid extends Quad  {
+	
+	//Instance variable:
+	public int height; //height
+	
+	public Trapezoid(Point a, Point b, Point c, Point d) {
+		super(a, b, c, d);
+	}
+	
+	
+	//getHeight()- This method calculates the height based on the y coordinates of two points.
+	public double getHeight() {
+		//System.out.println(a.y()+" a  HEIGHT c: "+c.y());
+		return Math.abs(a.y() - c.y() );
+	}
+	
+	//getSumOfTwoSides()- This method determines the length of two sides and returns the sum of these two lengths
+	public double getSumOfTwoSides() {
+		//System.out.println(a.x() - c.x()+" A  getSumTwoSides  C  "+ (b.x() - d.x()) );
+		return Math.abs( ( a.x()- c.x() ) - Math.abs( b.x()- d.x()  ));
+	}
+	
+	
+	//getArea()- This method calculates the area of the trapezoid by calling the getSumOfTwoSides
+	//and multiplying that result by height divided by 2
+	public double getTrapArea() {
+		//System.out.println("sum of two sides: "+getSumOfTwoSides());
+		return (getSumOfTwoSides()*getHeight()/2);
+	}
+}
+
+//Trapezoid class: This class inherits from Quadrilateral. 
+//Instance variable:
+//•	height
+//Methods:
+//•	Constructor: accepts the four sets of coordinates that will then be passed to the Quadrilateral constructor.
+//•	getHeight()- This method calculates the height based on the y coordinates of two points.
+//•	getSumOfTwoSides()- This method determines the length of two sides and returns the sum of these two lengths
+//•	getArea()- This method calculates the area of the trapezoid by calling the getSumOfTwoSides and multiplying that result by height divided by 2
+//•	toString
+
+
+
